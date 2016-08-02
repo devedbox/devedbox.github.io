@@ -1,0 +1,2216 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="devedbox, iOS, Objective-C, Swift, Cocoa" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="devedbox" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0" />
+
+
+
+
+
+
+<meta name="description" content="#小工蜂业主端开发规范
+版本纪录
+
+
+
+版本
+修改人员
+日期
+
+
+
+
+1.0.0
+艾星
+2016年3月19日
+
+
+
+
+说明此文档用于指导服务器拟定API交付文档以及客户端开发规范，在实际开发中，客户端可根据实际情况做响应的调整，调整的内容需要在此文档做出相应的更改和增删。服务器在拟定开发文档若有本文未涉及到的字段命名或定义，需及时提出增加或修改意见，一切字段的命名或者修改需要做好相应的纪录，避免后">
+<meta property="og:type" content="article">
+<meta property="og:title" content="小工蜂业主端开发规范">
+<meta property="og:url" content="devedbox.com/2016/03/02/小工蜂业主端(GFPropertyOwner)开发规范/index.html">
+<meta property="og:site_name" content="devedbox">
+<meta property="og:description" content="#小工蜂业主端开发规范
+版本纪录
+
+
+
+版本
+修改人员
+日期
+
+
+
+
+1.0.0
+艾星
+2016年3月19日
+
+
+
+
+说明此文档用于指导服务器拟定API交付文档以及客户端开发规范，在实际开发中，客户端可根据实际情况做响应的调整，调整的内容需要在此文档做出相应的更改和增删。服务器在拟定开发文档若有本文未涉及到的字段命名或定义，需及时提出增加或修改意见，一切字段的命名或者修改需要做好相应的纪录，避免后">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/d2297bd2gw1f217z5nu0bj214e0q8ani.jpg">
+<meta property="og:image" content="http://ww3.sinaimg.cn/large/d2297bd2gw1f225ebi8ccj20u00mqdl9.jpg">
+<meta property="og:updated_time" content="2016-03-19T10:23:57.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="小工蜂业主端开发规范">
+<meta name="twitter:description" content="#小工蜂业主端开发规范
+版本纪录
+
+
+
+版本
+修改人员
+日期
+
+
+
+
+1.0.0
+艾星
+2016年3月19日
+
+
+
+
+说明此文档用于指导服务器拟定API交付文档以及客户端开发规范，在实际开发中，客户端可根据实际情况做响应的调整，调整的内容需要在此文档做出相应的更改和增删。服务器在拟定开发文档若有本文未涉及到的字段命名或定义，需及时提出增加或修改意见，一切字段的命名或者修改需要做好相应的纪录，避免后">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 小工蜂业主端开发规范 | devedbox </title>
+</head>
+
+<!-- custom analytics part create by xiamo -->
+<script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+<script>AV.initialize("dGgPPFSrVcACvpPPwfL3UwTs-gzGzoHsz", "QewucF4h9rLTKPzLpeshgEer");</script>
+<script>
+function showTime(Counter) {
+	var query = new AV.Query(Counter);
+	$(".leancloud_visitors").each(function() {
+		var url = $(this).attr("id").trim();
+		query.equalTo("url", url);
+		query.find({
+			success: function(results) {
+				if (results.length == 0) {
+					var content = '0 ' + $(document.getElementById(url)).text();
+					$(document.getElementById(url)).text(content);
+					return;
+				}
+				for (var i = 0; i < results.length; i++) {
+					var object = results[i];
+					var content = object.get('time') + ' ' + $(document.getElementById(url)).text();
+					$(document.getElementById(url)).text(content);
+				}
+			},
+			error: function(object, error) {
+				console.log("Error: " + error.code + " " + error.message);
+			}
+		});
+
+	});
+}
+
+function addCount(Counter) {
+	var Counter = AV.Object.extend("Counter");
+	url = $(".leancloud_visitors").attr('id').trim();
+	title = $(".leancloud_visitors").attr('data-flag-title').trim();
+	var query = new AV.Query(Counter);
+	query.equalTo("url", url);
+	query.find({
+		success: function(results) {
+			if (results.length > 0) {
+				var counter = results[0];
+				counter.fetchWhenSave(true);
+				counter.increment("time");
+				counter.save(null, {
+					success: function(counter) {
+						var content =  counter.get('time') + ' ' + $(document.getElementById(url)).text();
+						$(document.getElementById(url)).text(content);
+					},
+					error: function(counter, error) {
+						console.log('Failed to save Visitor num, with error message: ' + error.message);
+					}
+				});
+			} else {
+				var newcounter = new Counter();
+				newcounter.set("title", title);
+				newcounter.set("url", url);
+				newcounter.set("time", 1);
+				newcounter.save(null, {
+					success: function(newcounter) {
+					    console.log("newcounter.get('time')="+newcounter.get('time'));
+						var content = newcounter.get('time') + ' ' + $(document.getElementById(url)).text();
+						$(document.getElementById(url)).text(content);
+					},
+					error: function(newcounter, error) {
+						console.log('Failed to create');
+					}
+				});
+			}
+		},
+		error: function(error) {
+			console.log('Error:' + error.code + " " + error.message);
+		}
+	});
+}
+$(function() {
+	var Counter = AV.Object.extend("Counter");
+	if ($('.leancloud_visitors').length == 1) {
+		addCount(Counter);
+	} else if ($('.post-title-link').length > 1) {
+		showTime(Counter);
+	}
+}); 
+</script>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?32614a826ac53952df6db42620ff904e";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">devedbox</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">devedbox'blog | iOS | Objective-C | Swift | Cocoa</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+      
+      
+        <li class="menu-item menu-item-search">
+          <a href="#" class="st-search-show-outputs">
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'Yw4Mn9e_Adahe2DHcnrS','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                小工蜂业主端开发规范
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-03-02T16:08:41+08:00" content="2016-03-02">
+              2016-03-02
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/03/02/小工蜂业主端(GFPropertyOwner)开发规范/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/02/小工蜂业主端(GFPropertyOwner)开发规范/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2016/03/02/小工蜂业主端(GFPropertyOwner)开发规范/" class="leancloud_visitors" data-flag-title="小工蜂业主端开发规范">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>#小工蜂业主端开发规范</p>
+<h2 id="版本纪录"><a href="#版本纪录" class="headerlink" title="版本纪录"></a>版本纪录</h2><blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">版本</th>
+<th style="text-align:left">修改人员</th>
+<th style="text-align:right">日期</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">1.0.0</td>
+<td style="text-align:left">艾星</td>
+<td style="text-align:right">2016年3月19日</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><p>此文档用于指导服务器拟定API交付文档以及客户端开发规范，在实际开发中，客户端可根据实际情况做响应的调整，调整的内容需要在此文档做出相应的更改和增删。服务器在拟定开发文档若有本文未涉及到的字段命名或定义，需及时提出增加或修改意见，一切字段的命名或者修改需要做好相应的纪录，避免后期开发调试过程中出现不该出现的因为字段命名而产生的错误！</p>
+<h2 id="命名空间"><a href="#命名空间" class="headerlink" title="命名空间"></a>命名空间</h2><p><code>GFPropertyOwner</code>缩写：<code>GFPO</code>.</p>
+<h2 id="通用模型"><a href="#通用模型" class="headerlink" title="通用模型"></a>通用模型</h2><h3 id="网络请求通用描述语："><a href="#网络请求通用描述语：" class="headerlink" title="网络请求通用描述语："></a>网络请求通用描述语：</h3><blockquote>
+<ul>
+<li>request- 请求完成一个操作，涉及到服务器有逻辑处理的成分在里边.</li>
+<li>get- 请求数据信息，比如请求维修统计数据、请求验证码.</li>
+<li>update- 更新信息，涉及到服务器更新数据库操作.</li>
+</ul>
+</blockquote>
+<p>此处的描述语更多的是在语意上通俗的表述一个操作，比如请求下单的时候，涉及到服务器的逻辑、数据库操作比较多，但是更新信息同样也涉及到了同样的操作，为什么更新信息用<code>update</code>而不用<code>request</code>呢？其实都可以，但是对比一下<code>requestOrder:</code>和<code>updateOrder:</code>在语意上<code>request</code>更接近我们所要表述的意思.</p>
+<h3 id="字段描述"><a href="#字段描述" class="headerlink" title="字段描述"></a>字段描述</h3><h4 id="Name"><a href="#Name" class="headerlink" title="Name"></a>Name</h4><p>字段定义.</p>
+<h4 id="Defination"><a href="#Defination" class="headerlink" title="Defination"></a>Defination</h4><p>字段中文描述.</p>
+<h4 id="Type"><a href="#Type" class="headerlink" title="Type"></a>Type</h4><p>字段对应的数据类型，大致分为两种：</p>
+<blockquote>
+<p><code>number</code>：表示使用<code>int</code>、<code>long</code>、<code>double</code>，具体类型在服务器给定的API文档中指定，在客户端研发的过程中根据各自平台选择相应的适合的数据类型.</p>
+<p> <code>string</code>：表述使用字符串类型.</p>
+<p><code>object</code>：指代对象类型，在相应的地方会进行相应的指定.</p>
+</blockquote>
+<h4 id="Value"><a href="#Value" class="headerlink" title="Value"></a>Value</h4><p>字段定义值，针对<code>enum</code>类型.</p>
+<h2 id="模型定义"><a href="#模型定义" class="headerlink" title="模型定义"></a>模型定义</h2><h3 id="服务器返回数据GFPOResponseObject"><a href="#服务器返回数据GFPOResponseObject" class="headerlink" title="服务器返回数据GFPOResponseObject"></a>服务器返回数据<code>GFPOResponseObject</code></h3><blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Name</th>
+<th style="text-align:left">Defination</th>
+<th style="text-align:right">Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">statusCode</td>
+<td style="text-align:left">响应码</td>
+<td style="text-align:right">number</td>
+</tr>
+<tr>
+<td style="text-align:left">statusInfo</td>
+<td style="text-align:left">响应信息</td>
+<td style="text-align:right">string</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<h3 id="意见反馈GFPOFeedbackObject"><a href="#意见反馈GFPOFeedbackObject" class="headerlink" title="意见反馈GFPOFeedbackObject"></a>意见反馈<code>GFPOFeedbackObject</code></h3><blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Name</th>
+<th style="text-align:left">Defination</th>
+<th style="text-align:right">Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">content</td>
+<td style="text-align:left">反馈内容</td>
+<td style="text-align:right">string</td>
+</tr>
+<tr>
+<td style="text-align:left">contacts</td>
+<td style="text-align:left">联系方式</td>
+<td style="text-align:right">string</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<h3 id="评价GFPOCommentObject"><a href="#评价GFPOCommentObject" class="headerlink" title="评价GFPOCommentObject"></a>评价<code>GFPOCommentObject</code></h3><blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Name</th>
+<th style="text-align:left">Defination</th>
+<th style="text-align:right">Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">content</td>
+<td style="text-align:left">评价内容</td>
+<td style="text-align:right">string</td>
+</tr>
+<tr>
+<td style="text-align:left">level</td>
+<td style="text-align:left">服务星级</td>
+<td style="text-align:right">number</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<h3 id="付款GFPOPaymentObject"><a href="#付款GFPOPaymentObject" class="headerlink" title="付款GFPOPaymentObject"></a>付款<code>GFPOPaymentObject</code></h3><blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Name</th>
+<th style="text-align:left">Defination</th>
+<th style="text-align:right">Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">order</td>
+<td style="text-align:left">待付款订单</td>
+<td style="text-align:right"><code>GFPOProcessingOrderObject</code></td>
+</tr>
+<tr>
+<td style="text-align:left">price</td>
+<td style="text-align:left">价格</td>
+<td style="text-align:right">number</td>
+</tr>
+<tr>
+<td style="text-align:left">gratuity</td>
+<td style="text-align:left">红包</td>
+<td style="text-align:right">number</td>
+</tr>
+<tr>
+<td style="text-align:left">channel</td>
+<td style="text-align:left">支付渠道</td>
+<td style="text-align:right"><code>GFPOPaymentChannel</code></td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<h4 id="支付方式定义GFPOPaymentChannel"><a href="#支付方式定义GFPOPaymentChannel" class="headerlink" title="支付方式定义GFPOPaymentChannel"></a>支付方式定义<code>GFPOPaymentChannel</code></h4><blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Name</th>
+<th style="text-align:left">Defination</th>
+<th style="text-align:right">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">GFPOPaymentChannelNone</td>
+<td style="text-align:left">没有选择支付方式</td>
+<td style="text-align:right">0</td>
+</tr>
+<tr>
+<td style="text-align:left">GFPOPaymentChannelWeChat</td>
+<td style="text-align:left">微信支付</td>
+<td style="text-align:right">1</td>
+</tr>
+<tr>
+<td style="text-align:left">GFPOPaymentChannelAliPay</td>
+<td style="text-align:left">支付宝支付</td>
+<td style="text-align:right">2</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<h3 id="维修统计GFPOStatisticsObject"><a href="#维修统计GFPOStatisticsObject" class="headerlink" title="维修统计GFPOStatisticsObject"></a>维修统计<code>GFPOStatisticsObject</code></h3><blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Name</th>
+<th style="text-align:left">Defination</th>
+<th style="text-align:right">Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">expenses</td>
+<td style="text-align:left">总支出</td>
+<td style="text-align:right">number</td>
+</tr>
+<tr>
+<td style="text-align:left">water</td>
+<td style="text-align:left">水分类支出</td>
+<td style="text-align:right">number</td>
+</tr>
+<tr>
+<td style="text-align:left">electricity</td>
+<td style="text-align:left">电分类支出</td>
+<td style="text-align:right">number</td>
+</tr>
+<tr>
+<td style="text-align:left">appliance</td>
+<td style="text-align:left">家电分类支出</td>
+<td style="text-align:right">number</td>
+</tr>
+<tr>
+<td style="text-align:left">locker</td>
+<td style="text-align:left">锁分类支出</td>
+<td style="text-align:right">number</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<h3 id="取消订单GFPOOrderCancelBlameObject"><a href="#取消订单GFPOOrderCancelBlameObject" class="headerlink" title="取消订单GFPOOrderCancelBlameObject"></a>取消订单<code>GFPOOrderCancelBlameObject</code></h3><blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Name</th>
+<th style="text-align:left">Defination</th>
+<th style="text-align:right">Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">blame</td>
+<td style="text-align:left">订单取消原因</td>
+<td style="text-align:right"><code>GFPOOrderBlame</code></td>
+</tr>
+<tr>
+<td style="text-align:left">descriptions</td>
+<td style="text-align:left">描述</td>
+<td style="text-align:right">string</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<h4 id="取消原因GFPOOrderBlame"><a href="#取消原因GFPOOrderBlame" class="headerlink" title="取消原因GFPOOrderBlame"></a>取消原因<code>GFPOOrderBlame</code></h4><blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Name</th>
+<th style="text-align:left">Defination</th>
+<th style="text-align:right">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">GFPOOrderBlameOther</td>
+<td style="text-align:left">其他原因</td>
+<td style="text-align:right">0</td>
+</tr>
+<tr>
+<td style="text-align:left">GFPOOrderBlamePerson</td>
+<td style="text-align:left">个人原因</td>
+<td style="text-align:right">1</td>
+</tr>
+<tr>
+<td style="text-align:left">GFPOOrderBlameMaster</td>
+<td style="text-align:left">师傅原因</td>
+<td style="text-align:right">2</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<h4 id="用户GFPOUserObject"><a href="#用户GFPOUserObject" class="headerlink" title="用户GFPOUserObject"></a>用户<code>GFPOUserObject</code></h4><blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Name</th>
+<th style="text-align:left">Defination</th>
+<th style="text-align:center">Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">userId</td>
+<td style="text-align:left">用户id</td>
+<td style="text-align:center">number(string)</td>
+</tr>
+<tr>
+<td style="text-align:left">phone</td>
+<td style="text-align:left">电话号码</td>
+<td style="text-align:center">number(string)</td>
+</tr>
+<tr>
+<td style="text-align:left">avatar</td>
+<td style="text-align:left">头像</td>
+<td style="text-align:center">string</td>
+</tr>
+<tr>
+<td style="text-align:left">nickname</td>
+<td style="text-align:left">用户昵称</td>
+<td style="text-align:center">string</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<h3 id="订单GFPOOrderObject"><a href="#订单GFPOOrderObject" class="headerlink" title="订单GFPOOrderObject"></a>订单<code>GFPOOrderObject</code></h3><blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Name</th>
+<th style="text-align:left">Defination</th>
+<th style="text-align:right">Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">orderId</td>
+<td style="text-align:left">订单id</td>
+<td style="text-align:right">string</td>
+</tr>
+<tr>
+<td style="text-align:left">type</td>
+<td style="text-align:left">订单一级类型</td>
+<td style="text-align:right">number</td>
+</tr>
+<tr>
+<td style="text-align:left">subtype</td>
+<td style="text-align:left">订单二级类型</td>
+<td style="text-align:right">number</td>
+</tr>
+<tr>
+<td style="text-align:left">category</td>
+<td style="text-align:left">订单三级类型</td>
+<td style="text-align:right">number</td>
+</tr>
+<tr>
+<td style="text-align:left">workTime</td>
+<td style="text-align:left">上门时间</td>
+<td style="text-align:right">number</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>creationTime</code></td>
+<td style="text-align:left">订单创建时间</td>
+<td style="text-align:right">number</td>
+</tr>
+<tr>
+<td style="text-align:left">phone</td>
+<td style="text-align:left">联系电话</td>
+<td style="text-align:right">string</td>
+</tr>
+<tr>
+<td style="text-align:left">longitude</td>
+<td style="text-align:left">经度</td>
+<td style="text-align:right">number</td>
+</tr>
+<tr>
+<td style="text-align:left">latitude</td>
+<td style="text-align:left">纬度</td>
+<td style="text-align:right">number</td>
+</tr>
+<tr>
+<td style="text-align:left">province</td>
+<td style="text-align:left">省份名称</td>
+<td style="text-align:right">string</td>
+</tr>
+<tr>
+<td style="text-align:left">city</td>
+<td style="text-align:left">城市名称</td>
+<td style="text-align:right">string</td>
+</tr>
+<tr>
+<td style="text-align:left">district</td>
+<td style="text-align:left">区县名称</td>
+<td style="text-align:right">string</td>
+</tr>
+<tr>
+<td style="text-align:left">street</td>
+<td style="text-align:left">街道地址</td>
+<td style="text-align:right">string</td>
+</tr>
+<tr>
+<td style="text-align:left">address</td>
+<td style="text-align:left">详细地址补充</td>
+<td style="text-align:right">string</td>
+</tr>
+<tr>
+<td style="text-align:left">descriptions</td>
+<td style="text-align:left">备注信息</td>
+<td style="text-align:right">string</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p>其中，<code>creationTime</code>在服务器端进行制定，以服务器时间为准，客户端在省城订单的时候不需要次参数，当数据提交到服务器的时候，服务器进行指定.</p>
+<h3 id="进行中的订单-订单-GFPOProcessingOrderObject"><a href="#进行中的订单-订单-GFPOProcessingOrderObject" class="headerlink" title="进行中的订单:订单 GFPOProcessingOrderObject"></a>进行中的订单:<code>订单</code> <code>GFPOProcessingOrderObject</code></h3><p>进行中的订单继承于普通订单，在普通订单的基础上，还拥有以下属性：</p>
+<blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Name</th>
+<th style="text-align:left">Defination</th>
+<th style="text-align:right">Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>updationTime</code></td>
+<td style="text-align:left">订单状态更改时间</td>
+<td style="text-align:right">number</td>
+</tr>
+<tr>
+<td style="text-align:left">state</td>
+<td style="text-align:left">订单状态</td>
+<td style="text-align:right">number</td>
+</tr>
+<tr>
+<td style="text-align:left">substate</td>
+<td style="text-align:left">订单子状态</td>
+<td style="text-align:right">number</td>
+</tr>
+<tr>
+<td style="text-align:left">masterName</td>
+<td style="text-align:left">师傅名字</td>
+<td style="text-align:right">string</td>
+</tr>
+<tr>
+<td style="text-align:left">masterPhone</td>
+<td style="text-align:left">师傅电话</td>
+<td style="text-align:right">string</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p>其中，<code>updationTime</code>是每次订单状态更改都会更新的时间属性，在业主端客户端用来进行排序.</p>
+<h3 id="历史订单：进行中的订单-GFPOHistoryOrderObject"><a href="#历史订单：进行中的订单-GFPOHistoryOrderObject" class="headerlink" title="历史订单：进行中的订单 GFPOHistoryOrderObject"></a>历史订单：<code>进行中的订单</code> <code>GFPOHistoryOrderObject</code></h3><p>历史订单同样继承于进行中的订单，在进行中的订单的基础上，多了以下属性：</p>
+<blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Name</th>
+<th style="text-align:left">Defination</th>
+<th style="text-align:right">Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">isPayed</td>
+<td style="text-align:left">订单是否支付</td>
+<td style="text-align:right">boolean</td>
+</tr>
+<tr>
+<td style="text-align:left">isCommented</td>
+<td style="text-align:left">订单是否评价</td>
+<td style="text-align:right">boolean</td>
+</tr>
+<tr>
+<td style="text-align:left">comment</td>
+<td style="text-align:left">评价内容</td>
+<td style="text-align:right"><code>GFPOCommentObject</code></td>
+</tr>
+<tr>
+<td style="text-align:left">cost</td>
+<td style="text-align:left">支付价格</td>
+<td style="text-align:right">number</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<h3 id="订单类型"><a href="#订单类型" class="headerlink" title="订单类型"></a>订单类型</h3><p>订单类型以<strong>小工蜂师傅</strong>的定义为准，主要是更改了相应的的字段和命名空间：<br><img src="http://ww1.sinaimg.cn/large/d2297bd2gw1f217z5nu0bj214e0q8ani.jpg" alt="image"></p>
+<h3 id="订单状态"><a href="#订单状态" class="headerlink" title="订单状态"></a>订单状态</h3><p>订单状态以<strong>小工蜂师傅</strong>的定义为准，相关的定义及更改如下：<br><img src="http://ww3.sinaimg.cn/large/d2297bd2gw1f225ebi8ccj20u00mqdl9.jpg" alt="image"></p>
+<h2 id="模块划分"><a href="#模块划分" class="headerlink" title="模块划分"></a>模块划分</h2><h2 id="用户模块"><a href="#用户模块" class="headerlink" title="用户模块"></a>用户模块</h2><h3 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h3><p>用户模块用来描述<strong>小工蜂业主</strong>（用户）的属性及操作性功能，在<strong>小工蜂业主端1.0</strong>版本中主要分为以下几点：</p>
+<h3 id="用户相关"><a href="#用户相关" class="headerlink" title="用户相关"></a>用户相关</h3><h4 id="登录、退出登录"><a href="#登录、退出登录" class="headerlink" title="登录、退出登录"></a>登录、退出登录</h4><p>无密登录，验证码动态密码登录.</p>
+<p><code>getVerifyCode</code></p>
+<p><strong>请求参数</strong></p>
+<blockquote>
+<p>无参请求</p>
+</blockquote>
+<p><strong>返回数据类型</strong></p>
+<blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Key</th>
+<th style="text-align:left">Defination</th>
+<th style="text-align:right">Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">statusCode</td>
+<td style="text-align:left">响应码</td>
+<td style="text-align:right">number</td>
+</tr>
+<tr>
+<td style="text-align:left">statusInfo</td>
+<td style="text-align:left">响应信息</td>
+<td style="text-align:right">string</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p><code>requestLoginWithInfo:</code></p>
+<p><strong>请求参数</strong></p>
+<blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Key</th>
+<th style="text-align:left">Defination</th>
+<th style="text-align:center">Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">phone</td>
+<td style="text-align:left">电话号码</td>
+<td style="text-align:center">number(string)</td>
+</tr>
+<tr>
+<td style="text-align:left">verifyCode</td>
+<td style="text-align:left">登录验证码</td>
+<td style="text-align:center">number(string)</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p><strong>返回数据类型</strong></p>
+<blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Key</th>
+<th style="text-align:left">Defination</th>
+<th style="text-align:right">Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">statusCode</td>
+<td style="text-align:left">响应码</td>
+<td style="text-align:right">number</td>
+</tr>
+<tr>
+<td style="text-align:left">statusInfo</td>
+<td style="text-align:left">响应信息</td>
+<td style="text-align:right">string</td>
+</tr>
+<tr>
+<td style="text-align:left">userId</td>
+<td style="text-align:left">用户id</td>
+<td style="text-align:right">string</td>
+</tr>
+<tr>
+<td style="text-align:left">token</td>
+<td style="text-align:left">token</td>
+<td style="text-align:right">string</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p><code>requestLogout</code></p>
+<p><strong>请求参数</strong></p>
+<blockquote>
+<p>无参请求</p>
+</blockquote>
+<p><strong>返回数据类型</strong></p>
+<blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Key</th>
+<th style="text-align:left">Defination</th>
+<th style="text-align:right">Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">statusCode</td>
+<td style="text-align:left">响应码</td>
+<td style="text-align:right">number</td>
+</tr>
+<tr>
+<td style="text-align:left">statusInfo</td>
+<td style="text-align:left">响应信息</td>
+<td style="text-align:right">string</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<h4 id="下单操作"><a href="#下单操作" class="headerlink" title="下单操作"></a>下单操作</h4><p><code>requestOrderWithInfo:</code></p>
+<p><strong>请求参数</strong></p>
+<blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Key</th>
+<th style="text-align:left">Defination</th>
+<th style="text-align:right">Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">type</td>
+<td style="text-align:left">订单一级类型</td>
+<td style="text-align:right">number</td>
+</tr>
+<tr>
+<td style="text-align:left">subtype</td>
+<td style="text-align:left">订单二级类型</td>
+<td style="text-align:right">number</td>
+</tr>
+<tr>
+<td style="text-align:left">category</td>
+<td style="text-align:left">订单三级类型</td>
+<td style="text-align:right">number</td>
+</tr>
+<tr>
+<td style="text-align:left">workTime</td>
+<td style="text-align:left">上门时间</td>
+<td style="text-align:right">number</td>
+</tr>
+<tr>
+<td style="text-align:left">phone</td>
+<td style="text-align:left">联系电话</td>
+<td style="text-align:right">string</td>
+</tr>
+<tr>
+<td style="text-align:left">longitude</td>
+<td style="text-align:left">经度</td>
+<td style="text-align:right">number</td>
+</tr>
+<tr>
+<td style="text-align:left">latitude</td>
+<td style="text-align:left">纬度</td>
+<td style="text-align:right">number</td>
+</tr>
+<tr>
+<td style="text-align:left">province</td>
+<td style="text-align:left">省份名称</td>
+<td style="text-align:right">string</td>
+</tr>
+<tr>
+<td style="text-align:left">city</td>
+<td style="text-align:left">城市名称</td>
+<td style="text-align:right">string</td>
+</tr>
+<tr>
+<td style="text-align:left">district</td>
+<td style="text-align:left">区县名称</td>
+<td style="text-align:right">string</td>
+</tr>
+<tr>
+<td style="text-align:left">street</td>
+<td style="text-align:left">街道地址</td>
+<td style="text-align:right">string</td>
+</tr>
+<tr>
+<td style="text-align:left">address</td>
+<td style="text-align:left">详细地址补充</td>
+<td style="text-align:right">string</td>
+</tr>
+<tr>
+<td style="text-align:left">descriptions</td>
+<td style="text-align:left">备注信息</td>
+<td style="text-align:right">string</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p><strong>返回数据类型</strong></p>
+<blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Key</th>
+<th style="text-align:left">Defination</th>
+<th style="text-align:right">Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">statusCode</td>
+<td style="text-align:left">响应码</td>
+<td style="text-align:right">number</td>
+</tr>
+<tr>
+<td style="text-align:left">statusInfo</td>
+<td style="text-align:left">响应信息</td>
+<td style="text-align:right">string</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<h4 id="订单支付、评价"><a href="#订单支付、评价" class="headerlink" title="订单支付、评价"></a>订单支付、评价</h4><p><code>getPaymentWithOrderInfo:</code></p>
+<p><strong>请求参数</strong></p>
+<blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Key</th>
+<th style="text-align:left">Defination</th>
+<th style="text-align:right">Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">orderId</td>
+<td style="text-align:left">订单id</td>
+<td style="text-align:right">number</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p><strong>返回数据类型</strong></p>
+<blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Key</th>
+<th style="text-align:left">Defination</th>
+<th style="text-align:right">Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">statusCode</td>
+<td style="text-align:left">响应码</td>
+<td style="text-align:right">number</td>
+</tr>
+<tr>
+<td style="text-align:left">statusInfo</td>
+<td style="text-align:left">响应信息</td>
+<td style="text-align:right">string</td>
+</tr>
+<tr>
+<td style="text-align:left">payment</td>
+<td style="text-align:left">支付信息</td>
+<td style="text-align:right">待定</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p><code>requestCommentWithInfo:</code></p>
+<p><strong>请求参数</strong></p>
+<blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Key</th>
+<th style="text-align:left">Defination</th>
+<th style="text-align:right">Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">level</td>
+<td style="text-align:left">星级</td>
+<td style="text-align:right">number</td>
+</tr>
+<tr>
+<td style="text-align:left">content</td>
+<td style="text-align:left">评价内容</td>
+<td style="text-align:right">string</td>
+</tr>
+<tr>
+<td style="text-align:left">orderId</td>
+<td style="text-align:left">相应的订单id</td>
+<td style="text-align:right">string</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p><strong>返回数据类型</strong></p>
+<blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Key</th>
+<th style="text-align:left">Defination</th>
+<th style="text-align:right">Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">statusCode</td>
+<td style="text-align:left">响应码</td>
+<td style="text-align:right">number</td>
+</tr>
+<tr>
+<td style="text-align:left">statusInfo</td>
+<td style="text-align:left">响应信息</td>
+<td style="text-align:right">string</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<h4 id="修改信息（头像、昵称）"><a href="#修改信息（头像、昵称）" class="headerlink" title="修改信息（头像、昵称）"></a>修改信息（头像、昵称）</h4><p><code>updateAvatarWithUrl:</code></p>
+<p><strong>请求参数</strong></p>
+<blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Key</th>
+<th style="text-align:left">Defination</th>
+<th style="text-align:right">Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">avatar</td>
+<td style="text-align:left">头像url</td>
+<td style="text-align:right">string</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p><strong>返回数据类型</strong></p>
+<blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Key</th>
+<th style="text-align:left">Defination</th>
+<th style="text-align:right">Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">statusCode</td>
+<td style="text-align:left">响应码</td>
+<td style="text-align:right">number</td>
+</tr>
+<tr>
+<td style="text-align:left">statusInfo</td>
+<td style="text-align:left">响应信息</td>
+<td style="text-align:right">string</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p><code>updateNicknameWithContent:</code></p>
+<p><strong>请求参数</strong></p>
+<blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Key</th>
+<th style="text-align:left">Defination</th>
+<th style="text-align:right">Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">nickname</td>
+<td style="text-align:left">昵称</td>
+<td style="text-align:right">string</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p><strong>返回数据类型</strong></p>
+<blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Key</th>
+<th style="text-align:left">Defination</th>
+<th style="text-align:right">Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">statusCode</td>
+<td style="text-align:left">响应码</td>
+<td style="text-align:right">number</td>
+</tr>
+<tr>
+<td style="text-align:left">statusInfo</td>
+<td style="text-align:left">响应信息</td>
+<td style="text-align:right">string</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<h4 id="查看维修统计数据"><a href="#查看维修统计数据" class="headerlink" title="查看维修统计数据"></a>查看维修统计数据</h4><p><code>getStatistics</code></p>
+<p><strong>请求参数</strong></p>
+<blockquote>
+<p>无参请求</p>
+</blockquote>
+<p><strong>返回数据类型</strong></p>
+<blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Key</th>
+<th style="text-align:left">Defination</th>
+<th style="text-align:right">Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">statusCode</td>
+<td style="text-align:left">响应码</td>
+<td style="text-align:right">number</td>
+</tr>
+<tr>
+<td style="text-align:left">statusInfo</td>
+<td style="text-align:left">响应信息</td>
+<td style="text-align:right">string</td>
+</tr>
+<tr>
+<td style="text-align:left">expenses</td>
+<td style="text-align:left">总支出</td>
+<td style="text-align:right">number</td>
+</tr>
+<tr>
+<td style="text-align:left">water</td>
+<td style="text-align:left">水分类支出</td>
+<td style="text-align:right">number</td>
+</tr>
+<tr>
+<td style="text-align:left">electricity</td>
+<td style="text-align:left">电分类支出</td>
+<td style="text-align:right">number</td>
+</tr>
+<tr>
+<td style="text-align:left">appliance</td>
+<td style="text-align:left">家电分类支出</td>
+<td style="text-align:right">number</td>
+</tr>
+<tr>
+<td style="text-align:left">locker</td>
+<td style="text-align:left">锁分类支出</td>
+<td style="text-align:right">number</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<h4 id="意见反馈"><a href="#意见反馈" class="headerlink" title="意见反馈"></a>意见反馈</h4><p><code>requestFeedbackWithInfo:</code></p>
+<p><strong>请求参数</strong></p>
+<blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Key</th>
+<th style="text-align:left">Defination</th>
+<th style="text-align:right">Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">content</td>
+<td style="text-align:left">反馈内容</td>
+<td style="text-align:right">string</td>
+</tr>
+<tr>
+<td style="text-align:left">contacts</td>
+<td style="text-align:left">联系方式</td>
+<td style="text-align:right">string</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p><strong>返回数据类型</strong></p>
+<blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Key</th>
+<th style="text-align:left">Defination</th>
+<th style="text-align:right">Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">statusCode</td>
+<td style="text-align:left">响应码</td>
+<td style="text-align:right">number</td>
+</tr>
+<tr>
+<td style="text-align:left">statusInfo</td>
+<td style="text-align:left">响应信息</td>
+<td style="text-align:right">string</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<h3 id="用户本地操作"><a href="#用户本地操作" class="headerlink" title="用户本地操作"></a>用户本地操作</h3><ol>
+<li>登录界面查看<strong>用户协议</strong></li>
+<li>下单界面查看<strong>服务说明</strong></li>
+<li>关于界面<strong>评分</strong>和<strong>用户协议</strong></li>
+<li>个人中心查看<strong>官方配件清单</strong></li>
+</ol>
+<h2 id="订单模块"><a href="#订单模块" class="headerlink" title="订单模块"></a>订单模块</h2><h3 id="描述-1"><a href="#描述-1" class="headerlink" title="描述"></a>描述</h3><p>订单模块用来定义和描述<strong>维修订单</strong>的基本属性以及与订单相关的一些网络请求操作，基本数据结构定义了订单相关的字段和基本描述，操作定义了如下单、支付等一系列操作。</p>
+<h3 id="订单相关"><a href="#订单相关" class="headerlink" title="订单相关"></a>订单相关</h3><h4 id="请求进行中的订单"><a href="#请求进行中的订单" class="headerlink" title="请求进行中的订单"></a>请求进行中的订单</h4><p><code>getProcessingOrdersBeforeTimeInternal:</code></p>
+<p><strong>请求参数</strong></p>
+<blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Key</th>
+<th style="text-align:left">Defination</th>
+<th style="text-align:right">Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">timeInternal</td>
+<td style="text-align:left">时间戳</td>
+<td style="text-align:right">number</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p><strong>返回数据类型</strong></p>
+<blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Key</th>
+<th style="text-align:left">Defination</th>
+<th style="text-align:right">Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">statusCode</td>
+<td style="text-align:left">响应码</td>
+<td style="text-align:right">number</td>
+</tr>
+<tr>
+<td style="text-align:left">statusInfo</td>
+<td style="text-align:left">响应信息</td>
+<td style="text-align:right">string</td>
+</tr>
+<tr>
+<td style="text-align:left">orders</td>
+<td style="text-align:left">响应信息</td>
+<td style="text-align:right">List&lt;<code>GFPOProcessingOrderObject</code>&gt;</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<h4 id="请求历史订单"><a href="#请求历史订单" class="headerlink" title="请求历史订单"></a>请求历史订单</h4><p><code>getHistoryOrdersBeforeTimeInternal:</code></p>
+<p><strong>请求参数</strong></p>
+<blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Key</th>
+<th style="text-align:left">Defination</th>
+<th style="text-align:right">Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">timeInternal</td>
+<td style="text-align:left">时间戳</td>
+<td style="text-align:right">number</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p><strong>返回数据类型</strong></p>
+<blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Key</th>
+<th style="text-align:left">Defination</th>
+<th style="text-align:right">Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">statusCode</td>
+<td style="text-align:left">响应码</td>
+<td style="text-align:right">number</td>
+</tr>
+<tr>
+<td style="text-align:left">statusInfo</td>
+<td style="text-align:left">响应信息</td>
+<td style="text-align:right">string</td>
+</tr>
+<tr>
+<td style="text-align:left">orders</td>
+<td style="text-align:left">响应信息</td>
+<td style="text-align:right">List&lt;<code>GFPOHistoryOrderObject</code>&gt;</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<h4 id="取消订单"><a href="#取消订单" class="headerlink" title="取消订单"></a>取消订单</h4><p><code>requestCancelOrderWithId:</code></p>
+<p><strong>请求参数</strong></p>
+<blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Key</th>
+<th style="text-align:left">Defination</th>
+<th style="text-align:right">Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">orderId</td>
+<td style="text-align:left">订单id</td>
+<td style="text-align:right">string</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p><strong>返回数据类型</strong></p>
+<blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Key</th>
+<th style="text-align:left">Defination</th>
+<th style="text-align:right">Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">statusCode</td>
+<td style="text-align:left">响应码</td>
+<td style="text-align:right">number</td>
+</tr>
+<tr>
+<td style="text-align:left">statusInfo</td>
+<td style="text-align:left">响应信息</td>
+<td style="text-align:right">string</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<h4 id="评价订单"><a href="#评价订单" class="headerlink" title="评价订单"></a>评价订单</h4><p><code>requestCommentOrderWithId:</code></p>
+<p><strong>请求参数</strong></p>
+<blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Key</th>
+<th style="text-align:left">Defination</th>
+<th style="text-align:right">Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">comment</td>
+<td style="text-align:left">评价</td>
+<td style="text-align:right"><code>GFPOCommentObject</code></td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p><strong>返回数据类型</strong></p>
+<blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Key</th>
+<th style="text-align:left">Defination</th>
+<th style="text-align:right">Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">statusCode</td>
+<td style="text-align:left">响应码</td>
+<td style="text-align:right">number</td>
+</tr>
+<tr>
+<td style="text-align:left">statusInfo</td>
+<td style="text-align:left">响应信息</td>
+<td style="text-align:right">string</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<h2 id="支付模块"><a href="#支付模块" class="headerlink" title="支付模块"></a>支付模块</h2><h3 id="描述-2"><a href="#描述-2" class="headerlink" title="描述"></a>描述</h3><p>支付使用<code>Ping++</code>支付服务，有服务器返回的<code>Payment</code>信息向第三方支付调用支付.</p>
+<h2 id="评价模块"><a href="#评价模块" class="headerlink" title="评价模块"></a>评价模块</h2><h3 id="描述-3"><a href="#描述-3" class="headerlink" title="描述"></a>描述</h3><p>评价包括星级和评价内容，需要由客户端调用服务器请求完成评价流程.</p>
+<h2 id="定位系统"><a href="#定位系统" class="headerlink" title="定位系统"></a>定位系统</h2><h3 id="描述-4"><a href="#描述-4" class="headerlink" title="描述"></a>描述</h3><p>定位系统使用第三方定位服务，如<code>百度</code>、<code>高德</code>所提供的sdk，具体情况<em>待讨论决定</em>.</p>
+<h2 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h2><h3 id="HTTP-Status-Code"><a href="#HTTP-Status-Code" class="headerlink" title="HTTP Status Code"></a>HTTP Status Code</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">///----------------------------------------------------------------------&#10;/// Typedef&#10;///----------------------------------------------------------------------&#10;/// HTTP status codes.&#10;///&#10;/// The list here is based on the description at Wikipedia.&#10;/// The initial version of this list was written on April 20, 2013.&#10;///&#10;/// @see &#60;a href=&#34;http://en.wikipedia.org/wiki/List_of_HTTP_status_codes&#34;&#10;///      &#62;List of HTTP status codes&#60;/a&#62;&#10;enum &#123;&#10;    ///--------------------------------------------------&#10;    // 1xx Informational&#10;    ///--------------------------------------------------&#10;    /// 100 Continue.&#10;    kHTTPStatusCodeContinue = 100,&#10;    /// 101 Switching Protocols.&#10;    kHTTPStatusCodeSwitchingProtocols = 101,&#10;#if !defined(HTTP_STATUS_CODES_EXCLUDE_WEBDAV) &#38;&#38; !defined(HTTP_STATUS_CODES_EXCLUDE_RFC_2518)&#10;    /// 103 Processing (WebDAV; RFC 2518).&#10;    kHTTPStatusCodeProcessing = 102,&#10;#endif&#10;    ///--------------------------------------------------&#10;    // 2xx Success&#10;    ///--------------------------------------------------&#10;    /// 200 OK.&#10;    kHTTPStatusCodeOK = 200,&#10;    /// 201 Created.&#10;    kHTTPStatusCodeCreated = 201,&#10;    /// 202 Accepted.&#10;    kHTTPStatusCodeAccepted = 202,&#10;    /// 203 Non-Authoritative Information (since HTTP/1.1).&#10;    kHTTPStatusCodeNonAuthoritativeInformation = 203,&#10;    /// 204 No Content.&#10;    kHTTPStatusCodeNoContent = 204,&#10;    /// 205 Reset Content.&#10;    kHTTPStatusCodeResetContent = 205,&#10;    /// 206 Partial Content.&#10;    kHTTPStatusCodePartialContent = 206,&#10;#if !defined(HTTP_STATUS_CODES_EXCLUDE_WEBDAV) &#38;&#38; !defined(HTTP_STATUS_CODES_EXCLUDE_RFC_4918)&#10;    /// 207 Multi-Status (WebDAV; RFC 4918).&#10;    kHTTPStatusCodeMultiStatus = 207,&#10;#endif&#10;#if !defined(HTTP_STATUS_CODES_EXCLUDE_WEBDAV) &#38;&#38; !defined(HTTP_STATUS_CODES_EXCLUDE_RFC_5842)&#10;    /// 208 Already Reported (WebDAV; RFC 5842).&#10;    kHTTPStatusCodeAlreadyReported = 208,&#10;#endif&#10;#if !defined(HTTP_STATUS_CODES_EXCLUDE_RFC_3229)&#10;    /// 226 IM Used (RFC 3229)&#10;    kHTTPStatusCodeIMUsed = 226,&#10;#endif&#10;#if !defined(HTTP_STATUS_CODES_EXCLUDE_RTSP) &#38;&#38; !defined(HTTP_STATUS_CODES_EXCLUDE_RFC_2326)&#10;    /// 250 Low on Storage Space (RTSP; RFC 2326).&#10;    kHTTPStatusCodeLowOnStorageSpace = 250,&#10;#endif&#10;    ///--------------------------------------------------&#10;    // 3xx Redirection&#10;    ///--------------------------------------------------&#10;    /// 300 Multiple Choices.&#10;    kHTTPStatusCodeMultipleChoices = 300,&#10;    /// 301 Moved Permanently.&#10;    kHTTPStatusCodeMovedPermanently = 301,&#10;    /// 302 Found.&#10;    kHTTPStatusCodeFound = 302,&#10;    /// 303 See Other (since HTTP/1.1).&#10;    kHTTPStatusCodeSeeOther = 303,&#10;    /// 304 Not Modified.&#10;    kHTTPStatusCodeNotModified = 304,&#10;    /// 305 Use Proxy (since HTTP/1.1).&#10;    kHTTPStatusCodeUseProxy = 305,&#10;    /// 306 Switch Proxy.&#10;    kHTTPStatusCodeSwitchProxy = 306,&#10;    /// 307 Temporary Redirect (since HTTP/1.1).&#10;    kHTTPStatusCodeTemporaryRedirect = 307,&#10;    /// 308 Permanent Redirect (approved as experimental RFC).&#10;    kHTTPStatusCodePermanentRedirect = 308,&#10;    ///--------------------------------------------------&#10;    // 4xx Client Error&#10;    ///--------------------------------------------------&#10;    /// 400 Bad Request.&#10;    kHTTPStatusCodeBadRequest = 400,&#10;    /// 401 Unauthorized.&#10;    kHTTPStatusCodeUnauthorized = 401,&#10;    /// 402 Payment Required.&#10;    kHTTPStatusCodePaymentRequired = 402,&#10;    /// 403 Forbidden.&#10;    kHTTPStatusCodeForbidden = 403,&#10;    /// 404 Not Found.&#10;    kHTTPStatusCodeNotFound = 404,&#10;    /// 405 Method Not Allowed.&#10;    kHTTPStatusCodeMethodNotAllowed = 405,&#10;    /// 406 Not Acceptable.&#10;    kHTTPStatusCodeNotAcceptable = 406,&#10;    /// 407 Proxy Authentication Required.&#10;    kHTTPStatusCodeProxyAuthenticationRequired = 407,&#10;    /// 408 Request Timeout.&#10;    kHTTPStatusCodeRequestTimeout = 408,&#10;    /// 409 Conflict.&#10;    kHTTPStatusCodeConflict = 409,&#10;    /// 410 Gone.&#10;    kHTTPStatusCodeGone = 410,&#10;    /// 411 Length Required.&#10;    kHTTPStatusCodeLengthRequired = 411,&#10;    /// 412 Precondition Failed.&#10;    kHTTPStatusCodePreconditionFailed = 412,&#10;    /// 413 Request Entity Too Large.&#10;    kHTTPStatusCodeRequestEntityTooLarge = 413,&#10;    /// 414 Request-URI Too Long.&#10;    kHTTPStatusCodeRequestURITooLong = 414,&#10;    /// 415 Unsupported Media Type.&#10;    kHTTPStatusCodeUnsupportedMediaType = 415,&#10;    /// 416 Requested Range Not Satisfiable.&#10;    kHTTPStatusCodeRequestedRangeNotSatisfiable = 416,&#10;    /// 417 Expectation Failed.&#10;    kHTTPStatusCodeExpectationFailed = 417,&#10;#if !defined(HTTP_STATUS_CODES_EXCLUDE_RFC_2324)&#10;    /// 418 I&#39;m a teapot (RFC 2324).&#10;    kHTTPStatusCodeImATeapot = 418,&#10;#endif&#10;#if !defined(HTTP_STATUS_CODES_EXCLUDE_TWITTER)&#10;    /// 420 Enhance Your Calm (Twitter).&#10;    kHTTPStatusCodeEnhanceYourCalm = 420,&#10;#endif&#10;#if !defined(HTTP_STATUS_CODES_EXCLUDE_WEBDAV) &#38;&#38; !defined(HTTP_STATUS_CODES_EXCLUDE_RFC_4918)&#10;    /// 422 Unprocessable Entity (WebDAV; RFC 4918).&#10;    kHTTPStatusCodeUnprocessableEntity = 422,&#10;#endif&#10;#if !defined(HTTP_STATUS_CODES_EXCLUDE_WEBDAV) &#38;&#38; !defined(HTTP_STATUS_CODES_EXCLUDE_RFC_4918)&#10;    /// 423 Locked (WebDAV; RFC 4918).&#10;    kHTTPStatusCodeLocked = 423,&#10;#endif&#10;#if !defined(HTTP_STATUS_CODES_EXCLUDE_WEBDAV) &#38;&#38; !defined(HTTP_STATUS_CODES_EXCLUDE_RFC_4918)&#10;    /// 424 Failed Dependency (WebDAV; RFC 4918).&#10;    kHTTPStatusCodeFailedDependency = 424,&#10;#endif&#10;    /// 425 Unordered Collection (Internet draft).&#10;    kHTTPStatusCodeUnorderedCollection = 425,&#10;#if !defined(HTTP_STATUS_CODES_EXCLUDE_RFC_2817)&#10;    /// 426 Upgrade Required (RFC 2817).&#10;    kHTTPStatusCodeUpgradeRequired = 426,&#10;#endif&#10;#if !defined(HTTP_STATUS_CODES_EXCLUDE_RFC_6585)&#10;    /// 428 Precondition Required (RFC 6585).&#10;    kHTTPStatusCodePreconditionRequired = 428,&#10;#endif&#10;#if !defined(HTTP_STATUS_CODES_EXCLUDE_RFC_6585)&#10;    /// 429 Too Many Requests (RFC 6585).&#10;    kHTTPStatusCodeTooManyRequests = 429,&#10;#endif&#10;#if !defined(HTTP_STATUS_CODES_EXCLUDE_RFC_6585)&#10;    /// 431 Request Header Fields Too Large (RFC 6585).&#10;    kHTTPStatusCodeRequestHeaderFieldsTooLarge = 431,&#10;#endif&#10;#if !defined(HTTP_STATUS_CODES_EXCLUDE_NGINX)&#10;    /// 444 No Response (Nginx).&#10;    kHTTPStatusCodeNoResponse = 444,&#10;#endif&#10;#if !defined(HTTP_STATUS_CODES_EXCLUDE_MICROSOFT)&#10;    /// 449 Retry With (Microsoft).&#10;    kHTTPStatusCodeRetryWith = 449,&#10;#endif&#10;#if !defined(HTTP_STATUS_CODES_EXCLUDE_MICROSOFT)&#10;    /// 450 Blocked by Windows Parental Controls (Microsoft).&#10;    kHTTPStatusCodeBlockedByWindowsParentalControls = 450,&#10;#endif&#10;#if !defined(HTTP_STATUS_CODES_EXCLUDE_RTSP)&#10;    /// 451 Parameter Not Understood (RTSP).&#10;    kHTTPStatusCodeParameterNotUnderstood = 451,&#10;#endif&#10;    /// 451 Unavailable For Legal Reasons (Internet draft).&#10;    kHTTPStatusCodeUnavailableForLegalReasons = 451,&#10;#if !defined(HTTP_STATUS_CODES_EXCLUDE_MICROSOFT)&#10;    /// 451 Redirect (Microsoft).&#10;    kHTTPStatusCodeRedirect = 451,&#10;#endif&#10;#if !defined(HTTP_STATUS_CODES_EXCLUDE_RTSP)&#10;    /// 452 Conference Not Found (RTSP).&#10;    kHTTPStatusCodeConferenceNotFound = 452,&#10;#endif&#10;#if !defined(HTTP_STATUS_CODES_EXCLUDE_RTSP)&#10;    /// 453 Not Enough Bandwidth (RTSP).&#10;    kHTTPStatusCodeNotEnoughBandwidth = 453,&#10;#endif&#10;#if !defined(HTTP_STATUS_CODES_EXCLUDE_RTSP)&#10;    /// 454 Session Not Found (RTSP).&#10;    kHTTPStatusCodeSessionNotFound = 454,&#10;#endif&#10;#if !defined(HTTP_STATUS_CODES_EXCLUDE_RTSP)&#10;    /// 455 Method Not Valid in This State (RTSP).&#10;    kHTTPStatusCodeMethodNotValidInThisState = 455,&#10;#endif&#10;#if !defined(HTTP_STATUS_CODES_EXCLUDE_RTSP)&#10;    /// 456 Header Field Not Valid for Resource (RTSP).&#10;    kHTTPStatusCodeHeaderFieldNotValidForResource = 456,&#10;#endif&#10;#if !defined(HTTP_STATUS_CODES_EXCLUDE_RTSP)&#10;    /// 457 Invalid Range (RTSP).&#10;    kHTTPStatusCodeInvalidRange = 457,&#10;#endif&#10;#if !defined(HTTP_STATUS_CODES_EXCLUDE_RTSP)&#10;    /// 458 Parameter Is Read-Only (RTSP).&#10;    kHTTPStatusCodeParameterIsReadOnly = 458,&#10;#endif&#10;#if !defined(HTTP_STATUS_CODES_EXCLUDE_RTSP)&#10;    /// 459 Aggregate Operation Not Allowed (RTSP).&#10;    kHTTPStatusCodeAggregateOperationNotAllowed = 459,&#10;#endif&#10;#if !defined(HTTP_STATUS_CODES_EXCLUDE_RTSP)&#10;    /// 460 Only Aggregate Operation Allowed (RTSP).&#10;    kHTTPStatusCodeOnlyAggregateOperationAllowed = 460,&#10;#endif&#10;#if !defined(HTTP_STATUS_CODES_EXCLUDE_RTSP)&#10;    /// 461 Unsupported Transport (RTSP).&#10;    kHTTPStatusCodeUnsupportedTransport = 461,&#10;#endif&#10;#if !defined(HTTP_STATUS_CODES_EXCLUDE_RTSP)&#10;    /// 462 Destination Unreachable (RTSP).&#10;    kHTTPStatusCodeDestinationUnreachable = 462,&#10;#endif&#10;#if !defined(HTTP_STATUS_CODES_EXCLUDE_NGINX)&#10;    /// 494 Request Header Too Large (Nginx).&#10;    kHTTPStatusCodeRequestHeaderTooLarge = 494,&#10;#endif&#10;#if !defined(HTTP_STATUS_CODES_EXCLUDE_NGINX)&#10;    /// 495 Cert Error (Nginx).&#10;    kHTTPStatusCodeCertError = 495,&#10;#endif&#10;#if !defined(HTTP_STATUS_CODES_EXCLUDE_NGINX)&#10;    /// 496 No Cert (Nginx).&#10;    kHTTPStatusCodeNoCert = 496,&#10;#endif&#10;#if !defined(HTTP_STATUS_CODES_EXCLUDE_NGINX)&#10;    /// 497 HTTP to HTTPS (Nginx).&#10;    kHTTPStatusCodeHTTPToHTTPS = 497,&#10;#endif&#10;#if !defined(HTTP_STATUS_CODES_EXCLUDE_NGINX)&#10;    /// 499 Client Closed Request (Nginx).&#10;    kHTTPStatusCodeClientClosedRequest = 499,&#10;#endif&#10;    ///--------------------------------------------------&#10;    // 5xx Server Error&#10;    ///--------------------------------------------------&#10;    /// 500 Internal Server Error.&#10;    kHTTPStatusCodeInternalServerError = 500,&#10;    /// 501 Not Implemented&#10;    kHTTPStatusCodeNotImplemented = 501,&#10;    /// 502 Bad Gateway.&#10;    kHTTPStatusCodeBadGateway = 502,&#10;    /// 503 Service Unavailable.&#10;    kHTTPStatusCodeServiceUnavailable = 503,&#10;    /// 504 Gateway Timeout.&#10;    kHTTPStatusCodeGatewayTimeout = 504,&#10;    /// 505 HTTP Version Not Supported.&#10;    kHTTPStatusCodeHTTPVersionNotSupported = 505,&#10;#if !defined(HTTP_STATUS_CODES_EXCLUDE_RFC_2295)&#10;    /// 506 Variant Also Negotiates (RFC 2295).&#10;    kHTTPStatusCodeVariantAlsoNegotiates = 506,&#10;#endif&#10;#if !defined(HTTP_STATUS_CODES_EXCLUDE_WEBDAV) &#38;&#38; !defined(HTTP_STATUS_CODES_EXCLUDE_RFC_4918)&#10;    /// 507 Insufficient Storage (WebDAV; RFC 4918).&#10;    kHTTPStatusCodeInsufficientStorage = 507,&#10;#endif&#10;#if !defined(HTTP_STATUS_CODES_EXCLUDE_WEBDAV) &#38;&#38; !defined(HTTP_STATUS_CODES_EXCLUDE_RFC_5842)&#10;    /// 508 Loop Detected (WebDAV; RFC 5842).&#10;    kHTTPStatusCodeLoopDetected = 508,&#10;#endif&#10;    /// 509 Bandwidth Limit Exceeded (Apache bw/limited extension).&#10;    kHTTPStatusCodeBandwidthLimitExceeded = 509,&#10;#if !defined(HTTP_STATUS_CODES_EXCLUDE_RFC_2774)&#10;    /// 510 Not Extended (RFC 2774).&#10;    kHTTPStatusCodeNotExtended = 510,&#10;#endif&#10;#if !defined(HTTP_STATUS_CODES_EXCLUDE_RFC_6585)&#10;    /// 511 Network Authentication Required (RFC 6585).&#10;    kHTTPStatusCodeNetworkAuthenticationRequired = 511,&#10;#endif&#10;#if !defined(HTTP_STATUS_CODES_EXCLUDE_RTSP)&#10;    /// 551 Option not supported (RTSP).&#10;    kHTTPStatusCodeOptionNotSupported = 551,&#10;#endif&#10;    /// 598 Network read timeout error (Unknown).&#10;    kHTTPStatusCodeNetworkReadTimeoutError = 598,&#10;    /// 599 Network connect timeout error (Unknown).&#10;    kHTTPStatusCodeNetworkConnectTimeoutError = 599&#10;&#125;;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/03/02/AXPopoverView/" rel="next" title="AXPopoverView">
+                <i class="fa fa-chevron-left"></i> AXPopoverView
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/03/02/关于自己/" rel="prev" title="关于自己">
+                关于自己 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/03/02/小工蜂业主端(GFPropertyOwner)开发规范/"
+           data-title="小工蜂业主端开发规范" data-url="devedbox.com/2016/03/02/小工蜂业主端(GFPropertyOwner)开发规范/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="devedbox" />
+          <p class="site-author-name" itemprop="name">devedbox</p>
+          <p class="site-description motion-element" itemprop="description">你给我想不到的快乐像绿洲给了沙漠</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">11</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+          
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/devedbox" target="_blank">
+                  
+                    <i class="fa fa-github"></i> GitHub
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/AAxXxA" target="_blank">
+                  
+                    <i class="fa fa-weibo"></i> Weibo
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#版本纪录"><span class="nav-number">1.</span> <span class="nav-text">版本纪录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#说明"><span class="nav-number">2.</span> <span class="nav-text">说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#命名空间"><span class="nav-number">3.</span> <span class="nav-text">命名空间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#通用模型"><span class="nav-number">4.</span> <span class="nav-text">通用模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#网络请求通用描述语："><span class="nav-number">4.1.</span> <span class="nav-text">网络请求通用描述语：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字段描述"><span class="nav-number">4.2.</span> <span class="nav-text">字段描述</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Name"><span class="nav-number">4.2.1.</span> <span class="nav-text">Name</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Defination"><span class="nav-number">4.2.2.</span> <span class="nav-text">Defination</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Type"><span class="nav-number">4.2.3.</span> <span class="nav-text">Type</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Value"><span class="nav-number">4.2.4.</span> <span class="nav-text">Value</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模型定义"><span class="nav-number">5.</span> <span class="nav-text">模型定义</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#服务器返回数据GFPOResponseObject"><span class="nav-number">5.1.</span> <span class="nav-text">服务器返回数据GFPOResponseObject</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#意见反馈GFPOFeedbackObject"><span class="nav-number">5.2.</span> <span class="nav-text">意见反馈GFPOFeedbackObject</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#评价GFPOCommentObject"><span class="nav-number">5.3.</span> <span class="nav-text">评价GFPOCommentObject</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#付款GFPOPaymentObject"><span class="nav-number">5.4.</span> <span class="nav-text">付款GFPOPaymentObject</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#支付方式定义GFPOPaymentChannel"><span class="nav-number">5.4.1.</span> <span class="nav-text">支付方式定义GFPOPaymentChannel</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#维修统计GFPOStatisticsObject"><span class="nav-number">5.5.</span> <span class="nav-text">维修统计GFPOStatisticsObject</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#取消订单GFPOOrderCancelBlameObject"><span class="nav-number">5.6.</span> <span class="nav-text">取消订单GFPOOrderCancelBlameObject</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#取消原因GFPOOrderBlame"><span class="nav-number">5.6.1.</span> <span class="nav-text">取消原因GFPOOrderBlame</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#用户GFPOUserObject"><span class="nav-number">5.6.2.</span> <span class="nav-text">用户GFPOUserObject</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#订单GFPOOrderObject"><span class="nav-number">5.7.</span> <span class="nav-text">订单GFPOOrderObject</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进行中的订单-订单-GFPOProcessingOrderObject"><span class="nav-number">5.8.</span> <span class="nav-text">进行中的订单:订单 GFPOProcessingOrderObject</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#历史订单：进行中的订单-GFPOHistoryOrderObject"><span class="nav-number">5.9.</span> <span class="nav-text">历史订单：进行中的订单 GFPOHistoryOrderObject</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#订单类型"><span class="nav-number">5.10.</span> <span class="nav-text">订单类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#订单状态"><span class="nav-number">5.11.</span> <span class="nav-text">订单状态</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模块划分"><span class="nav-number">6.</span> <span class="nav-text">模块划分</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用户模块"><span class="nav-number">7.</span> <span class="nav-text">用户模块</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#描述"><span class="nav-number">7.1.</span> <span class="nav-text">描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用户相关"><span class="nav-number">7.2.</span> <span class="nav-text">用户相关</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#登录、退出登录"><span class="nav-number">7.2.1.</span> <span class="nav-text">登录、退出登录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#下单操作"><span class="nav-number">7.2.2.</span> <span class="nav-text">下单操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#订单支付、评价"><span class="nav-number">7.2.3.</span> <span class="nav-text">订单支付、评价</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#修改信息（头像、昵称）"><span class="nav-number">7.2.4.</span> <span class="nav-text">修改信息（头像、昵称）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查看维修统计数据"><span class="nav-number">7.2.5.</span> <span class="nav-text">查看维修统计数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#意见反馈"><span class="nav-number">7.2.6.</span> <span class="nav-text">意见反馈</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用户本地操作"><span class="nav-number">7.3.</span> <span class="nav-text">用户本地操作</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#订单模块"><span class="nav-number">8.</span> <span class="nav-text">订单模块</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#描述-1"><span class="nav-number">8.1.</span> <span class="nav-text">描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#订单相关"><span class="nav-number">8.2.</span> <span class="nav-text">订单相关</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#请求进行中的订单"><span class="nav-number">8.2.1.</span> <span class="nav-text">请求进行中的订单</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#请求历史订单"><span class="nav-number">8.2.2.</span> <span class="nav-text">请求历史订单</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#取消订单"><span class="nav-number">8.2.3.</span> <span class="nav-text">取消订单</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#评价订单"><span class="nav-number">8.2.4.</span> <span class="nav-text">评价订单</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#支付模块"><span class="nav-number">9.</span> <span class="nav-text">支付模块</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#描述-2"><span class="nav-number">9.1.</span> <span class="nav-text">描述</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#评价模块"><span class="nav-number">10.</span> <span class="nav-text">评价模块</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#描述-3"><span class="nav-number">10.1.</span> <span class="nav-text">描述</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定位系统"><span class="nav-number">11.</span> <span class="nav-text">定位系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#描述-4"><span class="nav-number">11.1.</span> <span class="nav-text">描述</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#附录"><span class="nav-number">12.</span> <span class="nav-text">附录</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP-Status-Code"><span class="nav-number">12.1.</span> <span class="nav-text">HTTP Status Code</span></a></li></ol></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">devedbox</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  
+
+
+  
+
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=0.5.0"></script>
+
+
+
+  
+  
+<script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    NexT.motion.middleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+
+      if (CONFIG.scheme !== 'Pisces' && (CONFIG.sidebar.display === 'post' || CONFIG.sidebar.display === 'always')) {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          NexT.utils.displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"devedbox"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("dGgPPFSrVcACvpPPwfL3UwTs-gzGzoHsz", "QewucF4h9rLTKPzLpeshgEer");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+
+</body>
+</html>

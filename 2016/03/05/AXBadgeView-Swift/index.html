@@ -1,0 +1,1111 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="AXBadgeView,Swift,iOS," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="devedbox" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0" />
+
+
+
+
+
+
+<meta name="description" content="导语在iOS App的开发中，尤其是在企业级的应用研发中，我们总是把精力放在界面的搭建、网络数据的请求，或者缓存数据的处理，心思就是放在这些核心的业务处理模块，但是，我们往往最容易忽略的就是细节的处理或者说是难度不那么大的地方。那么，如此一来的话，当项目接近尾期的时候才会意识问题所在，其实细节方面的处理也是同等重要的。我以前做的一款App酱游－走出去，与世界为伍的时候，就是在最后的项目接近尾期的时">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS开发－应用内角标">
+<meta property="og:url" content="devedbox.com/2016/03/05/AXBadgeView-Swift/index.html">
+<meta property="og:site_name" content="devedbox">
+<meta property="og:description" content="导语在iOS App的开发中，尤其是在企业级的应用研发中，我们总是把精力放在界面的搭建、网络数据的请求，或者缓存数据的处理，心思就是放在这些核心的业务处理模块，但是，我们往往最容易忽略的就是细节的处理或者说是难度不那么大的地方。那么，如此一来的话，当项目接近尾期的时候才会意识问题所在，其实细节方面的处理也是同等重要的。我以前做的一款App酱游－走出去，与世界为伍的时候，就是在最后的项目接近尾期的时">
+<meta property="og:image" content="https://travis-ci.org/devedbox/AXBadgeView-Swift.svg?branch=master">
+<meta property="og:image" content="https://img.shields.io/cocoapods/v/AXBadgeView-Swift.svg?style=flat">
+<meta property="og:image" content="https://img.shields.io/cocoapods/l/AXBadgeView-Swift.svg?style=flat">
+<meta property="og:image" content="https://img.shields.io/cocoapods/p/AXBadgeView-Swift.svg?style=flat">
+<meta property="og:image" content="http://ww2.sinaimg.cn/large/d2297bd2gw1f1kwshfqhwg20ab0i94b2.gif">
+<meta property="og:updated_time" content="2016-08-02T01:30:57.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS开发－应用内角标">
+<meta name="twitter:description" content="导语在iOS App的开发中，尤其是在企业级的应用研发中，我们总是把精力放在界面的搭建、网络数据的请求，或者缓存数据的处理，心思就是放在这些核心的业务处理模块，但是，我们往往最容易忽略的就是细节的处理或者说是难度不那么大的地方。那么，如此一来的话，当项目接近尾期的时候才会意识问题所在，其实细节方面的处理也是同等重要的。我以前做的一款App酱游－走出去，与世界为伍的时候，就是在最后的项目接近尾期的时">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> iOS开发－应用内角标 | devedbox </title>
+</head>
+
+<!-- custom analytics part create by xiamo -->
+<script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+<script>AV.initialize("dGgPPFSrVcACvpPPwfL3UwTs-gzGzoHsz", "QewucF4h9rLTKPzLpeshgEer");</script>
+<script>
+function showTime(Counter) {
+	var query = new AV.Query(Counter);
+	$(".leancloud_visitors").each(function() {
+		var url = $(this).attr("id").trim();
+		query.equalTo("url", url);
+		query.find({
+			success: function(results) {
+				if (results.length == 0) {
+					var content = '0 ' + $(document.getElementById(url)).text();
+					$(document.getElementById(url)).text(content);
+					return;
+				}
+				for (var i = 0; i < results.length; i++) {
+					var object = results[i];
+					var content = object.get('time') + ' ' + $(document.getElementById(url)).text();
+					$(document.getElementById(url)).text(content);
+				}
+			},
+			error: function(object, error) {
+				console.log("Error: " + error.code + " " + error.message);
+			}
+		});
+
+	});
+}
+
+function addCount(Counter) {
+	var Counter = AV.Object.extend("Counter");
+	url = $(".leancloud_visitors").attr('id').trim();
+	title = $(".leancloud_visitors").attr('data-flag-title').trim();
+	var query = new AV.Query(Counter);
+	query.equalTo("url", url);
+	query.find({
+		success: function(results) {
+			if (results.length > 0) {
+				var counter = results[0];
+				counter.fetchWhenSave(true);
+				counter.increment("time");
+				counter.save(null, {
+					success: function(counter) {
+						var content =  counter.get('time') + ' ' + $(document.getElementById(url)).text();
+						$(document.getElementById(url)).text(content);
+					},
+					error: function(counter, error) {
+						console.log('Failed to save Visitor num, with error message: ' + error.message);
+					}
+				});
+			} else {
+				var newcounter = new Counter();
+				newcounter.set("title", title);
+				newcounter.set("url", url);
+				newcounter.set("time", 1);
+				newcounter.save(null, {
+					success: function(newcounter) {
+					    console.log("newcounter.get('time')="+newcounter.get('time'));
+						var content = newcounter.get('time') + ' ' + $(document.getElementById(url)).text();
+						$(document.getElementById(url)).text(content);
+					},
+					error: function(newcounter, error) {
+						console.log('Failed to create');
+					}
+				});
+			}
+		},
+		error: function(error) {
+			console.log('Error:' + error.code + " " + error.message);
+		}
+	});
+}
+$(function() {
+	var Counter = AV.Object.extend("Counter");
+	if ($('.leancloud_visitors').length == 1) {
+		addCount(Counter);
+	} else if ($('.post-title-link').length > 1) {
+		showTime(Counter);
+	}
+}); 
+</script>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?32614a826ac53952df6db42620ff904e";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">devedbox</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">devedbox'blog | iOS | Objective-C | Swift | Cocoa</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+      
+      
+        <li class="menu-item menu-item-search">
+          <a href="#" class="st-search-show-outputs">
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'Yw4Mn9e_Adahe2DHcnrS','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                iOS开发－应用内角标
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-03-05T09:00:00+08:00" content="2016-03-05">
+              2016-03-05
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/教程/" itemprop="url" rel="index">
+                    <span itemprop="name">教程</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/03/05/AXBadgeView-Swift/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/05/AXBadgeView-Swift/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2016/03/05/AXBadgeView-Swift/" class="leancloud_visitors" data-flag-title="iOS开发－应用内角标">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="导语"><a href="#导语" class="headerlink" title="导语"></a>导语</h1><p>在<code>iOS App</code>的开发中，尤其是在<strong>企业级</strong>的应用研发中，我们总是把精力放在界面的搭建、网络数据的请求，或者缓存数据的处理，心思就是放在这些核心的业务处理模块，但是，我们往往最容易忽略的就是细节的处理或者说是难度不那么大的地方。那么，如此一来的话，当项目接近尾期的时候才会意识问题所在，其实<strong>细节方面</strong>的处理也是同等重要的。我以前做的一款App<strong><a href="http://www.jiangtour.cn" target="_blank" rel="external">酱游－走出去，与世界为伍</a></strong>的时候，就是在最后的项目接近尾期的时候才反应过来，细节的地方没有处理，最后就拖延了整个项目的上线时间，甚至在上线之后这个地方的处理都还是存在一系列问题的。所以，当我们在做<strong>企业级</strong>（也可以是其他）应用的时候，往往最不能忽略的地方就是我们所认为的比较简单的地方，一旦有了这样的想法，也不要急，待我慢慢道来：</p>
+<p>今天要说的是<code>badge</code>角标管理。<code>badge</code>角标是显示在某个视图右上角（或者左上角）的用于提示用户消息的一个view，那么这个view有哪些作用呢？其实这个作用非常大，一个友好的badge view可以起到提示用户例如：</p>
+<blockquote>
+<ul>
+<li>提示未读消息数量.</li>
+<li>提示新功能新特性的更新.</li>
+<li>起到一个极大的引导用户操作的作用.</li>
+</ul>
+</blockquote>
+<p>当然，有强迫症的小伙伴们可能受不了了，但是毕竟是少数（这也不能怪我啊）。</p>
+<p>那么，怎样的一个badge view才算是一个友好的badge view呢？我们在开发App的时候，其实在<a href="https://www.github.com" target="_blank" rel="external">GitHub</a>上用到的开源第三方库斯很多的，我们在评判一个开源库是否友好，无非就是从：</p>
+<blockquote>
+<ul>
+<li>这个库解决了怎样的问题？</li>
+<li>是怎样解决的？</li>
+<li><strong>能否达到我们预期的效果？</strong></li>
+<li>性能的优化如何，在使用的过程中会不会影响APP的最终性能？</li>
+<li>API的友好度，是否能够友好的使用接口？</li>
+</ul>
+</blockquote>
+<p>这样几个方面来评判（本人观点）。上面提到的几点，其实我个人认为比较重要的是<code>能否达到我们预期的效果？</code>，因为我们使用第三方库的目的就只有一个：节省时间、提升效率，如果一个开源库不能达到这点要求的话，其实我觉得就算这个开源库很牛X，也不是最适合我们的。<strong>选择一个适合我们的友好的开源库才是最重要的</strong>。</p>
+<h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p><a href="https://travis-ci.org/devedbox/AXBadgeView-Swift" target="_blank" rel="external"><img src="https://travis-ci.org/devedbox/AXBadgeView-Swift.svg?branch=master" alt="Build Status"></a><a href="http://cocoapods.org/pods/AXBadgeView-Swift" target="_blank" rel="external"><img src="https://img.shields.io/cocoapods/v/AXBadgeView-Swift.svg?style=flat" alt="Version"></a><a href="http://cocoapods.org/pods/AXBadgeView-Swift" target="_blank" rel="external"><img src="https://img.shields.io/cocoapods/l/AXBadgeView-Swift.svg?style=flat" alt="License"></a><a href="http://cocoapods.org/pods/AXBadgeView-Swift" target="_blank" rel="external"><img src="https://img.shields.io/cocoapods/p/AXBadgeView-Swift.svg?style=flat" alt="Platform"></a></p>
+<p><a href="https://github.com/devedbox/AXBadgeView-Swift" target="_blank" rel="external">AXBadgeView-Swift</a>是一个badge view管理类，是之前我写的<a href="https://github.com/devedbox/AXBadgeView" target="_blank" rel="external">AXBadgeView</a>的Swift版本（以下的介绍中统一使用<strong>AXBadgeView</strong>），在新版本中没有太大的改动，主要的是把原有的功能实用swift实现了，使用方法是一样的。</p>
+<p><img src="http://ww2.sinaimg.cn/large/d2297bd2gw1f1kwshfqhwg20ab0i94b2.gif" alt="image"></p>
+<p><strong>AXBadgeView</strong>是一个badge view视图，继承于<strong>UILabel</strong>，子类的实现完成了UI的自动布局，自动计算content的bounds大小并可以通过指定<code>minSize</code>实现badge view最终的bounds大小。</p>
+<p><strong>AXBadgeView</strong>使用的是自动布局来控制显示的位置的，为什么要用自动布局呢？在我之前做的一个项目中，我使用的是第三方的badge view管理类，在GitHub上的星星还是很多的，但是我使用了之后发现，布局是有问题的，在发现问题之后我就去看了看源码，结果问题显而易见，那个类使用的不是自动布局。那么在这样一个对布局精准度要求较高的地方的话，使用自动布局可以减少很多布局上面的隐患，其实这点来说，我也推荐是用自动布局，因为自动布局的强大之处已经不用我来多说了。</p>
+<p><strong>AXBadgeView</strong>中怎样控制badge view显示的偏移量呢？通过设置badge instance的<code>offSets</code>属性来控制，<code>offSets</code>的默认值采用了<code>CGFloat.max</code>和<code>CGFloat.min</code>两个值，max表示就是x的最大值或者y的最小值，min就用来表示x的最小值和y的最小值。<code>offSets</code>的默认值是<code>（CGFloat.max, CGFloat.min）</code>，表示x的最右边和y的最上边，也就是superView的右上角。那么，在使用的过程中，如果想表示边界值的话就通过以上两个值来表示，就不用手动去计算superView的高宽了。同样的，如果想给定指定的<code>offSets</code>值的话，就可以设置这个属性，坐标系就是iOS的默认坐标系。</p>
+<h2 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h2><p>以上已经对<strong>AXBadgeView</strong>做了一定的介绍了，那么这里将做一些总结性的东西，出了以上介绍的几点之外，<strong>AXBadgeView</strong>还具有以下特性：</p>
+<blockquote>
+<ul>
+<li>设置数字显示<code>99+</code>的样式，可以自定义显示的数字.</li>
+<li>自定义显示的样式.</li>
+<li>自定义动画效果.</li>
+<li>当内容为<code>0</code>的时候可以设置隐藏.</li>
+<li>当内容更新的时候，是否动画更新内容.</li>
+</ul>
+</blockquote>
+<h2 id="样式"><a href="#样式" class="headerlink" title="样式"></a>样式</h2><p><strong>AXBadgeView</strong>默认提供了4样式，每一种样式显示的内容都有所区别，在使用的过程中可以根据需求设置不同的样式以达到不痛的效果。样式默认为：<code>.Normal</code>。使用的过程中可以指定<code>style</code>来确定显示的样式和内容：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">enum AXBadgeViewStyle: Int &#123;&#10;    /// Normal shows a red dot.&#10;    case Normal&#10;    /// Number shows a number form text.&#10;    case Number&#10;    /// Text shows a custom text.&#10;    case Text&#10;    /// New shows a new text.&#10;    case New&#10;&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>.Normal：显示小红点.</li>
+<li>.Number：显示数字.</li>
+<li>.Text：显示普通文本.</li>
+<li>.New：显示<code>new</code>文本.</li>
+</ul>
+<p>通过代码实现更改样式：</p>
+<p>objective-c：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">_showsView.badgeView.style = AXBadgeViewNew;</span><br></pre></td></tr></table></figure>
+<p>swift：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">showsView.badgeView.style = AXBadgeViewStyle.New</span><br></pre></td></tr></table></figure>
+<h2 id="动画"><a href="#动画" class="headerlink" title="动画"></a>动画</h2><p><strong>AXBadgeView</strong>提供了4种动画，每一种动画都有不同的显示效果。在使用的过程中可以设置不同的动画类型来实现不同的显示效果。动画默认为<code>.None</code>即无动画，那么在设置相应的动画类型的话可以通过设置<code>animation</code>来指定响应的动画类型：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">enum AXBadgeViewAnimation: Int &#123;&#10;    /// Animation none, badge view stay still.&#10;    case None&#10;    /// Animation scale.&#10;    case Scale&#10;    /// Animation shake.&#10;    case Shake&#10;    /// Animation bounce.&#10;    case Bounce&#10;    /// Animation breathe.&#10;    case Breathe&#10;&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>.None：默认，不显示任何动画.</li>
+<li>.Scale：缩放动画.</li>
+<li>.Shake：震动动画.</li>
+<li>.Bounce：反弹动画.</li>
+<li>.Breathe：渐变动画.</li>
+</ul>
+<p>代码示例：</p>
+<p>objective-c：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">_showsView.badgeView.animation = AXBadgeViewAnimationScale</span><br></pre></td></tr></table></figure>
+<p>swift：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">showsView.badgeView.animation = AXBadgeViewAnimation.Scale</span><br></pre></td></tr></table></figure>
+<h1 id="API"><a href="#API" class="headerlink" title="API"></a>API</h1><p>我在写这个工具类的时候就考虑到API友好的这个实际问题了，那么这样的一个工具应该怎样去设计它的API接口呢？在软件开发中，耦合度越低对我们整个项目的研发和维护是有很大帮助的，所以我们在设计一个API的时候，就要尽量去考虑到耦合度的因素。</p>
+<p><strong>AXBadgeView</strong>接口很简单，在使用的过程中过我们只需要关心<code>显示</code>和<code>隐藏</code>的接口就行了，其他的细节已经处理好了：</p>
+<p><code>show(animated:inView:)</code></p>
+<p><code>hide(animated:completion:)</code></p>
+<p><strong>AXBadgeView</strong>采用了协议和类扩展的形式，直接在<code>UIView</code>、<code>UIBarButtonItem</code>、<code>UITabBarItem</code>中直接添加并实现了相应的接口，使用起来很方便。在<strong>OC</strong>中使用了运行时添加<strong>Associated Objects</strong>的方式添加了<strong>badgeView</strong>属性和相关的饿方法。那么在<strong>Swift</strong>中的话就有点差别，<strong>Swift</strong>中在添加了以上三个类的扩展以外，还实现了对应的协议：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">protocol AXBadgeViewDelegate &#123;&#10;    /// Badge view property.&#10;    var badgeView: AXBadgeView &#123;get set&#125;&#10;    /// Animated to show the badge view.&#10;    func showBadge(animated animated: Bool) -&#62; Void&#10;    /// Animated to hide the badge view.&#10;    func clearBadge(animated animated: Bool) -&#62; Void&#10;&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="怎样接入我的项目？"><a href="#怎样接入我的项目？" class="headerlink" title="怎样接入我的项目？"></a>怎样接入我的项目？</h1><h2 id="源文件"><a href="#源文件" class="headerlink" title="源文件"></a>源文件</h2><p>直接引用就是直接在GitHub下载代码源文件<a href="https://github.com/devedbox/AXBadgeView-Swift" target="_blank" rel="external">AXBadgeView-Swift</a>—–&gt;<a href="https://github.com/devedbox/AXBadgeView" target="_blank" rel="external">Objective-C版</a>，并将下载的源文件导入工程：</p>
+<ol>
+<li><p>swift直接使用.</p>
+</li>
+<li><p>oc在需要使用的地方<code>#import &quot;AXBadgeView.h&quot;</code>.</p>
+</li>
+</ol>
+<h2 id="CocoaPods"><a href="#CocoaPods" class="headerlink" title="CocoaPods"></a>CocoaPods</h2><p><a href="http://cocoapods.org" target="_blank" rel="external">CocoaPods</a> 依赖管理是比较使用起来比较方便的一种方式，只需要添加相应的依赖描述，便可直接接入现有项目：</p>
+<ol>
+<li>添加pod描述到你的Podfile问家里边： <code>pod &#39;AXPopoverView&#39;, &#39;~&gt; 0.1.0&#39;</code></li>
+<li>运行安装命令： <code>pod install</code>.</li>
+<li><ul>
+<li>swift直接使用.</li>
+<li>oc在需要使用的地方<code>#import &quot;AXBadgeView.h&quot;</code>.</li>
+</ul>
+</li>
+</ol>
+<h1 id="License"><a href="#License" class="headerlink" title="License"></a>License</h1><p>This code is distributed under the terms and conditions of the <a href="LICENSE">MIT license</a>. </p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/AXBadgeView/" rel="tag">#AXBadgeView</a>
+          
+            <a href="/tags/Swift/" rel="tag">#Swift</a>
+          
+            <a href="/tags/iOS/" rel="tag">#iOS</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/03/03/Objective-C文档注释/" rel="next" title="Objective-C文档注释">
+                <i class="fa fa-chevron-left"></i> Objective-C文档注释
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/03/08/mind002/" rel="prev" title="技术之路－外包">
+                技术之路－外包 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/03/05/AXBadgeView-Swift/"
+           data-title="iOS开发－应用内角标" data-url="devedbox.com/2016/03/05/AXBadgeView-Swift/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="devedbox" />
+          <p class="site-author-name" itemprop="name">devedbox</p>
+          <p class="site-description motion-element" itemprop="description">你给我想不到的快乐像绿洲给了沙漠</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">11</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+          
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/devedbox" target="_blank">
+                  
+                    <i class="fa fa-github"></i> GitHub
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/AAxXxA" target="_blank">
+                  
+                    <i class="fa fa-weibo"></i> Weibo
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#导语"><span class="nav-number">1.</span> <span class="nav-text">导语</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#介绍"><span class="nav-number">2.</span> <span class="nav-text">介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#特性"><span class="nav-number">2.1.</span> <span class="nav-text">特性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#样式"><span class="nav-number">2.2.</span> <span class="nav-text">样式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#动画"><span class="nav-number">2.3.</span> <span class="nav-text">动画</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#API"><span class="nav-number">3.</span> <span class="nav-text">API</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#怎样接入我的项目？"><span class="nav-number">4.</span> <span class="nav-text">怎样接入我的项目？</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#源文件"><span class="nav-number">4.1.</span> <span class="nav-text">源文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CocoaPods"><span class="nav-number">4.2.</span> <span class="nav-text">CocoaPods</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#License"><span class="nav-number">5.</span> <span class="nav-text">License</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">devedbox</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  
+
+
+  
+
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=0.5.0"></script>
+
+
+
+  
+  
+<script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    NexT.motion.middleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+
+      if (CONFIG.scheme !== 'Pisces' && (CONFIG.sidebar.display === 'post' || CONFIG.sidebar.display === 'always')) {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          NexT.utils.displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"devedbox"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("dGgPPFSrVcACvpPPwfL3UwTs-gzGzoHsz", "QewucF4h9rLTKPzLpeshgEer");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+
+</body>
+</html>

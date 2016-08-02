@@ -1,0 +1,2197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>devedbox</title>
+  <subtitle>devedbox&#39;blog | iOS | Objective-C | Swift | Cocoa</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="devedbox.com/"/>
+  <updated>2016-08-02T01:34:32.000Z</updated>
+  <id>devedbox.com/</id>
+  
+  <author>
+    <name>devedbox</name>
+    <email>devedbox@gmail.com</email>
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>AXWebViewController</title>
+    <link href="devedbox.com/2016/08/02/AXWebViewController/"/>
+    <id>devedbox.com/2016/08/02/AXWebViewController/</id>
+    <published>2016-08-02T00:59:12.000Z</published>
+    <updated>2016-08-02T01:34:32.000Z</updated>
+    
+    <content type="html">&lt;h1 id=&quot;AXWebViewController&quot;&gt;&lt;a href=&quot;#AXWebViewController&quot; class=&quot;headerlink&quot; title=&quot;AXWebViewController&quot;&gt;&lt;/a&gt;AXWebViewController&lt;a href=&quot;https://travis-ci.org/devedbox/AXWebViewController&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;&lt;img src=&quot;https://travis-ci.org/devedbox/AXWebViewController.svg?branch=master&quot; alt=&quot;Build Status&quot;&gt;&lt;/a&gt;&lt;a href=&quot;http://cocoapods.org/pods/AXWebViewController&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;&lt;img src=&quot;https://img.shields.io/cocoapods/v/AXWebViewController.svg?style=flat&quot; alt=&quot;Version&quot;&gt;&lt;/a&gt;&lt;a href=&quot;http://cocoapods.org/pods/AXWebViewController&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;&lt;img src=&quot;https://img.shields.io/cocoapods/l/AXWebViewController.svg?style=flat&quot; alt=&quot;License&quot;&gt;&lt;/a&gt;&lt;a href=&quot;http://cocoapods.org/pods/AXWebViewController&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;&lt;img src=&quot;https://img.shields.io/cocoapods/p/AXWebViewController.svg?style=flat&quot; alt=&quot;Platform&quot;&gt;&lt;/a&gt;&lt;/h1&gt;&lt;p&gt;##Summary&lt;br&gt;&lt;code&gt;AXWebViewController&lt;/code&gt;是一款易用的基于&lt;code&gt;UIWebView&lt;/code&gt;（20160716更新：iOS8.0以上使用&lt;code&gt;WKWebView&lt;/code&gt;实现）封装的网页浏览控制器. 在系统功能的基础上添加了工具条导航，可以刷新、返回、前进、等操作，同时，&lt;code&gt;AXWebViewController&lt;/code&gt;还实现了&lt;code&gt;微信样式&lt;/code&gt;的导航返回支持，集成简单，使用方便。如图所示：&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://ww3.sinaimg.cn/large/d2297bd2gw1f5wpniezqpg209o0h44qr.gif&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;&lt;img src=&quot;http://ww3.sinaimg.cn/large/d2297bd2gw1f5wpniezqpg209o0h44qr.gif&quot; alt=&quot;sample2&quot;&gt;&lt;/a&gt;    &lt;a href=&quot;http://ww4.sinaimg.cn/large/d2297bd2gw1f5wpmh7vfgg209o0h4qv5.gif&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;&lt;img src=&quot;http://ww4.sinaimg.cn/large/d2297bd2gw1f5wpmh7vfgg209o0h4qv5.gif&quot; alt=&quot;sample&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://video.weibo.com/show?fid=1034:5a4102ad40573447a44ae74d56a80451&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;视频链接&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;Features&quot;&gt;&lt;a href=&quot;#Features&quot; class=&quot;headerlink&quot; title=&quot;Features&quot;&gt;&lt;/a&gt;Features&lt;/h2&gt;&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;手势滑动返回上个网页&lt;/li&gt;
+&lt;li&gt;微信样式导航返回&lt;/li&gt;
+&lt;li&gt;网页加载失败提示（iOS8.0以下）&lt;/li&gt;
+&lt;li&gt;网页加载进度提示&lt;/li&gt;
+&lt;li&gt;网页来源提示&lt;/li&gt;
+&lt;li&gt;支持&lt;strong&gt;Peek&lt;/strong&gt;和&lt;strong&gt;Pop&lt;/strong&gt;浏览网页，并且commit之后在本网页进行加载，不用跳转到Safari进行浏览，这里使用到了很多运行时的方法，因此，在使用的过程中可能会抛异常。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;Requirements&quot;&gt;&lt;a href=&quot;#Requirements&quot; class=&quot;headerlink&quot; title=&quot;Requirements&quot;&gt;&lt;/a&gt;Requirements&lt;/h2&gt;&lt;p&gt;&lt;code&gt;AXWebViewController&lt;/code&gt; 对系统版本支持到iOS7.0，需要使用到：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;Foundation.framework&lt;/li&gt;
+&lt;li&gt;UIKit.framework&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;使用的时候最好使用最新版Xcode。&lt;/p&gt;
+&lt;h2 id=&quot;Adding-AXWebViewController-to-your-projet&quot;&gt;&lt;a href=&quot;#Adding-AXWebViewController-to-your-projet&quot; class=&quot;headerlink&quot; title=&quot;Adding AXWebViewController to your projet&quot;&gt;&lt;/a&gt;Adding AXWebViewController to your projet&lt;/h2&gt;&lt;h3 id=&quot;CocoaPods&quot;&gt;&lt;a href=&quot;#CocoaPods&quot; class=&quot;headerlink&quot; title=&quot;CocoaPods&quot;&gt;&lt;/a&gt;CocoaPods&lt;/h3&gt;&lt;p&gt;&lt;a href=&quot;http://cocoapods.org&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;CocoaPods&lt;/a&gt; is the recommended way to add AXWebViewController to your project.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Add a pod entry for AXPopoverView to your Podfile &lt;code&gt;pod &amp;#39;AXWebViewController&amp;#39;, &amp;#39;~&amp;gt; 0.1.10&amp;#39;&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Install the pod(s) by running &lt;code&gt;pod install&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Include AXPopoverView wherever you need it with &lt;code&gt;#import &amp;quot;AXWebViewController.h&amp;quot;&lt;/code&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&quot;Source-files&quot;&gt;&lt;a href=&quot;#Source-files&quot; class=&quot;headerlink&quot; title=&quot;Source files&quot;&gt;&lt;/a&gt;Source files&lt;/h3&gt;&lt;p&gt;Alternatively you can directly add the &lt;code&gt;AXWebViewController.h&lt;/code&gt;、&lt;code&gt;AXWebNavigationViewController.h&lt;/code&gt; and &lt;code&gt;AXWebViewController.m&lt;/code&gt;、&lt;code&gt;AXWebNavigationViewController.m&lt;/code&gt; source files to your project.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Download the &lt;a href=&quot;https://github.com/devedbox/AXWebViewController/archive/master.zip&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;latest code version&lt;/a&gt; or add the repository as a git submodule to your git-tracked project. &lt;/li&gt;
+&lt;li&gt;Open your project in Xcode, then drag and drop &lt;code&gt;AXWebViewController.h&lt;/code&gt; and &lt;code&gt;AXWebViewControllerm&lt;/code&gt; onto your project (use the “Product Navigator view”). Make sure to select Copy items when asked if you extracted the code archive outside of your project. &lt;/li&gt;
+&lt;li&gt;Include AXPopoverView wherever you need it with &lt;code&gt;#import &amp;quot;AXWebViewController.h&amp;quot;&lt;/code&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&quot;License&quot;&gt;&lt;a href=&quot;#License&quot; class=&quot;headerlink&quot; title=&quot;License&quot;&gt;&lt;/a&gt;License&lt;/h2&gt;&lt;p&gt;This code is distributed under the terms and conditions of the &lt;a href=&quot;LICENSE&quot;&gt;MIT license&lt;/a&gt;. &lt;/p&gt;
+&lt;h2 id=&quot;Usage&quot;&gt;&lt;a href=&quot;#Usage&quot; class=&quot;headerlink&quot; title=&quot;Usage&quot;&gt;&lt;/a&gt;Usage&lt;/h2&gt;&lt;p&gt;&lt;code&gt;AXWebViewController&lt;/code&gt;使用和使用普通&lt;code&gt;UIViewController&lt;/code&gt;一样简单，只需要在需要使用的地方使用&lt;code&gt;URL&lt;/code&gt;初始化即可：&lt;br&gt;&lt;figure class=&quot;highlight&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;AXWebViewController *webVC = [[AXWebViewController alloc] initWithAddress:@&amp;#34;http://www.baidu.com&amp;#34;];&amp;#10;webVC.showsToolBar = NO;&amp;#10;webVC.navigationController.navigationBar.translucent = NO;&amp;#10;self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:0.100f green:0.100f blue:0.100f alpha:0.800f];&amp;#10;self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:0.996f green:0.867f blue:0.522f alpha:1.00f];&amp;#10;[self.navigationController pushViewController:webVC animated:YES];&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;h3 id=&quot;使用工具条导航&quot;&gt;&lt;a href=&quot;#使用工具条导航&quot; class=&quot;headerlink&quot; title=&quot;使用工具条导航&quot;&gt;&lt;/a&gt;使用工具条导航&lt;/h3&gt;&lt;p&gt;使用工具条只需在&lt;code&gt;AXWebViewController&lt;/code&gt;初始化之后加入一句代码：&lt;br&gt;&lt;figure class=&quot;highlight&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;webVC.navigationType = AXWebViewControllerNavigationToolItem;&amp;#10;webVC.showsToolBar = YES;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;注意，在设置&lt;code&gt;navigationType&lt;/code&gt;为&lt;code&gt;AXWebViewControllerNavigationToolItem&lt;/code&gt;之后，须确认&lt;code&gt;showsToolBar&lt;/code&gt;为&lt;code&gt;YES&lt;/code&gt;才能生效.&lt;/p&gt;
+&lt;h3 id=&quot;使用微信样式导航&quot;&gt;&lt;a href=&quot;#使用微信样式导航&quot; class=&quot;headerlink&quot; title=&quot;使用微信样式导航&quot;&gt;&lt;/a&gt;使用微信样式导航&lt;/h3&gt;&lt;p&gt;在&lt;code&gt;AXWebViewController&lt;/code&gt;初始化之后加入一句代码：&lt;br&gt;&lt;figure class=&quot;highlight&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;webVC.navigationType = AXWebViewControllerNavigationBarItem;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;即可生效.&lt;/p&gt;
+&lt;h3 id=&quot;Peek-amp-Pop&quot;&gt;&lt;a href=&quot;#Peek-amp-Pop&quot; class=&quot;headerlink&quot; title=&quot;Peek&amp;amp;Pop&quot;&gt;&lt;/a&gt;Peek&amp;amp;Pop&lt;/h3&gt;&lt;p&gt;Peek和Pop使用的是原生的系统功能，在使用的时候只需要将&lt;code&gt;webView.allowsLinkPreview&lt;/code&gt;设置为&lt;code&gt;YES&lt;/code&gt;即可使用，这里需要注意下，在实现Peek和Pop的时候，使用了Runtime的相关知识，而且使用AOP的一个框架&lt;strong&gt;&lt;a href=&quot;https://github.com/steipete/Aspects&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Aspects&lt;/a&gt;&lt;/strong&gt;进行了编程，在使用的过程中可能会出错，当然，出错的几率也是很小的（苹果不可能隔三差五的去修改自家的Private API吧=  =），实现原理就不多讲了，基本上就是运行时的一些知识，代码如下：&lt;br&gt;&lt;figure class=&quot;highlight&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;#10;- (void)hookWebContentCommitPreviewHandler &amp;#123;&amp;#10;    // Find the `WKContentView` in the webview.&amp;#10;    __weak typeof(self) wself = self;&amp;#10;    for (UIView *_view in _webView.scrollView.subviews) &amp;#123;&amp;#10;    if ([_view isKindOfClass:NSClassFromString(@&amp;#34;WKContentView&amp;#34;)]) &amp;#123;&amp;#10;    id _previewItemController = object_getIvar(_view, class_getInstanceVariable([_view class], &amp;#34;_previewItemController&amp;#34;));&amp;#10;    Class _class = [_previewItemController class];&amp;#10;    SEL _performCustomCommitSelector = NSSelectorFromString(@&amp;#34;previewInteractionController:interactionProgress:forRevealAtLocation:inSourceView:containerView:&amp;#34;);&amp;#10;    [_previewItemController aspect_hookSelector:_performCustomCommitSelector withOptions:AspectPositionAfter usingBlock:^() &amp;#123;&amp;#10;        UIViewController *pred = [_previewItemController valueForKeyPath:@&amp;#34;presentedViewController&amp;#34;];&amp;#10;        [pred aspect_hookSelector:NSSelectorFromString(@&amp;#34;_addRemoteView&amp;#34;) withOptions:AspectPositionAfter usingBlock:^() &amp;#123;&amp;#10;            UIViewController *_remoteViewController = object_getIvar(pred, class_getInstanceVariable([pred class], &amp;#34;_remoteViewController&amp;#34;));&amp;#10;            &amp;#10;            [_remoteViewController aspect_hookSelector:@selector(viewDidLoad) withOptions:AspectPositionAfter usingBlock:^() &amp;#123;&amp;#10;                _remoteViewController.view.tintColor = wself.navigationController.navigationBar.tintColor;&amp;#10;            &amp;#125; error:NULL];&amp;#10;        &amp;#125; error:NULL];&amp;#10;        &amp;#10;        NSArray *ddActions = [pred valueForKeyPath:@&amp;#34;ddActions&amp;#34;];&amp;#10;        id openURLAction = [ddActions firstObject];&amp;#10;        &amp;#10;        [openURLAction aspect_hookSelector:NSSelectorFromString(@&amp;#34;perform&amp;#34;) withOptions:AspectPositionInstead usingBlock:^ () &amp;#123;&amp;#10;            NSURL *_url = object_getIvar(openURLAction, class_getInstanceVariable([openURLAction class], &amp;#34;_url&amp;#34;));&amp;#10;            [wself loadURL:_url];&amp;#10;        &amp;#125; error:NULL];&amp;#10;        &amp;#10;        id _lookupItem = object_getIvar(_previewItemController, class_getInstanceVariable([_class class], &amp;#34;_lookupItem&amp;#34;));&amp;#10;        [_lookupItem aspect_hookSelector:NSSelectorFromString(@&amp;#34;commit&amp;#34;) withOptions:AspectPositionInstead usingBlock:^() &amp;#123;&amp;#10;            NSURL *_url = object_getIvar(_lookupItem, class_getInstanceVariable([_lookupItem class], &amp;#34;_url&amp;#34;));&amp;#10;            [wself loadURL:_url];&amp;#10;        &amp;#125; error:NULL];&amp;#10;        [_lookupItem aspect_hookSelector:NSSelectorFromString(@&amp;#34;commitWithTransitionForPreviewViewController:inViewController:completion:&amp;#34;) withOptions:AspectPositionInstead usingBlock:^() &amp;#123;&amp;#10;            NSURL *_url = object_getIvar(_lookupItem, class_getInstanceVariable([_lookupItem class], &amp;#34;_url&amp;#34;));&amp;#10;            [wself loadURL:_url];&amp;#10;        &amp;#125; error:NULL];&amp;#10;        /*&amp;#10;         UIWindow&amp;#10;         -UITransitionView&amp;#10;         --UIVisualEffectView&amp;#10;         ---_UIVisualEffectContentView&amp;#10;         ----UIView&amp;#10;         -----_UIPreviewActionSheetView&amp;#10;         */&amp;#10;        /*&amp;#10;         for (UIView * transitionView in [UIApplication sharedApplication].keyWindow.subviews) &amp;#123;&amp;#10;         if ([transitionView isMemberOfClass:NSClassFromString(@&amp;#34;UITransitionView&amp;#34;)]) &amp;#123;&amp;#10;         transitionView.tintColor = wself.navigationController.navigationBar.tintColor;&amp;#10;         for (UIView *__view in transitionView.subviews) &amp;#123;&amp;#10;         if ([__view isMemberOfClass:NSClassFromString(@&amp;#34;UIVisualEffectView&amp;#34;)]) &amp;#123;&amp;#10;         for (UIView *___view in __view.subviews) &amp;#123;&amp;#10;         if ([___view isMemberOfClass:NSClassFromString(@&amp;#34;_UIVisualEffectContentView&amp;#34;)]) &amp;#123;&amp;#10;         for (UIView *____view in ___view.subviews) &amp;#123;&amp;#10;         if ([____view isMemberOfClass:NSClassFromString(@&amp;#34;UIView&amp;#34;)]) &amp;#123;&amp;#10;         __weak typeof(____view) w____view = ____view;&amp;#10;         [____view aspect_hookSelector:@selector(addSubview:) withOptions:AspectPositionAfter usingBlock:^() &amp;#123;&amp;#10;         for (UIView *actionSheet in w____view.subviews) &amp;#123;&amp;#10;         if ([actionSheet isMemberOfClass:NSClassFromString(@&amp;#34;_UIPreviewActionSheetView&amp;#34;)]) &amp;#123;&amp;#10;         break;&amp;#10;         &amp;#125;&amp;#10;         &amp;#125;&amp;#10;         &amp;#125; error:NULL];&amp;#10;         &amp;#125;&amp;#10;         &amp;#125;break;&amp;#10;         &amp;#125;&amp;#10;         &amp;#125;break;&amp;#10;         &amp;#125;&amp;#10;         &amp;#125;break;&amp;#10;         &amp;#125;&amp;#10;         &amp;#125;&amp;#10;         */&amp;#10;    &amp;#125; error:NULL];&amp;#10;    break;&amp;#10;    &amp;#125;&amp;#10;    &amp;#125;&amp;#10;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;h2 id=&quot;致谢&quot;&gt;&lt;a href=&quot;#致谢&quot; class=&quot;headerlink&quot; title=&quot;致谢&quot;&gt;&lt;/a&gt;致谢&lt;/h2&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/Roxasora/RxWebViewController&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;RxWebViewController&lt;/a&gt;为我提供了思路，有些地方做了参考&lt;/p&gt;
+&lt;p&gt;使用了&lt;a href=&quot;https://github.com/ninjinkun/NJKWebViewProgress&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;NJKWebViewProgress&lt;/a&gt;作为进度条，感谢！&lt;/p&gt;
+&lt;h2 id=&quot;更新日志&quot;&gt;&lt;a href=&quot;#更新日志&quot; class=&quot;headerlink&quot; title=&quot;更新日志&quot;&gt;&lt;/a&gt;更新日志&lt;/h2&gt;&lt;h3 id=&quot;0-1-10&quot;&gt;&lt;a href=&quot;#0-1-10&quot; class=&quot;headerlink&quot; title=&quot;0.1.10&quot;&gt;&lt;/a&gt;0.1.10&lt;/h3&gt;&lt;p&gt;使用基于&lt;code&gt;UIWebView&lt;/code&gt;的实现，进度条使用&lt;code&gt;NJKWebViewProgress&lt;/code&gt;实现.&lt;/p&gt;
+&lt;h3 id=&quot;0-2-0&quot;&gt;&lt;a href=&quot;#0-2-0&quot; class=&quot;headerlink&quot; title=&quot;0.2.0&quot;&gt;&lt;/a&gt;0.2.0&lt;/h3&gt;&lt;p&gt;iOS8.0以上使用&lt;code&gt;WKWebView&lt;/code&gt;实现，进度条使用&lt;code&gt;UIProgressView&lt;/code&gt;实现. 实现了本页面Peek&amp;amp;Pop而不用跳转到Safari进行浏览.&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;AXWebViewController&quot;&gt;&lt;a href=&quot;#AXWebViewController&quot; class=&quot;headerlink&quot; title=&quot;AXWebViewController&quot;&gt;&lt;/a&gt;AXWebViewController&lt;a href=&quot;h
+    
+    </summary>
+    
+      <category term="教程" scheme="devedbox.com/categories/%E6%95%99%E7%A8%8B/"/>
+    
+    
+      <category term="AXWebViewController" scheme="devedbox.com/tags/AXWebViewController/"/>
+    
+      <category term="Objective-C" scheme="devedbox.com/tags/Objective-C/"/>
+    
+      <category term="WebKit" scheme="devedbox.com/tags/WebKit/"/>
+    
+      <category term="iOS" scheme="devedbox.com/tags/iOS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>怎样在Swift中使用CocoaPods</title>
+    <link href="devedbox.com/2016/03/09/How%20to%20Use%20CocoaPods%20with%20Swift/"/>
+    <id>devedbox.com/2016/03/09/How to Use CocoaPods with Swift/</id>
+    <published>2016-03-09T06:43:38.000Z</published>
+    <updated>2016-08-02T01:31:51.000Z</updated>
+    
+    <content type="html">&lt;p&gt;本文由&lt;a href=&quot;http://blog.csdn.net/yake_099&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;yake_099&lt;/a&gt;翻译自&lt;strong&gt;raywenderlich&lt;/strong&gt;，作者：&lt;a href=&quot;http://www.raywenderlich.com/u/JRG.Developer&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Joshua Greene&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;原文：&lt;a href=&quot;http://www.raywenderlich.com/97014/use-cocoapods-with-swift&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;How to Use CocoaPods with Swift&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;转自：&lt;a href=&quot;http://www.cocoachina.com&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Cocoa China&lt;/a&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;p&gt;&lt;img src=&quot;http://cc.cocimg.com/api/uploads/20150629/1435569492795988.jpg&quot; alt=&quot;image-cocoapods&quot;&gt;&lt;/p&gt;
+&lt;h2 id=&quot;CocoaPods是什么？&quot;&gt;&lt;a href=&quot;#CocoaPods是什么？&quot; class=&quot;headerlink&quot; title=&quot;CocoaPods是什么？&quot;&gt;&lt;/a&gt;CocoaPods是什么？&lt;/h2&gt;&lt;p&gt;最近关于CocoaPods有很多的议论。你可能从别的开发者那里听到过，或者在Github的目录中看到过。如果你之前从来没有用过，你可能会问，”CocoaPods到底是什么？”&lt;/p&gt;
+&lt;p&gt;它不是神秘的亚马逊区域的部落人用手捡出来的生可可的豆荚，肯定不是！让&lt;a href=&quot;http://cocoapods.org/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;CocoaPods website&lt;/a&gt;来回答可能是最好的：&lt;/p&gt;
+&lt;p&gt;CocoaPods是Cocoa项目的依赖管理工具。它有上千个能帮你优雅地扩充自己项目的库。&lt;/p&gt;
+&lt;p&gt;优雅地扩展项目听起来很令人好奇，但是什么是依赖管理工具呢？你为什么会需要它呢？&lt;/p&gt;
+&lt;p&gt;无论你正在创建一个什么样的app，你都有可能会用到别的开发者的代码，无论是以框架的形式还是库的形式。你可能很熟悉UIKit和Foundation,这两个都是苹果提供的框架。&lt;/p&gt;
+&lt;p&gt;在这个教程中，你将会：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;了解为什么要和第三方库做朋友&lt;/li&gt;
+&lt;li&gt;安装CocoaPods&lt;/li&gt;
+&lt;li&gt;在一个starter项目中使用CocoaPods&lt;/li&gt;
+&lt;li&gt;安装使用并修改依赖关系文件来提高用户体验&lt;/li&gt;
+&lt;li&gt;了解语义化版本控制&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;为什么库是你的朋友？&quot;&gt;&lt;a href=&quot;#为什么库是你的朋友？&quot; class=&quot;headerlink&quot; title=&quot;为什么库是你的朋友？&quot;&gt;&lt;/a&gt;为什么库是你的朋友？&lt;/h2&gt;&lt;p&gt;尽管你并不一定非要使用第三方库和框架，但是它们确实能节省你很多的时间，可以让你集中注意力在优化自己的app上，而不是敲无数行的你本不需要写的代码。&lt;/p&gt;
+&lt;p&gt;你可以不通过依赖管理工具来使用第三方库和框架，我们网站提供了关于这种使用方式的实践性的教程。例如，这是我们的&lt;a href=&quot;http://www.raywenderlich.com/85080/beginning-alamofire-tutorial&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Alamofire&lt;/a&gt;教程和&lt;a href=&quot;http://www.raywenderlich.com/82706/working-with-json-in-swift-tutorial&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;SwiftyJSON&lt;/a&gt;教程。&lt;/p&gt;
+&lt;p&gt;不使用依赖管理工具，你可以简单地通过手动方式将每个库添加到你的工程里面。然而，这个方法有几个缺点：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;更新一个库到新的版本可能会很麻烦，尤其是一个库依赖于另外一个库的情况，那么就必须将这几个库全部更新&lt;/li&gt;
+&lt;li&gt;在项目中添加三方库可能会需要在代码中做一些本地的修改，这使得之后更新版本更加困难&lt;/li&gt;
+&lt;li&gt;判断你的app中用到的库的当前版本也是一件困难的事，尤其是当你没有提前记录下来的时候&lt;/li&gt;
+&lt;li&gt;如果没有一个中央位置来查看所有可用库的话，查找新库也是一件很困难的事&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;CocoaPods帮你克服以上问题甚至更多别的问题。它抓取库代码，解决库之间的依赖性问题，帮你查找并发现新的库，甚至以最简便的方式为你的项目配置正确的环境。&lt;/p&gt;
+&lt;h2 id=&quot;前提&quot;&gt;&lt;a href=&quot;#前提&quot; class=&quot;headerlink&quot; title=&quot;前提&quot;&gt;&lt;/a&gt;前提&lt;/h2&gt;&lt;p&gt;这篇教程要求你熟悉基础的iOS和Swift开发。如果你完全不了解iOS或者Swift，那么在看这篇教程之前，你最好看下我们网站上一些其他&lt;a href=&quot;http://www.raywenderlich.com/tutorials&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;文章&lt;/a&gt;或者&lt;a href=&quot;http://www.raywenderlich.com/video-tutorials&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;视频&lt;/a&gt;教程，然后再回来看这篇。或者是深入来学习&lt;a href=&quot;http://www.raywenderlich.com/store/ios-apprentice&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;iOS Apprentice&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;这篇教程也包含了使用了Core Graphics的一些类。了解Core Graphics是一件有利的事，但不是必须的。如果你想学习更多关于Core Graphics的知识，请阅读我们的&lt;a href=&quot;http://www.raywenderlich.com/90690/modern-core-graphics-with-swift-part-1&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Modern Core Graphics With Swift&lt;/a&gt;系列。&lt;/p&gt;
+&lt;p&gt;这篇教程要求Xcode 6.3和Swift 1.2.&lt;/p&gt;
+&lt;h1 id=&quot;开始&quot;&gt;&lt;a href=&quot;#开始&quot; class=&quot;headerlink&quot; title=&quot;开始&quot;&gt;&lt;/a&gt;开始&lt;/h1&gt;&lt;p&gt;首先你需要安装CocoaPods。幸运的是，CocoaPods被建立在Ruby上，而最近的Mac OS X版本带有Ruby。这自从OS X 10.7之后就实现了。&lt;/p&gt;
+&lt;p&gt;打开终端并且输入以下命令行：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;sudo gem install cocoapods&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;当要求的时候输入你的密码。终端的输出结果看起来应该是这样的：&lt;br&gt;&lt;img src=&quot;http://cc.cocimg.com/api/uploads/20150629/1435559094776120.png&quot; alt=&quot;image&quot;&gt;&lt;br&gt;你必须使用sudo来安装CocoaPods，但是安装后就无需再使用了。&lt;/p&gt;
+&lt;p&gt;最后，在终端输入以下命令行来完成设置：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;pod setup --verbose&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;这个过程可能需要几分钟的时间，因为它将&lt;a href=&quot;https://github.com/CocoaPods/Specs&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;CocoaPods Master Specs repository&lt;/a&gt;克隆到了你电脑上的~/.cocoapods/目录下。&lt;/p&gt;
+&lt;p&gt;verbose选项记录下了进程运行时的进展，能让你看到进程而不是一个僵在那里的屏幕。&lt;/p&gt;
+&lt;p&gt;太好了，现在你开始设置来使用CocoaPods了。&lt;/p&gt;
+&lt;h1 id=&quot;为客户Ice-Cream-Shop-Inc-开发一款App&quot;&gt;&lt;a href=&quot;#为客户Ice-Cream-Shop-Inc-开发一款App&quot; class=&quot;headerlink&quot; title=&quot;为客户Ice Cream Shop, Inc.开发一款App&quot;&gt;&lt;/a&gt;为客户Ice Cream Shop, Inc.开发一款App&lt;/h1&gt;&lt;p&gt;你的首要客户是Ice Cream Shop, Inc。他们的冰淇淋太受欢迎了以至于不能在柜台接收用户订单了。他们雇佣你来做一个漂亮的iOS应用，那样就能让用户在他们的iPhone上下订单了。&lt;/p&gt;
+&lt;p&gt;你开始开发app了，并且进展得还不错。在这里&lt;a href=&quot;http://cdn4.raywenderlich.com/wp-content/uploads/2015/04/IceCreamShop-Starter-1.2.zip&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;下载开始程序&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;打开IceCreamShop.xcodeproj，然后运行，你会看到一个非常好吃的香草冰淇淋。&lt;br&gt;&lt;img src=&quot;http://cc.cocimg.com/api/uploads/20150629/1435559344893906.png&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
+&lt;p&gt;用户应该能从这个屏幕中选择冰淇淋的口味，但是还不太可能，因为你还没有完成这个功能。&lt;/p&gt;
+&lt;p&gt;从Views/Storyboards&amp;amp;Nibs中打开Main.storyboard来看app的布局。现在我们来快速整体地看一下这个app的核心，”选择你的口味”那一屏：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://cc.cocimg.com/api/uploads/20150629/1435559458539212.png&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;PickFlavorViewController处理用户交互，例如，用户选择了冰淇淋的一种口味&lt;/li&gt;
+&lt;li&gt;PickFlavorDataSource是collection view所展示的不同冰淇淋口味的数据源&lt;/li&gt;
+&lt;li&gt;IceCreamView是一个自定义的view，可以用来展示冰淇淋圆锥形的蛋卷，并且它以Flavor model来支撑&lt;/li&gt;
+&lt;li&gt;ScoopCell是一个自定义的collectionviewcell，它包含了一个ScoopView，这个view也是以Flavor model来支撑的&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;由于每个冰淇淋店一般都会有一些招牌口味，每个也有他们本地的风味。因此，Flavor的实例中包含的数据需要通过web service来提供。&lt;/p&gt;
+&lt;p&gt;然而，这还没有回答问题，”为什么用户不能选择一个冰淇淋口味？”&lt;/p&gt;
+&lt;p&gt;在Controllers这个分组下面，打开PickFlavorViewController.swift，你会看到一个备用的方法：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;private func loadFlavors() &amp;#123;&amp;#10;  // Implement this&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;哈哈，这里面没有口味，你需要实现它。&lt;/p&gt;
+&lt;p&gt;你可以使用NSURLConnection或&lt;a href=&quot;http://www.raywenderlich.com/51127/nsurlsession-tutorial&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;NSURLSession&lt;/a&gt;并用你自己写的网络类，这儿还有一个更简单的办法：&lt;a href=&quot;https://github.com/Alamofire/Alamofire&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Alamofire&lt;/a&gt;，一个开源的网络库。&lt;/p&gt;
+&lt;p&gt;你可能想就这么把它下载下来并将文件拖拽到工程里面。然而，那是很麻烦的方法。CocoaPods提供了更加优雅和灵活的解决方法。&lt;/p&gt;
+&lt;p&gt;所以，闲话少说…&lt;br&gt;&lt;img src=&quot;http://cc.cocimg.com/api/uploads/20150629/1435559914957299.jpg&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
+&lt;h1 id=&quot;安装你的第一个依赖管理工具&quot;&gt;&lt;a href=&quot;#安装你的第一个依赖管理工具&quot; class=&quot;headerlink&quot; title=&quot;安装你的第一个依赖管理工具&quot;&gt;&lt;/a&gt;安装你的第一个依赖管理工具&lt;/h1&gt;&lt;h2 id=&quot;首先你要关掉Xcode&quot;&gt;&lt;a href=&quot;#首先你要关掉Xcode&quot; class=&quot;headerlink&quot; title=&quot;首先你要关掉Xcode&quot;&gt;&lt;/a&gt;首先你要关掉Xcode&lt;/h2&gt;&lt;p&gt;是的，你说的对，该创建Podfile了，在那儿你要定义工程的依赖管理。&lt;/p&gt;
+&lt;p&gt;打开终端，用 cd 命令进入包含你IceCreamShop项目的那个目录下：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;cd ~/Path/To/Folder/Containing/IceCreamShop&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;接下来，输入下面的命令：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;pod init&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;这将为你的项目创建一个&lt;a href=&quot;https://guides.cocoapods.org/using/the-podfile.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;PodFile&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;输入下面的命令行打开PodFile，并使用Xcode进行编辑：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;open -a Xcode Podfile&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;注意&quot;&gt;&lt;a href=&quot;#注意&quot; class=&quot;headerlink&quot; title=&quot;注意&quot;&gt;&lt;/a&gt;注意&lt;/h2&gt;&lt;p&gt;你不能使用TextEdit来编辑Podfile，因为它有可能用图形化的更有吸引力的typeset quotes代替standard quotes，这可能导致CocoaPods不能理解并抛出错误，所以最好用Xcode或者别的编程文本编辑器来编辑你的Podfile。&lt;/p&gt;
+&lt;p&gt;默认的podFile看起来是这样的：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;# Uncomment this line to define a global platform for your project# platform :ios, &amp;#39;6.0&amp;#39; &amp;#10;target &amp;#39;IceCreamShop&amp;#39; do &amp;#10;end &amp;#10;target &amp;#39;IceCreamShopTests&amp;#39; do &amp;#10;end&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;将注释的内容替换成下面的两行：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;platform :ios, &amp;#34;8.0&amp;#34; &amp;#10;use_frameworks!&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;这就告诉了CocoaPods–你的项目使用的是iOS 8.0，并且将使用框架来代替静态库。&lt;/p&gt;
+&lt;p&gt;想要在Swift中使用CocoaPods，你必须明确的写出use_frameworks! 来选择使用框架。如果你忘了写这个，CocoaPods能检测到你使用使用Swift CocoaPods，你安装pods的时候就会报错。&lt;/p&gt;
+&lt;p&gt;如果你仅仅使用过Swift编程,这可能看起来有些奇怪–那是因为Podfiel实际上使用Ruby写的。你无需为了使用CocoaPods而学习Ruby，但是你要知道即使是很小的文字错误通常也会使CocoaPods出错。&lt;/p&gt;
+&lt;h2 id=&quot;关于“库”&quot;&gt;&lt;a href=&quot;#关于“库”&quot; class=&quot;headerlink&quot; title=&quot;关于“库”&quot;&gt;&lt;/a&gt;关于“库”&lt;/h2&gt;&lt;p&gt;你会看到”library”通常代指库或框架。很抱歉这个教程也在无意间混杂了这两个概念。实际上，当某人提到”Swift library”，他们实际上指的是”Swift dynamic frameworks”,因为swift不允许静态库。&lt;/p&gt;
+&lt;p&gt;你可能想知道，”库（library）和框架（frameworkd）和cocoaPod之间的不同之处”。&lt;br&gt;Cocoapod或者简写为”pod”是一种惯常的叫法，用来表示使用Cocoapods工具添加库或者框架到你的应用程序中。&lt;/p&gt;
+&lt;p&gt;iOS 8引入了动态框架，这就允许了代码、图片和其他的东西（assets）可以被一起打包。在iOS 8之前，CocoaPods被作为静态库来创建，就是很”臃肿的”二进制文件。这意味着它包含了一些代码说明设置（例如i386 for the simulator, armv7 for devices等），但是它们不允许包含任何资源，例如图片或资产。&lt;/p&gt;
+&lt;p&gt;另外一个重要的区别是动态框架有命名空间类，而静态库没有。所以，如果单个项目中不同的静态库里分别有一个叫做MyTestClasses的类，那么Xcode可能不能成功创建工程因为它会因重复的标识而导致连接失败。然而，Xcode很乐意在一个工程里的不同框架下分别有一个名字相同的类。&lt;/p&gt;
+&lt;p&gt;为什么这很重要？不像OC，标准的Swift运行时库（runtime libraries）没有包含在iOS中！这意味着你的框架必须包含了必要的Swift运行时库。因此，用Swift语言写的pods必须以动态框架形式创建。如果苹果允许Swift静态库，那么使用同一个标准运行时依赖的不同库中将会产生重复符号。&lt;/p&gt;
+&lt;p&gt;幸运的是，CocoaPods为你做了这些事。它甚至能做到一次性包含需要的依赖关系。你所要做的就是在使用swift cocoaPods时记得在Podfile中包含use_frameworks! ，那就没问题了。&lt;/p&gt;
+&lt;p&gt;amazing，对不对？&lt;/p&gt;
+&lt;h2 id=&quot;安装你的第一个依赖关系&quot;&gt;&lt;a href=&quot;#安装你的第一个依赖关系&quot; class=&quot;headerlink&quot; title=&quot;安装你的第一个依赖关系&quot;&gt;&lt;/a&gt;安装你的第一个依赖关系&lt;/h2&gt;&lt;p&gt;这是使用cocoapods安装你的依赖性文件的最后的时刻。将下面的内容添加到你的Podfile里面&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;pod &amp;#39;Alamofire&amp;#39;, &amp;#39;1.2.3&amp;#39;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;这个是告诉CocoaPods你想添加1.1.4版本的Alamofire到你的工程中作为一个依赖性文件，这是写这篇教程时的最新版本。&lt;/p&gt;
+&lt;h2 id=&quot;保存并关闭podFile&quot;&gt;&lt;a href=&quot;#保存并关闭podFile&quot; class=&quot;headerlink&quot; title=&quot;保存并关闭podFile&quot;&gt;&lt;/a&gt;保存并关闭podFile&lt;/h2&gt;&lt;p&gt;现在你需要告诉Cocoapods为你的工程安装依赖性文件。在终端中输入下面的命令，但是要首先确认你还在包含了IceCreamShop和Podfile的目录下：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;pod install&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;你会看到输出结果与下面的类似&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;Analyzing dependencies&amp;#10;Downloading dependencies&amp;#10;Installing Alamofire (1.1.4)Generating Pods project&amp;#10;Integrating client project&amp;#10; [!] Please close any current Xcode sessions and use `IceCreamShop.xcworkspace` for this project from now on.&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;使用Finder打开你的工程文件夹，你看看到CocoaPods创建了一个新的IceCreamShop.xcworkspace文件和一个Pods文件来存储所有的工程依赖文件。&lt;/p&gt;
+&lt;p&gt;注意：从现在开始，就像命令行警告提示的，你必须使用workspace文件而不是project，否则你将遇到编译错误。&lt;/p&gt;
+&lt;p&gt;太棒了！你已经使用CocoaPods添加了你的第一个依赖管理。&lt;br&gt;&lt;img src=&quot;http://cc.cocimg.com/api/uploads/20150629/1435561853610197.png&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
+&lt;h1 id=&quot;使用安装好的Pods&quot;&gt;&lt;a href=&quot;#使用安装好的Pods&quot; class=&quot;headerlink&quot; title=&quot;使用安装好的Pods&quot;&gt;&lt;/a&gt;使用安装好的Pods&lt;/h1&gt;&lt;p&gt;如果已经打开了Xcode工程，那要关闭它并打开IceCream.xcworkspace.&lt;/p&gt;
+&lt;p&gt;打开PickFlavorViewController.swift，在现有的导入下添加以下代码：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;import Alamofire&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;点击command+b进行编译。如果一切都没有问题，你不会收到任何编译错误的。&lt;/p&gt;
+&lt;p&gt;接下来，用下面的代码代替loadFlavors（）方法&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;private func loadFlavors() &amp;#123;&amp;#10;  let urlString = &amp;#34;http://www.raywenderlich.com/downloads/Flavors.plist&amp;#34;   // 1&amp;#10;  Alamofire.request(.GET, urlString, encoding: .PropertyList(.XMLFormat_v1_0, 0))&amp;#10;    .responsePropertyList &amp;#123; request, response, array, error in     // 2&amp;#10;    if let error = error &amp;#123;&amp;#10;      println(&amp;#34;Error: \(error)&amp;#34;)     // 3&amp;#10;    &amp;#125; else if let array = array as? [[String: String]] &amp;#123;       // 4&amp;#10;      if array.isEmpty &amp;#123;&amp;#10;        println(&amp;#34;No flavors were found!&amp;#34;)       // 5&amp;#10;      &amp;#125; else &amp;#123;&amp;#10;        self.flavors = self.flavorFactory.flavorsFromDictionaryArray(array)&amp;#10;        self.collectionView.reloadData()&amp;#10;        self.selectFirstFlavor()&amp;#10;      &amp;#125;&amp;#10;    &amp;#125;&amp;#10;  &amp;#125;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;下面是对这个过程的详细描述：&quot;&gt;&lt;a href=&quot;#下面是对这个过程的详细描述：&quot; class=&quot;headerlink&quot; title=&quot;下面是对这个过程的详细描述：&quot;&gt;&lt;/a&gt;下面是对这个过程的详细描述：&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;你用Alamofire创建了一个get请求，并下载了一个包含冰淇淋口味的plist文件&lt;/li&gt;
+&lt;li&gt;一般你去看查看请求是否出错并解析错误。现在如果出错的话你只需要打印错误&lt;/li&gt;
+&lt;li&gt;将一个AnyObject?类型数组转换为字典数组&lt;/li&gt;
+&lt;li&gt;如果数组是空的，你只需要打印一个错误信息&lt;/li&gt;
+&lt;li&gt;如果一切都OK的话，你就将FlavorFactory方法创建的包含Flavor对象的数组赋值给self.flavors。这是一个同事为你写的类，是用来将装了字典类型对象的数组转换为Flavor对象。如果你喜欢的话你可以仔细看看这个工厂类，但是它对教程的其他部分不是特别重要&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;编译并运行！现在你可以选择一个冰淇淋口味了！&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://cc.cocimg.com/api/uploads/20150629/1435562294590824.png&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
+&lt;h1 id=&quot;选择装饰物&quot;&gt;&lt;a href=&quot;#选择装饰物&quot; class=&quot;headerlink&quot; title=&quot;选择装饰物&quot;&gt;&lt;/a&gt;选择装饰物&lt;/h1&gt;&lt;p&gt;app看起来很不错了，但是你仍然可以进行优化。&lt;/p&gt;
+&lt;p&gt;你有没有注意到app花费了几秒钟的时间来下载flavors文件？如果你的网络很快的话你可能注意不到，但是用户不会都这么幸运的。&lt;/p&gt;
+&lt;p&gt;为了让用户理解app现在正在加载什么内容，你可以显示一个加载指示器。&lt;a href=&quot;https://github.com/jdg/MBProgressHUD&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;MBProgressHUD&lt;/a&gt;是个很不错的加载指示器.并且它支持CocoaPods，多么的巧合！&lt;/p&gt;
+&lt;p&gt;你需要把这个加入到你的podfile里面。你现在不用通过命令行打开podfile了，你可以在工作区的pods中找到它。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://cc.cocimg.com/api/uploads/20150629/1435562479955282.png&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
+&lt;p&gt;打开podFile并在Alamofire后面加入下面几行：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;pod &amp;#39;MBProgressHUD&amp;#39;, &amp;#39;~&amp;#62; 0.9.0&amp;#39;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;保存文件，并在终端通过pod install命令来安装依赖文件，就像你之前做的那样。&lt;/p&gt;
+&lt;p&gt;这次发现什么不同的了吗？对，你写出了具体的版本号~&amp;gt;0.9.0。这儿会发生什么呢？&lt;/p&gt;
+&lt;p&gt;Cocoapods建议所有的pods都使用语义化版本号（&lt;a href=&quot;http://semver.org/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Semantic Versioning&lt;/a&gt;）。&lt;/p&gt;
+&lt;h1 id=&quot;语义化版本号&quot;&gt;&lt;a href=&quot;#语义化版本号&quot; class=&quot;headerlink&quot; title=&quot;语义化版本号&quot;&gt;&lt;/a&gt;语义化版本号&lt;/h1&gt;&lt;p&gt;这三个数字被定义为主要的，次要的和补丁版本号。例如，版本号0.9.0会被翻译为&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://cc.cocimg.com/api/uploads/20150629/1435562643385337.png&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
+&lt;p&gt;当主要的（major）版本号数字增加时， 意味着你做了一些不能兼容旧版本的更新。当你将pod升级到下一个主要版本时，你可能需要修复编译错误，否则pod可能跟之前表现得不太一样。&lt;/p&gt;
+&lt;p&gt;当次要（minor）版本号增加时，意味着增加了新功能，但同时兼容旧版本。当你决定升级时，你可能需要也可能不需要新的功能，但是它不应该引起编译错误或者改变现有的功能。&lt;/p&gt;
+&lt;p&gt;当补丁（patch）版本号增加的时候，这意味着做了bug修复。但是没有没有增加也没有改变功能。一般来说，你会希望尽快更新补丁版本到最新的版本，以便使用最新最稳定版本的pod。&lt;/p&gt;
+&lt;p&gt;最后，最高版本号（major&amp;gt;minor&amp;gt;patch）必须按照以上规则逐步增加，而较低的版本号必须从0开始。&lt;/p&gt;
+&lt;p&gt;需要一个例子吗？&lt;/p&gt;
+&lt;p&gt;考虑一个当前版本为1.2.3的pod。&lt;/p&gt;
+&lt;p&gt;如果做了一些不能向后兼容的改变，没有新的功能，但是修改了现有的bug，那么下一个版本是2.0.0&lt;/p&gt;
+&lt;h1 id=&quot;挑战时间&quot;&gt;&lt;a href=&quot;#挑战时间&quot; class=&quot;headerlink&quot; title=&quot;挑战时间&quot;&gt;&lt;/a&gt;挑战时间&lt;/h1&gt;&lt;p&gt;1.如果一个pod当前版本号是2.4.6，并且做了一些修复bug的改变，添加了一些向后兼容的功能，新版本应该是多少呢？?&lt;/p&gt;
+&lt;p&gt;答案：2.5.0&lt;/p&gt;
+&lt;p&gt;解释：如果修改包含向后兼容的新功能，次要版本号（monir）就要增加了，并且补丁版本号（patch）就要被置为0.&lt;/p&gt;
+&lt;p&gt;2.如果一个pod的当前版本是3.5.8，并且对当前的功能做了一些改变，新版本应该是多少？&lt;/p&gt;
+&lt;p&gt;答案：4.0.0&lt;/p&gt;
+&lt;p&gt;解释：如果改变修改了现有的功能，那么这就是不向后兼容的。所以，主要版本号（major）必须增加，而次要版本和补充版本置为0.&lt;/p&gt;
+&lt;p&gt;3.如果一个pod的向前版本号是10.20.30并且只修复了一些bug，那么新版本号应该是多少？&lt;/p&gt;
+&lt;p&gt;答案：10.20.31&lt;/p&gt;
+&lt;p&gt;解释：如果只修复了bug，补充版本号（patch）就要增加了。&lt;/p&gt;
+&lt;p&gt;说了这么多，这儿有一个例外：&lt;/p&gt;
+&lt;p&gt;如果一个pod的版本低于1.0.0，这就被认为是测试版，次要版本号（minor）增加可能意味着向后兼容的改变。&lt;/p&gt;
+&lt;p&gt;所以在MBProgressHUB中使用~&amp;gt;0.9.0意味着你需要安装大于或者等于0.9.0但是小于0.10.0的最新的版本.&lt;/p&gt;
+&lt;p&gt;这就保证了你在安装pod的时候获得了最新的bug修复，但是不会意外的拉去向后兼容的改变。这儿还有一些其他的可用操作。具体的列表，请看&lt;a href=&quot;http://guides.cocoapods.org/syntax/podfile.html#pod&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Podfile Syntax Reference&lt;/a&gt;。&lt;br&gt;显示进程&lt;/p&gt;
+&lt;p&gt;现在，回到PickFlavorViewController.swift，在其他的引用下面添加下面的内容&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;import MBProgressHUD&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;下一步，在loadFlavors()后面加入以下方法&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;private func showLoadingHUD() &amp;#123;&amp;#10;  let hud = MBProgressHUD.showHUDAddedTo(contentView, animated: true)&amp;#10;  hud.labelText = &amp;#34;Loading...&amp;#34;&amp;#125; &amp;#10;private func hideLoadingHUD() &amp;#123;&amp;#10;  MBProgressHUD.hideAllHUDsForView(contentView, animated: true)&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;现在在loadFlavors()方法中，添加下面代码：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;private func loadFlavors() &amp;#123;&amp;#10;    let urlString = &amp;#34;http://www.raywenderlich.com/downloads/Flavors.plist&amp;#34; &amp;#10;    showLoadingHUD()  // &amp;#60;-- Add this line&amp;#10;    Alamofire.request(.GET, urlString, encoding: .PropertyList(.XMLFormat_v1_0, 0))&amp;#10;      .responsePropertyList &amp;#123; request, response, array, error in       self.hideLoadingHUD()  // &amp;#60;-- And this line       if let error = error &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;就像方法名字所表明的，showLoadingHUD()方法会在GET请求下载时产生一个MBProgressHUD的实例对象，当请求结束时hideLoadingHUD()会将HUD隐藏。由于showLoadingHUD()在闭包之外所以它不需要前置代码self。&lt;/p&gt;
+&lt;p&gt;编译运行。现在你会看到一个加载指示器：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://cc.cocimg.com/api/uploads/20150629/1435565166988259.png&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
+&lt;p&gt;干的漂亮！用户现在可以选择他们最喜欢的冰淇淋口味了，并且在口味文件下载的时候会显示一个正在加载的指示器。&lt;/p&gt;
+&lt;h1 id=&quot;下一步&quot;&gt;&lt;a href=&quot;#下一步&quot; class=&quot;headerlink&quot; title=&quot;下一步&quot;&gt;&lt;/a&gt;下一步&lt;/h1&gt;&lt;p&gt;你可以从这儿 &lt;a href=&quot;http://cdn2.raywenderlich.com/wp-content/uploads/2015/06/IceCreamShop_Final1.zip&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;下载完整的项目&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;恭喜你，现在你已经学会了使用cocoapods的基础，包括创建和修改依赖性文件，并且理解了语义化版本号。现在你可以准备开始在你自己的项目中使用他们了。&lt;/p&gt;
+&lt;p&gt;当然你 还可以用cocoapods做很多别的事。你可以在&lt;a href=&quot;http://cocoapods.org/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Cocoapods&lt;/a&gt;官方网站上搜索现有的pods。也可以参考&lt;a href=&quot;http://guides.cocoapods.org/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Cocoapods指南&lt;/a&gt;去学习如何使用这个杰出工具的更多细节内容。但是要记住，一旦你开始使用你会好奇你曾经是怎么不用它来进行管理的！&lt;/p&gt;
+&lt;p&gt;希望你享受阅读这篇教程的过程我写的时候。&lt;/p&gt;
+&lt;p&gt;你最喜欢cocoapods的那些部分？哪一部分是你每天的项目最依赖的？请在下面的评论或者论坛中分享！&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本文由&lt;a href=&quot;http://blog.csdn.net/yake_099&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;yake_099&lt;/a&gt;翻译自&lt;strong&gt;raywenderlich&lt;/strong&gt;，作者：&lt;a href=&quot;http:
+    
+    </summary>
+    
+      <category term="教程" scheme="devedbox.com/categories/%E6%95%99%E7%A8%8B/"/>
+    
+    
+      <category term="CocoaPods" scheme="devedbox.com/tags/CocoaPods/"/>
+    
+      <category term="Swift" scheme="devedbox.com/tags/Swift/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>技术之路－外包</title>
+    <link href="devedbox.com/2016/03/08/mind002/"/>
+    <id>devedbox.com/2016/03/08/mind002/</id>
+    <published>2016-03-08T03:15:52.000Z</published>
+    <updated>2016-03-09T01:18:57.000Z</updated>
+    
+    <content type="html">&lt;p&gt;—-记一次谈话心得.&lt;br&gt;编辑：&lt;a href=&quot;http://www.jiangtour.cn&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;酱游科技&lt;/a&gt;IT技术部&lt;/p&gt;
+&lt;h1 id=&quot;收获&quot;&gt;&lt;a href=&quot;#收获&quot; class=&quot;headerlink&quot; title=&quot;收获&quot;&gt;&lt;/a&gt;收获&lt;/h1&gt;&lt;p&gt;外包是一个很具有挑战性的东西，在我们没有任何经验的前提下做外包，其实是一个很大的挑战，所以，能够在与这方面有了一些经验甚至小成就的人谈，是会有很多收获的，但是，别人讲的虽然很有道理，不一定适合我们，我们也不可能照葫芦画瓢的去完全照抄别人的那一套，我们需要做的是在别人的基础上提炼出适合自己的一种方式。我对一些别人的观点甚至做事的方式持一种怀疑态度，真的是这样的吗？&lt;/p&gt;
+&lt;h2 id=&quot;谈判（技术牵引、展现诚意、适当回扣）&quot;&gt;&lt;a href=&quot;#谈判（技术牵引、展现诚意、适当回扣）&quot; class=&quot;headerlink&quot; title=&quot;谈判（技术牵引、展现诚意、适当回扣）&quot;&gt;&lt;/a&gt;谈判（技术牵引、展现诚意、适当回扣）&lt;/h2&gt;&lt;p&gt;合理谈判，用技术的眼光去看问题，在一些问题上要提供可行的且对我们有利的解决方案。&lt;/p&gt;
+&lt;h3 id=&quot;分阶段&quot;&gt;&lt;a href=&quot;#分阶段&quot; class=&quot;headerlink&quot; title=&quot;分阶段&quot;&gt;&lt;/a&gt;分阶段&lt;/h3&gt;&lt;p&gt;将大画小，分不同的阶段解决不同阶段亟待解决的问题，有目的性的完成每个阶段的目标性问题。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;第一阶段定需求，拟出项目主线并根据主线制定&lt;strong&gt;产品需求文档(PRD)&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;第二阶段谈价钱，旁敲侧击出对方的预算这些相关的东西，并根据这些东西适当的给出价格。&lt;/li&gt;
+&lt;li&gt;第三阶段表诚意，在这个基础上表明自己的诚意，若有相关竞争的团队，则试探出对方的报价或者项目对接人回扣这套东西，做一些适当的调整以保证项目能够最终谈成。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4 id=&quot;注意&quot;&gt;&lt;a href=&quot;#注意&quot; class=&quot;headerlink&quot; title=&quot;注意&quot;&gt;&lt;/a&gt;注意&lt;/h4&gt;&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;第一阶段主要谈需求，谈项目主线，根据谈判结果有一周左右时间出具体的方案。&lt;/li&gt;
+&lt;li&gt;第二阶段是根据第一轮筛选后的，期间的一周时间要与对方的对接人私下多交流，从话语中探出对方在此项目的角色，对方的为人等，如果对方只是项目经理或者跟对方公司关联不大的人，从话语中探出对方吃回扣那套，就要表明自己的回扣一般10%~15%，90%的人都吃这套，也是关键点，然后探出对方对此项目的预算，根据预算报价，加大成功可能性。&lt;/li&gt;
+&lt;li&gt;第三阶段一般就最后两个团队竞标，展示出自己的诚意，能通过第二阶段打通的人脉来探出对方外包公司的报价是最好，然后下调自己的价位。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;开发&quot;&gt;&lt;a href=&quot;#开发&quot; class=&quot;headerlink&quot; title=&quot;开发&quot;&gt;&lt;/a&gt;开发&lt;/h2&gt;&lt;h3 id=&quot;开发周期&quot;&gt;&lt;a href=&quot;#开发周期&quot; class=&quot;headerlink&quot; title=&quot;开发周期&quot;&gt;&lt;/a&gt;开发周期&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;第一阶段定需求，根据主线拟定PRD文档。&lt;/li&gt;
+&lt;li&gt;第二阶段出产品图，给需求方查看。&lt;/li&gt;
+&lt;li&gt;第三阶段开发产品，先出demo版，多余需求方进行持续的交流沟通。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4 id=&quot;注意-1&quot;&gt;&lt;a href=&quot;#注意-1&quot; class=&quot;headerlink&quot; title=&quot;注意&quot;&gt;&lt;/a&gt;注意&lt;/h4&gt;&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;外包的开发，分三期，一期定需求、二期出界面、三期开发；也分三个版本，demo版、可运行版本、成品。&lt;/li&gt;
+&lt;li&gt;一期定需求：根据主线些产品需求文档PRD，跟对方核对需求，签字。&lt;/li&gt;
+&lt;li&gt;二期出界面：界面先出主线图，二级页面，出两到三套的界面图（主要定风格、整体样式），当然这里有一套比较完美的其它的是作为对比存在的，给老板选择，让他看到你认真做了，而且他选择也让他参与其中。其中一套一定要接近产品原型，引导对方选择这套，而这套图也将作为技术开这块指定方案，拉近工期。确定好一二级界面后，再出之后的三级四级页面，PRD中一般不会写得那么细，所以在图设计好确定后也要签字，以免不必要的修改。&lt;/li&gt;
+&lt;li&gt;三期开发：主要根据之前累计的模板快速套出产品，不要一次性做出产品在与对方交流，每周最好交流，没半个月出一个版本，所谓版本不是迭代版本而是demo、可运行的、成品几个阶段的版本，让别人看到实际的东西，别人才心里有底。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&quot;关于产品&quot;&gt;&lt;a href=&quot;#关于产品&quot; class=&quot;headerlink&quot; title=&quot;关于产品&quot;&gt;&lt;/a&gt;关于产品&lt;/h4&gt;&lt;p&gt;优先满足界面，客户一般是不关注后台代码也看不懂代码，他们唯一能看到的就是界面展示效果，所有在出版本时候也可以有点吧界面完成。&lt;/p&gt;
+&lt;h4 id=&quot;关于修改&quot;&gt;&lt;a href=&quot;#关于修改&quot; class=&quot;headerlink&quot; title=&quot;关于修改&quot;&gt;&lt;/a&gt;关于修改&lt;/h4&gt;&lt;p&gt;修改在所难免，小修改还是要满足的，但是一定要表现出自己的不情愿与加大了工作量，但是大的修改必须要谈，引导选择其它简单的方案，或者砍掉一部分功能；实在要修改要添加功能，谈价钱。&lt;/p&gt;
+&lt;h1 id=&quot;项目的评判&quot;&gt;&lt;a href=&quot;#项目的评判&quot; class=&quot;headerlink&quot; title=&quot;项目的评判&quot;&gt;&lt;/a&gt;项目的评判&lt;/h1&gt;&lt;p&gt;怎么样去评判一个项目，一个项目要具有一个怎样的样子我们才应该去做？或者说，这个项目到底能够给我们带来什么？在做这个项目的过程中，我们能够有哪些收获？我们做一个外包项目的出发点往往都很直接很明确，那就是赚钱，但是经过昨天与这个行业一些做的比价好的人的接触，我发现，我们只是把自己限制在了一个框架内，因为外包是一个长久的合作或者是一个长久的需要时间去积累的东西，在这个积累的时间内我们可以做很多东西，例如：人脉资源、口碑、谈判的技巧以及技术的实现，这些是钱买不到的东西，这些东西能够创造的价值甚至还要超过我们挣的钱的5番、10番。总之一句话，并不是说钱多的项目我们就要去做，我们要理性的分析这个东西能不能够给我们带来金钱以外的东西，这才是对于现阶段的我们最重要的地方。&lt;/p&gt;
+&lt;h1 id=&quot;利益最大化&quot;&gt;&lt;a href=&quot;#利益最大化&quot; class=&quot;headerlink&quot; title=&quot;利益最大化&quot;&gt;&lt;/a&gt;利益最大化&lt;/h1&gt;&lt;p&gt;能够挣钱的外包才是一个好外包，我们不用去过多的考虑此外的东西，我们不用去过多的关注项目本身。我们在接触的时候就要理性的去判断，这个项目能不能让我们的收益最大化，因为有钱挣才是我们的终极目标。在这个过程中，我们可以做出一些衡量，在能够保证基本资金收益的前提下，是否可以获得除了金钱以外的东西，因为我们现阶段属于创业初期，可能说利益的这个东西已经不仅仅指代金钱了，我们能够获得的其它方面的东西其实对我们来说永远是我们原始财富的积累：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;时间周期长，预算充足。&lt;/li&gt;
+&lt;li&gt;时间紧，预算充足。&lt;/li&gt;
+&lt;li&gt;时间一般，预算一般，能够获取技术上的一些锻炼的机会。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;时间周期长，预算充足，能够获取技术上的锻炼的机会&lt;/strong&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这个只是一个大致的方向，具体的情况视情况而定，总之一个原则：最大化我们的利益，这个利益不只是金钱，还包括能够给我们带来更多机会、创造更多价值的东西。&lt;/p&gt;
+&lt;h1 id=&quot;总结&quot;&gt;&lt;a href=&quot;#总结&quot; class=&quot;headerlink&quot; title=&quot;总结&quot;&gt;&lt;/a&gt;总结&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;谈外包需要先了解产品，然后出方案去竞选。&lt;/li&gt;
+&lt;li&gt;谈项目，展现自己诚意，技术去牵制甲方，建议先做微信端同时建议之后出app端，一定适当的去回扣，关系很重要。&lt;/li&gt;
+&lt;li&gt;模板，外包离不开模板，也是外包公司的生命力，模板可以自己开发产品累积，也可以选购一些现成的行业内比较成熟的模板，也可以买别人的产品反编译，但一定要把模板掌握在自己手里，能够轻松修改。&lt;/li&gt;
+&lt;li&gt;注重表面功夫，不要太自已底层的性能、优化、安全之类的，一般外包维护期就3~6个月，在此期间业务一般增长不会爆表，可以安全渡过，之后就没什么事了。&lt;/li&gt;
+&lt;li&gt;技术选型，一般项目检简单的做，一般项目在外包质保期间用户、并发不会很大，能保证产品流畅运行就ok。&lt;/li&gt;
+&lt;li&gt;服务器，建议选购阿里云，而且让甲方预估自己每个阶段的用户数与并发量，根据用户数给甲方建议配置。&lt;/li&gt;
+&lt;li&gt;在有技术积累的前提下，外包成本可以压到最低，从而达到利润最大化。&lt;/li&gt;
+&lt;li&gt;谈外包是需要把甲方往自己希望的方向上引导，主动权掌握在自己手里，否则会有改不完的需求。&lt;/li&gt;
+&lt;li&gt;尽量让客户先做微信端，然后网页，最后app。&lt;/li&gt;
+&lt;li&gt;UI尽量做到最好，因为客户最先看到的是UI。&lt;/li&gt;
+&lt;li&gt;UI出两套给客户选择，让客户主动选择做得好的一套。&lt;/li&gt;
+&lt;li&gt;微信网页外包相对很好做，效率很高，但是钱比较少。&lt;/li&gt;
+&lt;li&gt;确定客户需求的主线（注意，一定是主线，细节不考虑），估算开发成本，视情况报价。附加功能额外算价钱.&lt;/li&gt;
+&lt;li&gt;谈好之后立即签合同，一切开发按照合同来，如果客户中途改需求，可以按照合同来视情况拒绝或接受（考虑下个版本，价格）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&quot;关于我们&quot;&gt;&lt;a href=&quot;#关于我们&quot; class=&quot;headerlink&quot; title=&quot;关于我们&quot;&gt;&lt;/a&gt;关于我们&lt;/h1&gt;&lt;h2 id=&quot;不足&quot;&gt;&lt;a href=&quot;#不足&quot; class=&quot;headerlink&quot; title=&quot;不足&quot;&gt;&lt;/a&gt;不足&lt;/h2&gt;&lt;p&gt;在以往的项目研发中，我们往往把精力专注于项目本身，很少将目光集中在技术的实现方面，在外包谈判的时候，很少有机会接触到实在的项目，一般都是直接以微信或者网页的形式给我们做，接触的形式与真正意义上的项目还是有很大的区别，其实在这样的一个过程中，我们就会很大程度上的忽略自己所扮演的角色以及我们所擅长的东西。再一点就是在技术研发与实现的过程中，我们能够遇见到一些问题的发生，比如说在设计框架的时候，是应该严格按照规范文档进行设计的，以及API的设计也是非常有讲究的，但是当我们真正去做的时候，却很容易忽略这方面的重要性，甚至是完全按照自己的意愿去写了，这样的一种方式是有问题的，也是目前在技术方面存在的问题之一，我们对于外包业务存在的问题归纳如下：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;接触的外包形式与真正的项目有区别。&lt;/li&gt;
+&lt;li&gt;与外界接触少，对需求方所关注的问题缺乏一个认知。&lt;/li&gt;
+&lt;li&gt;技术在研发的过程中往往忽略代码的重用性，特别是服务器。&lt;/li&gt;
+&lt;li&gt;没有类似的模版或者流程化的东西，效率因此而比较低。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;怎样解决&quot;&gt;&lt;a href=&quot;#怎样解决&quot; class=&quot;headerlink&quot; title=&quot;怎样解决&quot;&gt;&lt;/a&gt;怎样解决&lt;/h2&gt;&lt;p&gt;在整项目的研发过程中，不论是涉及到项目的谈判与竞标还是我们技术的实现，其实我们最缺乏的就是经验，那么我们应该怎么做呢？第一步首先要把自己现在有的东西做好，如果自己的东西都做不好，怎么去做别人的东西？所以我们在做好自己东西的同时，应该多去接触这些东西，能够接一些可以弥补我们技术实现的一些单子来积攒我们所缺乏的模版、经验的东西，从小单子不断的往大单子做，同时要将这一套流程深刻的运用起来。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;先把自己手上的东西做好。&lt;/li&gt;
+&lt;li&gt;其次，从小单子多接触外包这方面的东西。&lt;/li&gt;
+&lt;li&gt;从零开始积攒开发功能模块和模版。&lt;/li&gt;
+&lt;li&gt;多运用流程化的东西。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;技术方向&quot;&gt;&lt;a href=&quot;#技术方向&quot; class=&quot;headerlink&quot; title=&quot;技术方向&quot;&gt;&lt;/a&gt;技术方向&lt;/h2&gt;&lt;p&gt;在产品的研发中，技术的实现是最重要的环节，不管在塑造自己的&lt;strong&gt;口碑&lt;/strong&gt;（说高大上点叫做品牌形象）还是在对自己的&lt;strong&gt;实力的提升&lt;/strong&gt;方面，其实都是很重要的东西，在技术方面，昨天东哥也提到了关于&lt;strong&gt;开发模版&lt;/strong&gt;的这样一个很实在的东西，其实开发模版在我个人的理解来看，就是在开发环节中的一种&lt;em&gt;常用的手段&lt;/em&gt;，我个人十很注重这方面的东西的。但是在我们技术团队内部，这方面是很缺乏的。一方面是这方面的东西接触不多，缺乏这样的一个意识，每次在做项目的时候基本上都是在重复造轮子，这样的开发成本非常大，对我们这样的初期创业团队扩展外包业务甚至说在自己项目的过程中是非常不利的，因为第一点，&lt;strong&gt;开发成本会增大&lt;/strong&gt;，每次花费在同样的功能模块的精力和时间就是成倍的在增加；第二点，&lt;strong&gt;维护的成本也很大&lt;/strong&gt;，如果模块没有分离，相似的模块的维护成本也会随着项目的增加而成倍的增加。所以，在这个过程中，我们需要不断的弥补这方面的缺陷。&lt;/p&gt;
+&lt;h3 id=&quot;模块抽离&quot;&gt;&lt;a href=&quot;#模块抽离&quot; class=&quot;headerlink&quot; title=&quot;模块抽离&quot;&gt;&lt;/a&gt;模块抽离&lt;/h3&gt;&lt;h4 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h4&gt;&lt;p&gt;在建立模版之前，其实更重要的是一些&lt;strong&gt;公用模块的抽离&lt;/strong&gt;，因为模块的抽离是较模版建立而言更为简单、更好把控的环节，说白了，模版也是由这些小模块构建而成的。公用的模块不应该依赖于某一个或两个项目，而应该是与项目实体抽离分开的一个环节，在做项目的时候，&lt;strong&gt;就我们的现状而言，更重要的是注重这方面的问题&lt;/strong&gt;。&lt;/p&gt;
+&lt;h4 id=&quot;实施方案&quot;&gt;&lt;a href=&quot;#实施方案&quot; class=&quot;headerlink&quot; title=&quot;实施方案&quot;&gt;&lt;/a&gt;实施方案&lt;/h4&gt;&lt;h5 id=&quot;客户端&quot;&gt;&lt;a href=&quot;#客户端&quot; class=&quot;headerlink&quot; title=&quot;客户端&quot;&gt;&lt;/a&gt;客户端&lt;/h5&gt;&lt;p&gt;客户端主要指的是&lt;code&gt;iOS&lt;/code&gt;和&lt;code&gt;Android&lt;/code&gt;两个平台的开发，在项目的研发过程中，需要不断的积累使用的开源框架以及一些常用的工具类，在这个基础上做一个大致的分类，那么在下次使用的时候就可以根据特定的开发场景使用相应的一些模块话的功能：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;总结之前写过的项目&lt;code&gt;酱游&lt;/code&gt;、&lt;code&gt;小工蜂师傅版&lt;/code&gt;，将使用到的开源框架或者一些工具类整理归纳。&lt;/li&gt;
+&lt;li&gt;在没有项目的时候，要多写一些框架，上传GitHub，并使用&lt;a href=&quot;https://travis-ci.org/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Travis ci&lt;/a&gt;开源持续集成系统进行在线的测试服务，确保工具类能够正常使用。&lt;/li&gt;
+&lt;li&gt;有项目的时候，在不影响项目周期的大前提下，尽量把模块抽离本工程开发，在新工程里边开发了之后集成在项目中使用。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5 id=&quot;服务器&quot;&gt;&lt;a href=&quot;#服务器&quot; class=&quot;headerlink&quot; title=&quot;服务器&quot;&gt;&lt;/a&gt;服务器&lt;/h5&gt;&lt;p&gt;服务器主要负责网页后端（前端界面的调试与部分js）、微信开发以及App后台的搭建，在项目研发的过程中，其实很多功能模块在相似的场景中是可以通用的，甚至可以将一些数据存储、逻辑操作等做成服务器集群的概念，也就是最近几年比较多的BaaS后端服务，但是这是一个相当浩大的工程，所以需要时间的积累：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;在项目开发的时候，做一个详细规划，同样的使用模块抽离的方式，将通用模块新建一个项目进行设计与实现，同时完成相应的测试以确保模块的功能的稳定性。&lt;/li&gt;
+&lt;li&gt;没有项目的时候总结归纳之前的项目并对抽离完善一些相应的模块。&lt;/li&gt;
+&lt;li&gt;对每个模块，要定期进行测试与维护，确保功能能够正常运行。&lt;/li&gt;
+&lt;li&gt;有项目的时候要增加没有的模块，对现有的模块进行不断的完善。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&quot;结语&quot;&gt;&lt;a href=&quot;#结语&quot; class=&quot;headerlink&quot; title=&quot;结语&quot;&gt;&lt;/a&gt;结语&lt;/h1&gt;&lt;p&gt;在缺乏经验的这个阶段，我们需要的东西是学习，不断的学习、拼搏。只有多去学多去实践，才能获得最终属于我们自己的天空。&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;—-记一次谈话心得.&lt;br&gt;编辑：&lt;a href=&quot;http://www.jiangtour.cn&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;酱游科技&lt;/a&gt;IT技术部&lt;/p&gt;
+&lt;h1 id=&quot;收获&quot;&gt;&lt;a href=&quot;#收获&quot; class=&quot;head
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>iOS开发－应用内角标</title>
+    <link href="devedbox.com/2016/03/05/AXBadgeView-Swift/"/>
+    <id>devedbox.com/2016/03/05/AXBadgeView-Swift/</id>
+    <published>2016-03-05T01:00:00.000Z</published>
+    <updated>2016-08-02T01:30:57.000Z</updated>
+    
+    <content type="html">&lt;h1 id=&quot;导语&quot;&gt;&lt;a href=&quot;#导语&quot; class=&quot;headerlink&quot; title=&quot;导语&quot;&gt;&lt;/a&gt;导语&lt;/h1&gt;&lt;p&gt;在&lt;code&gt;iOS App&lt;/code&gt;的开发中，尤其是在&lt;strong&gt;企业级&lt;/strong&gt;的应用研发中，我们总是把精力放在界面的搭建、网络数据的请求，或者缓存数据的处理，心思就是放在这些核心的业务处理模块，但是，我们往往最容易忽略的就是细节的处理或者说是难度不那么大的地方。那么，如此一来的话，当项目接近尾期的时候才会意识问题所在，其实&lt;strong&gt;细节方面&lt;/strong&gt;的处理也是同等重要的。我以前做的一款App&lt;strong&gt;&lt;a href=&quot;http://www.jiangtour.cn&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;酱游－走出去，与世界为伍&lt;/a&gt;&lt;/strong&gt;的时候，就是在最后的项目接近尾期的时候才反应过来，细节的地方没有处理，最后就拖延了整个项目的上线时间，甚至在上线之后这个地方的处理都还是存在一系列问题的。所以，当我们在做&lt;strong&gt;企业级&lt;/strong&gt;（也可以是其他）应用的时候，往往最不能忽略的地方就是我们所认为的比较简单的地方，一旦有了这样的想法，也不要急，待我慢慢道来：&lt;/p&gt;
+&lt;p&gt;今天要说的是&lt;code&gt;badge&lt;/code&gt;角标管理。&lt;code&gt;badge&lt;/code&gt;角标是显示在某个视图右上角（或者左上角）的用于提示用户消息的一个view，那么这个view有哪些作用呢？其实这个作用非常大，一个友好的badge view可以起到提示用户例如：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;提示未读消息数量.&lt;/li&gt;
+&lt;li&gt;提示新功能新特性的更新.&lt;/li&gt;
+&lt;li&gt;起到一个极大的引导用户操作的作用.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;当然，有强迫症的小伙伴们可能受不了了，但是毕竟是少数（这也不能怪我啊）。&lt;/p&gt;
+&lt;p&gt;那么，怎样的一个badge view才算是一个友好的badge view呢？我们在开发App的时候，其实在&lt;a href=&quot;https://www.github.com&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;GitHub&lt;/a&gt;上用到的开源第三方库斯很多的，我们在评判一个开源库是否友好，无非就是从：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;这个库解决了怎样的问题？&lt;/li&gt;
+&lt;li&gt;是怎样解决的？&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;能否达到我们预期的效果？&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;性能的优化如何，在使用的过程中会不会影响APP的最终性能？&lt;/li&gt;
+&lt;li&gt;API的友好度，是否能够友好的使用接口？&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;这样几个方面来评判（本人观点）。上面提到的几点，其实我个人认为比较重要的是&lt;code&gt;能否达到我们预期的效果？&lt;/code&gt;，因为我们使用第三方库的目的就只有一个：节省时间、提升效率，如果一个开源库不能达到这点要求的话，其实我觉得就算这个开源库很牛X，也不是最适合我们的。&lt;strong&gt;选择一个适合我们的友好的开源库才是最重要的&lt;/strong&gt;。&lt;/p&gt;
+&lt;h1 id=&quot;介绍&quot;&gt;&lt;a href=&quot;#介绍&quot; class=&quot;headerlink&quot; title=&quot;介绍&quot;&gt;&lt;/a&gt;介绍&lt;/h1&gt;&lt;p&gt;&lt;a href=&quot;https://travis-ci.org/devedbox/AXBadgeView-Swift&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;&lt;img src=&quot;https://travis-ci.org/devedbox/AXBadgeView-Swift.svg?branch=master&quot; alt=&quot;Build Status&quot;&gt;&lt;/a&gt;&lt;a href=&quot;http://cocoapods.org/pods/AXBadgeView-Swift&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;&lt;img src=&quot;https://img.shields.io/cocoapods/v/AXBadgeView-Swift.svg?style=flat&quot; alt=&quot;Version&quot;&gt;&lt;/a&gt;&lt;a href=&quot;http://cocoapods.org/pods/AXBadgeView-Swift&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;&lt;img src=&quot;https://img.shields.io/cocoapods/l/AXBadgeView-Swift.svg?style=flat&quot; alt=&quot;License&quot;&gt;&lt;/a&gt;&lt;a href=&quot;http://cocoapods.org/pods/AXBadgeView-Swift&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;&lt;img src=&quot;https://img.shields.io/cocoapods/p/AXBadgeView-Swift.svg?style=flat&quot; alt=&quot;Platform&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/devedbox/AXBadgeView-Swift&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;AXBadgeView-Swift&lt;/a&gt;是一个badge view管理类，是之前我写的&lt;a href=&quot;https://github.com/devedbox/AXBadgeView&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;AXBadgeView&lt;/a&gt;的Swift版本（以下的介绍中统一使用&lt;strong&gt;AXBadgeView&lt;/strong&gt;），在新版本中没有太大的改动，主要的是把原有的功能实用swift实现了，使用方法是一样的。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://ww2.sinaimg.cn/large/d2297bd2gw1f1kwshfqhwg20ab0i94b2.gif&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;AXBadgeView&lt;/strong&gt;是一个badge view视图，继承于&lt;strong&gt;UILabel&lt;/strong&gt;，子类的实现完成了UI的自动布局，自动计算content的bounds大小并可以通过指定&lt;code&gt;minSize&lt;/code&gt;实现badge view最终的bounds大小。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;AXBadgeView&lt;/strong&gt;使用的是自动布局来控制显示的位置的，为什么要用自动布局呢？在我之前做的一个项目中，我使用的是第三方的badge view管理类，在GitHub上的星星还是很多的，但是我使用了之后发现，布局是有问题的，在发现问题之后我就去看了看源码，结果问题显而易见，那个类使用的不是自动布局。那么在这样一个对布局精准度要求较高的地方的话，使用自动布局可以减少很多布局上面的隐患，其实这点来说，我也推荐是用自动布局，因为自动布局的强大之处已经不用我来多说了。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;AXBadgeView&lt;/strong&gt;中怎样控制badge view显示的偏移量呢？通过设置badge instance的&lt;code&gt;offSets&lt;/code&gt;属性来控制，&lt;code&gt;offSets&lt;/code&gt;的默认值采用了&lt;code&gt;CGFloat.max&lt;/code&gt;和&lt;code&gt;CGFloat.min&lt;/code&gt;两个值，max表示就是x的最大值或者y的最小值，min就用来表示x的最小值和y的最小值。&lt;code&gt;offSets&lt;/code&gt;的默认值是&lt;code&gt;（CGFloat.max, CGFloat.min）&lt;/code&gt;，表示x的最右边和y的最上边，也就是superView的右上角。那么，在使用的过程中，如果想表示边界值的话就通过以上两个值来表示，就不用手动去计算superView的高宽了。同样的，如果想给定指定的&lt;code&gt;offSets&lt;/code&gt;值的话，就可以设置这个属性，坐标系就是iOS的默认坐标系。&lt;/p&gt;
+&lt;h2 id=&quot;特性&quot;&gt;&lt;a href=&quot;#特性&quot; class=&quot;headerlink&quot; title=&quot;特性&quot;&gt;&lt;/a&gt;特性&lt;/h2&gt;&lt;p&gt;以上已经对&lt;strong&gt;AXBadgeView&lt;/strong&gt;做了一定的介绍了，那么这里将做一些总结性的东西，出了以上介绍的几点之外，&lt;strong&gt;AXBadgeView&lt;/strong&gt;还具有以下特性：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;设置数字显示&lt;code&gt;99+&lt;/code&gt;的样式，可以自定义显示的数字.&lt;/li&gt;
+&lt;li&gt;自定义显示的样式.&lt;/li&gt;
+&lt;li&gt;自定义动画效果.&lt;/li&gt;
+&lt;li&gt;当内容为&lt;code&gt;0&lt;/code&gt;的时候可以设置隐藏.&lt;/li&gt;
+&lt;li&gt;当内容更新的时候，是否动画更新内容.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;样式&quot;&gt;&lt;a href=&quot;#样式&quot; class=&quot;headerlink&quot; title=&quot;样式&quot;&gt;&lt;/a&gt;样式&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;AXBadgeView&lt;/strong&gt;默认提供了4样式，每一种样式显示的内容都有所区别，在使用的过程中可以根据需求设置不同的样式以达到不痛的效果。样式默认为：&lt;code&gt;.Normal&lt;/code&gt;。使用的过程中可以指定&lt;code&gt;style&lt;/code&gt;来确定显示的样式和内容：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;enum AXBadgeViewStyle: Int &amp;#123;&amp;#10;    /// Normal shows a red dot.&amp;#10;    case Normal&amp;#10;    /// Number shows a number form text.&amp;#10;    case Number&amp;#10;    /// Text shows a custom text.&amp;#10;    case Text&amp;#10;    /// New shows a new text.&amp;#10;    case New&amp;#10;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;ul&gt;
+&lt;li&gt;.Normal：显示小红点.&lt;/li&gt;
+&lt;li&gt;.Number：显示数字.&lt;/li&gt;
+&lt;li&gt;.Text：显示普通文本.&lt;/li&gt;
+&lt;li&gt;.New：显示&lt;code&gt;new&lt;/code&gt;文本.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;通过代码实现更改样式：&lt;/p&gt;
+&lt;p&gt;objective-c：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;_showsView.badgeView.style = AXBadgeViewNew;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;swift：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;showsView.badgeView.style = AXBadgeViewStyle.New&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;动画&quot;&gt;&lt;a href=&quot;#动画&quot; class=&quot;headerlink&quot; title=&quot;动画&quot;&gt;&lt;/a&gt;动画&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;AXBadgeView&lt;/strong&gt;提供了4种动画，每一种动画都有不同的显示效果。在使用的过程中可以设置不同的动画类型来实现不同的显示效果。动画默认为&lt;code&gt;.None&lt;/code&gt;即无动画，那么在设置相应的动画类型的话可以通过设置&lt;code&gt;animation&lt;/code&gt;来指定响应的动画类型：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;enum AXBadgeViewAnimation: Int &amp;#123;&amp;#10;    /// Animation none, badge view stay still.&amp;#10;    case None&amp;#10;    /// Animation scale.&amp;#10;    case Scale&amp;#10;    /// Animation shake.&amp;#10;    case Shake&amp;#10;    /// Animation bounce.&amp;#10;    case Bounce&amp;#10;    /// Animation breathe.&amp;#10;    case Breathe&amp;#10;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;ul&gt;
+&lt;li&gt;.None：默认，不显示任何动画.&lt;/li&gt;
+&lt;li&gt;.Scale：缩放动画.&lt;/li&gt;
+&lt;li&gt;.Shake：震动动画.&lt;/li&gt;
+&lt;li&gt;.Bounce：反弹动画.&lt;/li&gt;
+&lt;li&gt;.Breathe：渐变动画.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;代码示例：&lt;/p&gt;
+&lt;p&gt;objective-c：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;_showsView.badgeView.animation = AXBadgeViewAnimationScale&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;swift：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;showsView.badgeView.animation = AXBadgeViewAnimation.Scale&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h1 id=&quot;API&quot;&gt;&lt;a href=&quot;#API&quot; class=&quot;headerlink&quot; title=&quot;API&quot;&gt;&lt;/a&gt;API&lt;/h1&gt;&lt;p&gt;我在写这个工具类的时候就考虑到API友好的这个实际问题了，那么这样的一个工具应该怎样去设计它的API接口呢？在软件开发中，耦合度越低对我们整个项目的研发和维护是有很大帮助的，所以我们在设计一个API的时候，就要尽量去考虑到耦合度的因素。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;AXBadgeView&lt;/strong&gt;接口很简单，在使用的过程中过我们只需要关心&lt;code&gt;显示&lt;/code&gt;和&lt;code&gt;隐藏&lt;/code&gt;的接口就行了，其他的细节已经处理好了：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;show(animated:inView:)&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;hide(animated:completion:)&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;AXBadgeView&lt;/strong&gt;采用了协议和类扩展的形式，直接在&lt;code&gt;UIView&lt;/code&gt;、&lt;code&gt;UIBarButtonItem&lt;/code&gt;、&lt;code&gt;UITabBarItem&lt;/code&gt;中直接添加并实现了相应的接口，使用起来很方便。在&lt;strong&gt;OC&lt;/strong&gt;中使用了运行时添加&lt;strong&gt;Associated Objects&lt;/strong&gt;的方式添加了&lt;strong&gt;badgeView&lt;/strong&gt;属性和相关的饿方法。那么在&lt;strong&gt;Swift&lt;/strong&gt;中的话就有点差别，&lt;strong&gt;Swift&lt;/strong&gt;中在添加了以上三个类的扩展以外，还实现了对应的协议：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;protocol AXBadgeViewDelegate &amp;#123;&amp;#10;    /// Badge view property.&amp;#10;    var badgeView: AXBadgeView &amp;#123;get set&amp;#125;&amp;#10;    /// Animated to show the badge view.&amp;#10;    func showBadge(animated animated: Bool) -&amp;#62; Void&amp;#10;    /// Animated to hide the badge view.&amp;#10;    func clearBadge(animated animated: Bool) -&amp;#62; Void&amp;#10;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h1 id=&quot;怎样接入我的项目？&quot;&gt;&lt;a href=&quot;#怎样接入我的项目？&quot; class=&quot;headerlink&quot; title=&quot;怎样接入我的项目？&quot;&gt;&lt;/a&gt;怎样接入我的项目？&lt;/h1&gt;&lt;h2 id=&quot;源文件&quot;&gt;&lt;a href=&quot;#源文件&quot; class=&quot;headerlink&quot; title=&quot;源文件&quot;&gt;&lt;/a&gt;源文件&lt;/h2&gt;&lt;p&gt;直接引用就是直接在GitHub下载代码源文件&lt;a href=&quot;https://github.com/devedbox/AXBadgeView-Swift&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;AXBadgeView-Swift&lt;/a&gt;—–&amp;gt;&lt;a href=&quot;https://github.com/devedbox/AXBadgeView&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Objective-C版&lt;/a&gt;，并将下载的源文件导入工程：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;swift直接使用.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;oc在需要使用的地方&lt;code&gt;#import &amp;quot;AXBadgeView.h&amp;quot;&lt;/code&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&quot;CocoaPods&quot;&gt;&lt;a href=&quot;#CocoaPods&quot; class=&quot;headerlink&quot; title=&quot;CocoaPods&quot;&gt;&lt;/a&gt;CocoaPods&lt;/h2&gt;&lt;p&gt;&lt;a href=&quot;http://cocoapods.org&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;CocoaPods&lt;/a&gt; 依赖管理是比较使用起来比较方便的一种方式，只需要添加相应的依赖描述，便可直接接入现有项目：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;添加pod描述到你的Podfile问家里边： &lt;code&gt;pod &amp;#39;AXPopoverView&amp;#39;, &amp;#39;~&amp;gt; 0.1.0&amp;#39;&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;运行安装命令： &lt;code&gt;pod install&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;ul&gt;
+&lt;li&gt;swift直接使用.&lt;/li&gt;
+&lt;li&gt;oc在需要使用的地方&lt;code&gt;#import &amp;quot;AXBadgeView.h&amp;quot;&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h1 id=&quot;License&quot;&gt;&lt;a href=&quot;#License&quot; class=&quot;headerlink&quot; title=&quot;License&quot;&gt;&lt;/a&gt;License&lt;/h1&gt;&lt;p&gt;This code is distributed under the terms and conditions of the &lt;a href=&quot;LICENSE&quot;&gt;MIT license&lt;/a&gt;. &lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;导语&quot;&gt;&lt;a href=&quot;#导语&quot; class=&quot;headerlink&quot; title=&quot;导语&quot;&gt;&lt;/a&gt;导语&lt;/h1&gt;&lt;p&gt;在&lt;code&gt;iOS App&lt;/code&gt;的开发中，尤其是在&lt;strong&gt;企业级&lt;/strong&gt;的应用研发中，我们总是把精力放在界面的搭
+    
+    </summary>
+    
+      <category term="教程" scheme="devedbox.com/categories/%E6%95%99%E7%A8%8B/"/>
+    
+    
+      <category term="AXBadgeView" scheme="devedbox.com/tags/AXBadgeView/"/>
+    
+      <category term="Swift" scheme="devedbox.com/tags/Swift/"/>
+    
+      <category term="iOS" scheme="devedbox.com/tags/iOS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Objective-C文档注释</title>
+    <link href="devedbox.com/2016/03/03/Objective-C%E6%96%87%E6%A1%A3%E6%B3%A8%E9%87%8A/"/>
+    <id>devedbox.com/2016/03/03/Objective-C文档注释/</id>
+    <published>2016-03-03T06:13:47.000Z</published>
+    <updated>2016-08-02T01:32:16.000Z</updated>
+    
+    <content type="html">&lt;p&gt;本文转自&lt;a href=&quot;http://www.cnblogs.com/zyl910/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;zyl910&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&quot;同时兼容appledoc（docset、html）与doxygen（html、pdf）的文档生成&quot;&gt;&lt;a href=&quot;#同时兼容appledoc（docset、html）与doxygen（html、pdf）的文档生成&quot; class=&quot;headerlink&quot; title=&quot;同时兼容appledoc（docset、html）与doxygen（html、pdf）的文档生成&quot;&gt;&lt;/a&gt;同时兼容appledoc（docset、html）与doxygen（html、pdf）的文档生成&lt;/h3&gt;&lt;p&gt;手工写文档是一件苦差事，幸好现在有从源码中抽取注释生成文档的专用工具。对于Objective-C来说，目前最好用的工具是appledoc和doxygen。可是这两种工具对于注释的要求略有区别。于是我经过一番摸索，找到了一套能同时兼容这两种工具的注释写法。&lt;/p&gt;
+&lt;h1 id=&quot;工具简介&quot;&gt;&lt;a href=&quot;#工具简介&quot; class=&quot;headerlink&quot; title=&quot;工具简介&quot;&gt;&lt;/a&gt;工具简介&lt;/h1&gt;&lt;p&gt;&lt;a href=&quot;http://gentlebytes.com/appledoc/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;appledoc&lt;/a&gt;：简单方便，适于生成apple风格的html文档，及直接集成到xcode帮助（docset）.&lt;br&gt;&lt;a href=&quot;http://www.stack.nl/~dimitri/doxygen/index.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;doxygen&lt;/a&gt;：功能强大，适于生成html文档与pdf文档.&lt;/p&gt;
+&lt;h1 id=&quot;系统环境&quot;&gt;&lt;a href=&quot;#系统环境&quot; class=&quot;headerlink&quot; title=&quot;系统环境&quot;&gt;&lt;/a&gt;系统环境&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;Mac OS X Lion 10.7.5&lt;/li&gt;
+&lt;li&gt;Xcode 4.6.2&lt;/li&gt;
+&lt;li&gt;appledoc 2.1&lt;/li&gt;
+&lt;li&gt;doxygen 1.8.4&lt;/li&gt;
+&lt;li&gt;MacTeX-2012&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&quot;注释写法&quot;&gt;&lt;a href=&quot;#注释写法&quot; class=&quot;headerlink&quot; title=&quot;注释写法&quot;&gt;&lt;/a&gt;注释写法&lt;/h1&gt;&lt;p&gt;提示：这一章主要是参考性内容，比较枯燥。请根据需要来阅读——&lt;br&gt;对于想简单学一下注释写法的，读前4节就行了；&lt;br&gt;对于想全面学习appledoc与doxygen均兼容的注释写法的，读前6节就行了；&lt;br&gt;对于既想使用appledoc，又想使用doxygen增强效果的，请阅读所有的节。&lt;/p&gt;
+&lt;h2 id=&quot;注释形式&quot;&gt;&lt;a href=&quot;#注释形式&quot; class=&quot;headerlink&quot; title=&quot;注释形式&quot;&gt;&lt;/a&gt;注释形式&lt;/h2&gt;&lt;p&gt;标准C/C++的注释形式有“//”形式的单行注释 与“/&lt;em&gt; &lt;/em&gt;/”形式的多行注释这两种。而appledoc与doxygen的文档化注释是它们的变种，有多种形式。例如appledoc与doxygen均兼容的注释形式有以下7种.&lt;br&gt;&lt;figure class=&quot;highlight&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;/// Single line comment.&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;/// Single line comment spreading&amp;#10;/// over multiple lines.&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;/** Single line comment. */&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;/** Single line comment spreading&amp;#10; *  over multiple lines.&amp;#10; */&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;/** Single line comment spreading&amp;#10;    over multiple lines. No star.&amp;#10; */&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;/*! Single line comment. */&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;/*! Single line comment spreading&amp;#10;    over multiple lines.&amp;#10; */&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;虽然appledoc与doxygen都支持。但在平时编写代码时，为了避免风格杂乱的视觉污染，应该固定使用注释形式.&lt;/p&gt;
+&lt;h3 id=&quot;单行注释&quot;&gt;&lt;a href=&quot;#单行注释&quot; class=&quot;headerlink&quot; title=&quot;单行注释&quot;&gt;&lt;/a&gt;单行注释&lt;/h3&gt;&lt;p&gt;在很多时候只需写一个简要描述就够了，这时最好使用单行注释。推荐格式为：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;/// 简要描述.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;appledoc与doxygen均会将单行的&lt;code&gt;///&lt;/code&gt;注释识别为简要描述。兼容性非常高.&lt;/p&gt;
+&lt;h4 id=&quot;备注&quot;&gt;&lt;a href=&quot;#备注&quot; class=&quot;headerlink&quot; title=&quot;备注&quot;&gt;&lt;/a&gt;备注&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;文本最好统一以英文句号（.）结尾。这样做有助于代码阅读，明确地得知该段文本已经结束，而且有助于避免乱码时的换行符丢失问题.&lt;/li&gt;
+&lt;li&gt;不要连续多行使用&lt;code&gt;///&lt;/code&gt;, doxygen在默认情况下，会将多行的&lt;code&gt;///&lt;/code&gt;当作详细描述，而没有简要注释. 虽然可以修改doxygen的配置以解决上述问题，但多行&lt;code&gt;///&lt;/code&gt;本身是违背&lt;strong&gt;简要描述&lt;/strong&gt;这个初衷的.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;多行注释&quot;&gt;&lt;a href=&quot;#多行注释&quot; class=&quot;headerlink&quot; title=&quot;多行注释&quot;&gt;&lt;/a&gt;多行注释&lt;/h3&gt;&lt;p&gt;当需要写详细描述时，这时就需要使用多行注释了。推荐格式为：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;/** 简要描述.&lt;br&gt;*&lt;br&gt;* 详细描述或其他.&lt;br&gt;*/&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;对于appledoc与使用了JAVADOC_AUTOBRIEF参数的doxygen来说，它们均会将注释中的第一段识别为简要描述，然后将后面的段识别为详细描述.其实doxygen的标准多行注释为：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;/**&lt;br&gt;* @brief 简要描述.&lt;br&gt;*&lt;br&gt;* 详细描述或其他.&lt;br&gt;*/&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;可惜appledoc对@brief指令的支持存在缺陷——@brief不能出现类、协议的注释中，会导致后续内容丢失。 @brief多行注释仅能安全的用在属性、方法的注释中.&lt;/p&gt;
+&lt;h4 id=&quot;备注-1&quot;&gt;&lt;a href=&quot;#备注-1&quot; class=&quot;headerlink&quot; title=&quot;备注&quot;&gt;&lt;/a&gt;备注&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;多行注释存在&lt;strong&gt;段&lt;/strong&gt;的概念，以内容为空的行作为分段依据。如果没有空行隔开的话，会将连续有内容的行连接起来组成一段.&lt;/li&gt;
+&lt;li&gt;如果省略中间各行行首的星号&lt;code&gt;*&lt;/code&gt;，appledoc与doxygen也能识别。当考虑到注释缩进、美观性、兼容性，还是建议不要省略行首星号.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;行尾注释（仅doxygen）&quot;&gt;&lt;a href=&quot;#行尾注释（仅doxygen）&quot; class=&quot;headerlink&quot; title=&quot;行尾注释（仅doxygen）&quot;&gt;&lt;/a&gt;行尾注释（仅doxygen）&lt;/h3&gt;&lt;p&gt;在对枚举、结构体等类型的成员进行注释时，为了使内容更加紧凑，我们一般喜欢在行尾写注释。&lt;br&gt;　　可惜目前仅有doxygen支持行尾注释，而appledoc不支持.&lt;br&gt;doxygen支持以下4种行尾注释：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;/**&amp;lt; 行尾注释1. appledoc不支持会变为下一项的注释, doxygen 支持, 根据英文句号自动切分简要描述与详细描述. */&lt;/li&gt;
+&lt;li&gt;/*!&amp;lt; 行尾注释2. appledoc不支持会变为下一项的注释, doxygen 支持, 会全部当作详细描述, 而缺少简要描述. */&lt;/li&gt;
+&lt;li&gt;///&amp;lt; 行尾注释3. appledoc不支持会变为下一项的注释, doxygen 支持.&lt;/li&gt;
+&lt;li&gt;//!&amp;lt; 行尾注释4. appledoc不支持会会忽略, doxygen 支持.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;为了避免appledoc误将行尾注释当作下一项的注释，故推荐第4种注释——既以&lt;code&gt;//!&amp;lt;&lt;/code&gt;开头的注释.&lt;/p&gt;
+&lt;h2 id=&quot;类（协议、分类）的注释&quot;&gt;&lt;a href=&quot;#类（协议、分类）的注释&quot; class=&quot;headerlink&quot; title=&quot;类（协议、分类）的注释&quot;&gt;&lt;/a&gt;类（协议、分类）的注释&lt;/h2&gt;&lt;p&gt;对于类（协议、分类）来说，一般只需要写简要描述就行了，这时可以使用单行注释：&lt;br&gt;&lt;figure class=&quot;highlight&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;/// &amp;#25991;&amp;#26723;A.&amp;#10;@interface DocA : NSObject&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;当需要留下详细描述时，可换成多行注释：&lt;br&gt;&lt;figure class=&quot;highlight&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;/** &amp;#25991;&amp;#26723;B.&amp;#10;*&amp;#10;* &amp;#25991;&amp;#26723;B&amp;#30340;&amp;#35814;&amp;#32454;&amp;#25551;&amp;#36848;.&amp;#10;*/&amp;#10;@interface DocB : NSObject&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;h1 id=&quot;未完待续…&quot;&gt;&lt;a href=&quot;#未完待续…&quot; class=&quot;headerlink&quot; title=&quot;未完待续…&quot;&gt;&lt;/a&gt;未完待续…&lt;/h1&gt;</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本文转自&lt;a href=&quot;http://www.cnblogs.com/zyl910/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;zyl910&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&quot;同时兼容appledoc（docset、html）与doxygen（html
+    
+    </summary>
+    
+      <category term="学习" scheme="devedbox.com/categories/%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="Appledoc" scheme="devedbox.com/tags/Appledoc/"/>
+    
+      <category term="Doxygen" scheme="devedbox.com/tags/Doxygen/"/>
+    
+      <category term="Objective-C" scheme="devedbox.com/tags/Objective-C/"/>
+    
+      <category term="iOS" scheme="devedbox.com/tags/iOS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Markdown——入门指南</title>
+    <link href="devedbox.com/2016/03/03/Markdown%E2%80%94%E2%80%94%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/"/>
+    <id>devedbox.com/2016/03/03/Markdown——入门指南/</id>
+    <published>2016-03-03T06:02:30.000Z</published>
+    <updated>2016-08-02T01:32:00.000Z</updated>
+    
+    <content type="html">&lt;p&gt;本文转自：&lt;a href=&quot;http://jianshu.io/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;简书&lt;/a&gt;&lt;br&gt;作者：&lt;a href=&quot;http://www.jianshu.com/users/ea86ff9520da&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Te_Lee&lt;/a&gt;&lt;/p&gt;
+&lt;h1 id=&quot;导语&quot;&gt;&lt;a href=&quot;#导语&quot; class=&quot;headerlink&quot; title=&quot;导语&quot;&gt;&lt;/a&gt;导语&lt;/h1&gt;&lt;p&gt;&lt;a href=&quot;http://zh.wikipedia.org/wiki/Markdown&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Markdown&lt;/a&gt; 是一种轻量级的「标记语言」，它的优点很多，目前也被越来越多的写作爱好者，撰稿者广泛使用。看到这里请不要被「标记」、「语言」所迷惑，Markdown 的语法十分简单。常用的标记符号也不超过十个，这种相对于更为复杂的 HTML 标记语言来说，Markdown 可谓是十分轻量的，学习成本也不需要太多，且一旦熟悉这种语法规则，会有一劳永逸的效果。&lt;br&gt;&lt;strong&gt;&lt;a href=&quot;http://www.ulyssesapp.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Ulysses for Mac: &lt;/a&gt;&lt;/strong&gt;&lt;br&gt;&lt;img src=&quot;http://ww3.sinaimg.cn/large/6aee7dbbjw1eqft66xcg3j21kw12mdub.jpg&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
+&lt;h1 id=&quot;认识-Markdown&quot;&gt;&lt;a href=&quot;#认识-Markdown&quot; class=&quot;headerlink&quot; title=&quot;认识 Markdown&quot;&gt;&lt;/a&gt;认识 Markdown&lt;/h1&gt;&lt;p&gt;在刚才的导语里提到，Markdown 是一种用来写作的轻量级「标记语言」，它用简洁的语法代替排版，而不像一般我们用的字处理软件 Word 或 Pages 有大量的排版、字体设置。它使我们专心于码字，用「标记」语法，来代替常见的排版格式。例如此文从内容到格式，甚至插图，键盘就可以通通搞定了。目前来看，支持 Markdown 语法的编辑器有很多，包括很多网站（例如简书）也支持了 Markdown 的文字录入。Markdown 从写作到完成，导出格式随心所欲，你可以导出 HTML 格式的文件用来网站发布，也可以十分方便的导出 PDF 格式，这种格式写出的简历更能得到 HR 的好感。甚至可以利用 CloudApp 这种云服务工具直接上传至网页用来分享你的文章，全球最大的轻博客平台 Tumblr，也支持 Mou 这类 Markdown 工具的直接上传。&lt;/p&gt;
+&lt;h2 id=&quot;Markdown-官方文档&quot;&gt;&lt;a href=&quot;#Markdown-官方文档&quot; class=&quot;headerlink&quot; title=&quot;Markdown 官方文档&quot;&gt;&lt;/a&gt;Markdown 官方文档&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;这里可以看到官方的 Markdown 语法规则文档，当然，后文我也会用自己的方式阐述这些语法的具体用法。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://daringfireball.net/projects/markdown/syntax&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;创始人 John Gruber 的 Markdown 语法说明&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://wowubuntu.com/markdown/#list&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Markdown 中文版语法说明&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;使用-Markdown-的优点&quot;&gt;&lt;a href=&quot;#使用-Markdown-的优点&quot; class=&quot;headerlink&quot; title=&quot;使用 Markdown 的优点&quot;&gt;&lt;/a&gt;使用 Markdown 的优点&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;专注你的文字内容而不是排版样式，安心写作.&lt;/li&gt;
+&lt;li&gt;轻松的导出 HTML、PDF 和本身的 .md 文件.&lt;/li&gt;
+&lt;li&gt;纯文本内容，兼容所有的文本编辑器与字处理软件.&lt;/li&gt;
+&lt;li&gt;随时修改你的文章版本，不必像字处理软件生成若干文件版本导致混乱.&lt;/li&gt;
+&lt;li&gt;可读、直观、学习成本低&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;使用-Markdown-的误区&quot;&gt;&lt;a href=&quot;#使用-Markdown-的误区&quot; class=&quot;headerlink&quot; title=&quot;使用 Markdown 的误区&quot;&gt;&lt;/a&gt;使用 Markdown 的误区&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;We believe that writing is about content, about what you want to say – not about fancy formatting.&lt;br&gt;我们坚信写作写的是内容，所思所想，而不是花样格式。&lt;br&gt;— Ulysses for Mac&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;Markdown 旨在简洁、高效，也由于 Markdown 的易读易写，人们用不同的编程语言实现了多个版本的解析器和生成器，这就导致了目前不同的 Markdown 工具集成了不同的功能（基础功能大致相同），例如流程图与时序图，复杂表格与复杂公式的呈现，虽然功能的丰富并没有什么本质的缺点，但终归有些背离初衷，何况在编写的过程中很费神，不如使用专业的工具撰写来的更有效率，所以如果你需实现复杂功能，专业的图形界面工具会更加方便。&lt;strong&gt;当然，如果你对折腾这些不同客户端对 Markdown 的定制所带来高阶功能感到愉悦的话，那也是无可厚非的.&lt;/strong&gt;&lt;br&gt;&lt;strong&gt;&lt;a href=&quot;http://ww2.sinaimg.cn/large/6aee7dbbgw1eq320claw3j21kw0kjdpc.jpg&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;flowchart.js on Github（使用 Markdown 绘制流程图）:&lt;/a&gt;&lt;/strong&gt;&lt;br&gt;&lt;img src=&quot;http://ww2.sinaimg.cn/large/6aee7dbbgw1eq320claw3j21kw0kjdpc.jpg&quot; alt=&quot;image&quot;&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;我该用什么工具？&quot;&gt;&lt;a href=&quot;#我该用什么工具？&quot; class=&quot;headerlink&quot; title=&quot;我该用什么工具？&quot;&gt;&lt;/a&gt;我该用什么工具？&lt;/h2&gt;&lt;p&gt;&lt;img src=&quot;http://mouapp.com/Mou_128.png&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;在 Mac OS X 上，我强烈建议你用 &lt;a href=&quot;http://mouapp.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Mou&lt;/a&gt; 这款免费且十分好用的 Markdown 编辑器，它支持&lt;strong&gt;实时预览&lt;/strong&gt;，既左边是你编辑 Markdown 语言，右边会实时的生成预览效果。不仅如此，Mou 还有一些有趣的偏好设置（Preference），例如主题（Themes）与样式（CSS），它们可以配置出定制化的文本编辑效果与导出效果，如果你对自带的主题与样式不满意还可以到 &lt;a href=&quot;https://github.com/search?utf8=✓&amp;amp;q=Mou&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;GitHub&lt;/a&gt; 上搜索其它爱好者为 Mou 编写的更多主题样式，导入的方式可以在偏好设置的 Themes 或 CSS 选项中 选择 reload。&lt;br&gt;&lt;img src=&quot;http://ww1.sinaimg.cn/large/6aee7dbbgw1effcq2gx92j210j0ustj7.jpg&quot; alt=&quot;image&quot;&gt;&lt;br&gt;如果你从事文字工作，我强烈建议你购买 &lt;a href=&quot;http://www.ulyssesapp.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Ulysses for Mac&lt;/a&gt;，这款软件入围了苹果 Mac App Store 的 The Best of 2013。它支持更多的写作格式、多文档的支持。Mou，iA writer 这些软件都是基于单文档的管理方式，而 Ulysses 支持 Folder、Filter 的管理，一个 Folder 里面可以创建多个 Sheet，Sheet 之间也可以进行 Combine 处理&lt;br&gt;&lt;img src=&quot;http://ww1.sinaimg.cn/large/6aee7dbbjw1eqgrj7suqoj217a0aiq4u.jpg&quot; alt=&quot;image&quot;&gt;&lt;/li&gt;
+&lt;li&gt;由于笔者很少接触 Windows，Windows 下的 Markdown 没有过多涉猎，经朋友介绍，有两款还算不错，一款叫做 &lt;a href=&quot;http://www.markdownpad.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;MarkdownPad&lt;/a&gt; ，另一款叫做 &lt;a href=&quot;http://code52.org/DownmarkerWPF/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;MarkPad&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;iOS 端很多 app 早已经支持了 Markdown 录入，例如 Drafts，Day One，iA writer 等，另外 Ulysses for iPad 现在已经上架，可以说是 iOS 平台最好的编辑器了.&lt;/li&gt;
+&lt;li&gt;在 Web端，我强烈推荐&lt;a href=&quot;http://jianshu.io/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;简书&lt;/a&gt;这款产品，上面有无数热爱文字的人在不停的创造，分享。在 Web 端使用 Markdown 没有比简书更舒服的地方了，同样支持左右两栏的实时预览，字体优雅，简洁.&lt;br&gt;&lt;img src=&quot;http://ww2.sinaimg.cn/large/6aee7dbbgw1effdkfijo1j21220nigth.jpg&quot; alt=&quot;image&quot;&gt;]&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&quot;Markdown-语法的简要规则&quot;&gt;&lt;a href=&quot;#Markdown-语法的简要规则&quot; class=&quot;headerlink&quot; title=&quot;Markdown 语法的简要规则&quot;&gt;&lt;/a&gt;Markdown 语法的简要规则&lt;/h1&gt;&lt;h2 id=&quot;标题&quot;&gt;&lt;a href=&quot;#标题&quot; class=&quot;headerlink&quot; title=&quot;标题&quot;&gt;&lt;/a&gt;标题&lt;/h2&gt;&lt;p&gt;&lt;img src=&quot;http://ww1.sinaimg.cn/large/6aee7dbbgw1effeaclhiyj20eh09cwez.jpg&quot; alt=&quot;image&quot;&gt;&lt;br&gt;标题是每篇文章都需要也是最常用的格式，在 Markdown 中，如果一段文字被定义为标题，只要在这段文字前加 &lt;code&gt;#&lt;/code&gt; 号即可.&lt;br&gt;&lt;code&gt;# 一级标题&lt;/code&gt;&lt;br&gt;&lt;code&gt;## 二级标题&lt;/code&gt;&lt;br&gt;&lt;code&gt;### 三级标题&lt;/code&gt;&lt;br&gt;以此类推，总共六级标题，建议在井号后加一个空格，这是最标准的 Markdown 语法.&lt;/p&gt;
+&lt;h2 id=&quot;列表&quot;&gt;&lt;a href=&quot;#列表&quot; class=&quot;headerlink&quot; title=&quot;列表&quot;&gt;&lt;/a&gt;列表&lt;/h2&gt;&lt;p&gt;熟悉 HTML 的同学肯定知道有序列表与无序列表的区别，在 Markdown 下，列表的显示只需要在文字前加上 &lt;code&gt;-&lt;/code&gt; 或 &lt;code&gt;*&lt;/code&gt; 即可变为无序列表，有序列表则直接在文字前加&lt;code&gt;1.&lt;/code&gt; &lt;code&gt;2.&lt;/code&gt; &lt;code&gt;3.&lt;/code&gt; 符号要和文字之间加上一个字符的空格.&lt;br&gt;&lt;img src=&quot;http://ww4.sinaimg.cn/large/6aee7dbbgw1effew5aftij20d80bz3yw.jpg&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
+&lt;h2 id=&quot;引用&quot;&gt;&lt;a href=&quot;#引用&quot; class=&quot;headerlink&quot; title=&quot;引用&quot;&gt;&lt;/a&gt;引用&lt;/h2&gt;&lt;p&gt;如果你需要引用一小段别处的句子，那么就要用引用的格式.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;例如这样&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;只需要在文本前加入 &lt;code&gt;&amp;gt;&lt;/code&gt; 这种尖括号（大于号）即可&lt;br&gt;![引用]&lt;a href=&quot;http://ww3.sinaimg.cn/large/6aee7dbbgw1effezhonxlj20e009c3yu.jpg&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://ww3.sinaimg.cn/large/6aee7dbbgw1effezhonxlj20e009c3yu.jpg&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;图片与链接&quot;&gt;&lt;a href=&quot;#图片与链接&quot; class=&quot;headerlink&quot; title=&quot;图片与链接&quot;&gt;&lt;/a&gt;图片与链接&lt;/h2&gt;&lt;p&gt;插入链接与插入图片的语法很像，区别在一个 &lt;code&gt;!&lt;/code&gt;号&lt;br&gt;图片为：&lt;code&gt;![](){ImgCap}{/ImgCap}&lt;/code&gt;&lt;br&gt;链接为：&lt;code&gt;[]()&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;插入图片的地址需要图床，这里推荐&lt;a href=&quot;http://weibotuchuang.sinaapp.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;围脖图床修复计划&lt;/a&gt; 与 &lt;a href=&quot;http://www.getcloudapp.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;CloudApp&lt;/a&gt; 的服务，生成URL地址即可.&lt;br&gt;&lt;img src=&quot;http://ww2.sinaimg.cn/large/6aee7dbbgw1efffa67voyj20ix0ctq3n.jpg&quot; alt=&quot;URL 与图片&quot;&gt;&lt;/p&gt;
+&lt;h2 id=&quot;粗体与斜体&quot;&gt;&lt;a href=&quot;#粗体与斜体&quot; class=&quot;headerlink&quot; title=&quot;粗体与斜体&quot;&gt;&lt;/a&gt;粗体与斜体&lt;/h2&gt;&lt;p&gt;Markdown 的粗体和斜体也非常简单，用两个 &lt;code&gt;*&lt;/code&gt; 包含一段文本就是粗体的语法，用一个 &lt;code&gt;*&lt;/code&gt; 包含一段文本就是斜体的语法.&lt;/p&gt;
+&lt;p&gt;例如：&lt;strong&gt;这里是粗体&lt;/strong&gt; &lt;em&gt;这里是斜体&lt;/em&gt;&lt;/p&gt;
+&lt;h2 id=&quot;表格&quot;&gt;&lt;a href=&quot;#表格&quot; class=&quot;headerlink&quot; title=&quot;表格&quot;&gt;&lt;/a&gt;表格&lt;/h2&gt;&lt;p&gt;表格是我觉得 Markdown 比较累人的地方，例子如下：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;| Tables        | Are           | Cool  |&amp;#10;| ------------- |:-------------:| -----:|&amp;#10;| col 3 is      | right-aligned | $1600 |&amp;#10;| col 2 is      | centered      |   $12 |&amp;#10;| zebra stripes | are neat      |    $1 |&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;这种语法生成的表格如下：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Tables&lt;/th&gt;
+&lt;th style=&quot;text-align:center&quot;&gt;Are&lt;/th&gt;
+&lt;th style=&quot;text-align:right&quot;&gt;Cool&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;col 3 is&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;right-aligned&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;$1600&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;col 2 is&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;centered&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;$12&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;zebra stripes&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;are neat&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;$1&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;代码框&quot;&gt;&lt;a href=&quot;#代码框&quot; class=&quot;headerlink&quot; title=&quot;代码框&quot;&gt;&lt;/a&gt;代码框&lt;/h2&gt;&lt;p&gt;如果你是个程序猿，需要在文章里优雅的引用代码框，在 Markdown下实现也非常简单，只需要用两个 ` 把中间的代码包裹起来。图例：&lt;br&gt;&lt;img src=&quot;http://ww3.sinaimg.cn/large/6aee7dbbgw1effg1lsa97j20lt0a8dgs.jpg&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
+&lt;p&gt;使用 &lt;code&gt;tab&lt;/code&gt; 键即可缩进.&lt;/p&gt;
+&lt;h2 id=&quot;分割线&quot;&gt;&lt;a href=&quot;#分割线&quot; class=&quot;headerlink&quot; title=&quot;分割线&quot;&gt;&lt;/a&gt;分割线&lt;/h2&gt;&lt;p&gt;分割线的语法只需要三个 &lt;code&gt;*&lt;/code&gt; 号，例如：&lt;/p&gt;
+&lt;hr&gt;
+&lt;blockquote&gt;
+&lt;p&gt;到这里，Markdown 的基本语法在日常的使用中基本就没什么大问题了，只要多加练习，配合好用的工具，写起东西来肯定会行云流水。更多的语法规则，其实 Mou 的 Help 文档栗子很好，当你第一次使用 Mou 时，就会显示该文档。可以用来对用的查找和学习.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&quot;http://ww3.sinaimg.cn/large/6aee7dbbgw1effgmnpgqlj210j0us44j.jpg&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
+&lt;h1 id=&quot;相关推荐&quot;&gt;&lt;a href=&quot;#相关推荐&quot; class=&quot;headerlink&quot; title=&quot;相关推荐:&quot;&gt;&lt;/a&gt;相关推荐:&lt;/h1&gt;&lt;h2 id=&quot;工具&quot;&gt;&lt;a href=&quot;#工具&quot; class=&quot;headerlink&quot; title=&quot;工具&quot;&gt;&lt;/a&gt;工具&lt;/h2&gt;&lt;p&gt;图床工具用来上传图片获取 URL 地址：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://droplr.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Droplr&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.getcloudapp.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Cloudapp&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://itunes.apple.com/cn/app/yi-xiang/id672522335?mt=12&amp;amp;uo=4&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;ezShare for Mac&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://weibotuchuang.sinaapp.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;围脖图床修复计划&lt;/a&gt;&lt;br&gt;在线好用的Markdown工具，为印象笔记而生：&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://maxiang.info/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;马克飞象，专为印象笔记打造的Markdown编辑器，非常推荐&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;相关文章阅读&quot;&gt;&lt;a href=&quot;#相关文章阅读&quot; class=&quot;headerlink&quot; title=&quot;相关文章阅读&quot;&gt;&lt;/a&gt;相关文章阅读&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://jianshu.io/p/qqgjln&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;为什么作家应该用 Markdown 保存自己的文稿&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.yangzhiping.com/tech/r-markdown-knitr.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Markdown写作浅谈&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.appinn.com/markdown-tools/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Markdown 工具补完&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://jianshu.io/p/63HYZ6&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Drafts + Scriptogr.am + Dropbox 打造移动端 Markdown 风格博客&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.ituring.com.cn/article/23&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;图灵社区，怎样使用Markdown&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://news.cnblogs.com/n/139649/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;为什么我们要学习Markdown的三个理由&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://ibuick.me/?p=4093&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Markdown 语法写作入门指南 by ibuick&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;本文首发在少数派转载请注明原作者，如果你觉得这篇文章对你有帮助或启发，也可以来请我喝咖啡-利益相关：本篇文章所有涉及到的软件均为笔者日常所用工具，无任何广告费用&quot;&gt;&lt;a href=&quot;#本文首发在少数派转载请注明原作者，如果你觉得这篇文章对你有帮助或启发，也可以来请我喝咖啡-利益相关：本篇文章所有涉及到的软件均为笔者日常所用工具，无任何广告费用&quot; class=&quot;headerlink&quot; title=&quot;本文首发在少数派转载请注明原作者，如果你觉得这篇文章对你有帮助或启发，也可以来请我喝咖啡. 利益相关：本篇文章所有涉及到的软件均为笔者日常所用工具，无任何广告费用.&quot;&gt;&lt;/a&gt;本文首发在&lt;a href=&quot;http://sspai.com/25137&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;少数派&lt;/a&gt;转载请注明原作者，如果你觉得这篇文章对你有帮助或启发，也可以来请我&lt;a href=&quot;http://ww2.sinaimg.cn/large/6aee7dbbjw1eiixgkex2ij21kw0t7wn5.jpg&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;喝咖啡&lt;/a&gt;. 利益相关：本篇文章所有涉及到的软件均为笔者日常所用工具，无任何广告费用.&lt;/h3&gt;</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本文转自：&lt;a href=&quot;http://jianshu.io/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;简书&lt;/a&gt;&lt;br&gt;作者：&lt;a href=&quot;http://www.jianshu.com/users/ea86ff9520da&quot; target=
+    
+    </summary>
+    
+      <category term="学习" scheme="devedbox.com/categories/%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="Markdown" scheme="devedbox.com/tags/Markdown/"/>
+    
+      <category term="语法" scheme="devedbox.com/tags/%E8%AF%AD%E6%B3%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>CmdMarkdown语法手册</title>
+    <link href="devedbox.com/2016/03/03/CmdMarkdown%E8%AF%AD%E6%B3%95%E6%89%8B%E5%86%8C/"/>
+    <id>devedbox.com/2016/03/03/CmdMarkdown语法手册/</id>
+    <published>2016-03-03T06:00:33.000Z</published>
+    <updated>2016-08-02T01:31:41.000Z</updated>
+    
+    <content type="html">&lt;h1 id=&quot;Cmd-Markdown-简明语法手册&quot;&gt;&lt;a href=&quot;#Cmd-Markdown-简明语法手册&quot; class=&quot;headerlink&quot; title=&quot;Cmd Markdown 简明语法手册&quot;&gt;&lt;/a&gt;Cmd Markdown 简明语法手册&lt;/h1&gt;&lt;p&gt;标签： Cmd-Markdown&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&quot;1-斜体和粗体&quot;&gt;&lt;a href=&quot;#1-斜体和粗体&quot; class=&quot;headerlink&quot; title=&quot;1. 斜体和粗体&quot;&gt;&lt;/a&gt;1. 斜体和粗体&lt;/h3&gt;&lt;p&gt;使用 &lt;code&gt;*&lt;/code&gt; 和 &lt;code&gt;**&lt;/code&gt; 表示斜体和粗体。&lt;/p&gt;
+&lt;p&gt;示例：&lt;/p&gt;
+&lt;p&gt;这是 &lt;em&gt;斜体&lt;/em&gt;，这是 &lt;strong&gt;粗体&lt;/strong&gt;。&lt;/p&gt;
+&lt;h3 id=&quot;2-分级标题&quot;&gt;&lt;a href=&quot;#2-分级标题&quot; class=&quot;headerlink&quot; title=&quot;2. 分级标题&quot;&gt;&lt;/a&gt;2. 分级标题&lt;/h3&gt;&lt;p&gt;使用 &lt;code&gt;===&lt;/code&gt; 表示一级标题，使用 &lt;code&gt;---&lt;/code&gt; 表示二级标题。&lt;/p&gt;
+&lt;p&gt;示例：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;#36825;&amp;#26159;&amp;#19968;&amp;#20010;&amp;#19968;&amp;#32423;&amp;#26631;&amp;#39064;&amp;#10;============================&amp;#10;&amp;#10;&amp;#36825;&amp;#26159;&amp;#19968;&amp;#20010;&amp;#20108;&amp;#32423;&amp;#26631;&amp;#39064;&amp;#10;--------------------------------------------------&amp;#10;&amp;#10;### &amp;#36825;&amp;#26159;&amp;#19968;&amp;#20010;&amp;#19977;&amp;#32423;&amp;#26631;&amp;#39064;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;你也可以选择在行首加井号表示不同级别的标题 (H1-H6)，例如：# H1, ## H2, ### H3，#### H4。&lt;/p&gt;
+&lt;h3 id=&quot;3-外链接&quot;&gt;&lt;a href=&quot;#3-外链接&quot; class=&quot;headerlink&quot; title=&quot;3. 外链接&quot;&gt;&lt;/a&gt;3. 外链接&lt;/h3&gt;&lt;p&gt;使用&lt;code&gt;[描述](链接地址)&lt;/code&gt;为文字增加外链接。&lt;/p&gt;
+&lt;p&gt;示例：&lt;/p&gt;
+&lt;p&gt;这是去往 &lt;a href=&quot;http://ghosertblog.github.com&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;本人博客&lt;/a&gt; 的链接。&lt;/p&gt;
+&lt;h3 id=&quot;4-无序列表&quot;&gt;&lt;a href=&quot;#4-无序列表&quot; class=&quot;headerlink&quot; title=&quot;4. 无序列表&quot;&gt;&lt;/a&gt;4. 无序列表&lt;/h3&gt;&lt;p&gt;使用 &lt;code&gt;*，+，-&lt;/code&gt; 表示无序列表。&lt;/p&gt;
+&lt;p&gt;示例：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;无序列表项 一&lt;/li&gt;
+&lt;li&gt;无序列表项 二&lt;/li&gt;
+&lt;li&gt;无序列表项 三&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;5-有序列表&quot;&gt;&lt;a href=&quot;#5-有序列表&quot; class=&quot;headerlink&quot; title=&quot;5. 有序列表&quot;&gt;&lt;/a&gt;5. 有序列表&lt;/h3&gt;&lt;p&gt;使用数字和点表示有序列表。&lt;/p&gt;
+&lt;p&gt;示例：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;有序列表项 一&lt;/li&gt;
+&lt;li&gt;有序列表项 二&lt;/li&gt;
+&lt;li&gt;有序列表项 三&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&quot;6-文字引用&quot;&gt;&lt;a href=&quot;#6-文字引用&quot; class=&quot;headerlink&quot; title=&quot;6. 文字引用&quot;&gt;&lt;/a&gt;6. 文字引用&lt;/h3&gt;&lt;p&gt;使用 &amp;gt; 表示文字引用。&lt;/p&gt;
+&lt;p&gt;示例：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;野火烧不尽，春风吹又生。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&quot;7-行内代码块&quot;&gt;&lt;a href=&quot;#7-行内代码块&quot; class=&quot;headerlink&quot; title=&quot;7. 行内代码块&quot;&gt;&lt;/a&gt;7. 行内代码块&lt;/h3&gt;&lt;p&gt;使用 `代码` 表示行内代码块。&lt;/p&gt;
+&lt;p&gt;示例：&lt;/p&gt;
+&lt;p&gt;让我们聊聊 &lt;code&gt;html&lt;/code&gt;。&lt;/p&gt;
+&lt;h3 id=&quot;8-代码块&quot;&gt;&lt;a href=&quot;#8-代码块&quot; class=&quot;headerlink&quot; title=&quot;8.  代码块&quot;&gt;&lt;/a&gt;8.  代码块&lt;/h3&gt;&lt;p&gt;使用 四个缩进空格 表示代码块。&lt;/p&gt;
+&lt;p&gt;示例：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;这是一个代码块，此行左侧有四个不可见的空格。
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&quot;9-插入图像&quot;&gt;&lt;a href=&quot;#9-插入图像&quot; class=&quot;headerlink&quot; title=&quot;9.  插入图像&quot;&gt;&lt;/a&gt;9.  插入图像&lt;/h3&gt;&lt;p&gt;使用 ![描述](图片链接地址) 插入图像。&lt;/p&gt;
+&lt;p&gt;示例：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://www.zybuluo.com/static/img/my_head.jpg&quot; alt=&quot;我的头像&quot;&gt;&lt;/p&gt;
+&lt;h1 id=&quot;Cmd-Markdown-高阶语法手册&quot;&gt;&lt;a href=&quot;#Cmd-Markdown-高阶语法手册&quot; class=&quot;headerlink&quot; title=&quot;Cmd Markdown 高阶语法手册&quot;&gt;&lt;/a&gt;Cmd Markdown 高阶语法手册&lt;/h1&gt;&lt;h3 id=&quot;1-内容目录&quot;&gt;&lt;a href=&quot;#1-内容目录&quot; class=&quot;headerlink&quot; title=&quot;1. 内容目录&quot;&gt;&lt;/a&gt;1. 内容目录&lt;/h3&gt;&lt;p&gt;在段落中填写 &lt;code&gt;[TOC]&lt;/code&gt; 以显示全文内容的目录结构。&lt;/p&gt;
+&lt;p&gt;[TOC]&lt;/p&gt;
+&lt;h3 id=&quot;2-标签分类&quot;&gt;&lt;a href=&quot;#2-标签分类&quot; class=&quot;headerlink&quot; title=&quot;2. 标签分类&quot;&gt;&lt;/a&gt;2. 标签分类&lt;/h3&gt;&lt;p&gt;在编辑区任意行的列首位置输入以下代码给文稿标签：&lt;/p&gt;
+&lt;p&gt;标签： 数学 英语 Markdown&lt;/p&gt;
+&lt;p&gt;或者&lt;/p&gt;
+&lt;p&gt;Tags： 数学 英语 Markdown&lt;/p&gt;
+&lt;h3 id=&quot;3-删除线&quot;&gt;&lt;a href=&quot;#3-删除线&quot; class=&quot;headerlink&quot; title=&quot;3. 删除线&quot;&gt;&lt;/a&gt;3. 删除线&lt;/h3&gt;&lt;p&gt;使用 ~~ 表示删除线。&lt;/p&gt;
+&lt;p&gt;&lt;del&gt;这是一段错误的文本。&lt;/del&gt;&lt;/p&gt;
+&lt;h3 id=&quot;4-注脚&quot;&gt;&lt;a href=&quot;#4-注脚&quot; class=&quot;headerlink&quot; title=&quot;4. 注脚&quot;&gt;&lt;/a&gt;4. 注脚&lt;/h3&gt;&lt;p&gt;使用 [^keyword] 表示注脚。&lt;/p&gt;
+&lt;p&gt;这是一个注脚[^footnote]的样例。&lt;/p&gt;
+&lt;p&gt;这是第二个注脚[^footnote2]的样例。&lt;/p&gt;
+&lt;h3 id=&quot;5-LaTeX-公式&quot;&gt;&lt;a href=&quot;#5-LaTeX-公式&quot; class=&quot;headerlink&quot; title=&quot;5. LaTeX 公式&quot;&gt;&lt;/a&gt;5. LaTeX 公式&lt;/h3&gt;&lt;p&gt;$ 表示行内公式： &lt;/p&gt;
+&lt;p&gt;质能守恒方程可以用一个很简洁的方程式 $E=mc^2$ 来表达。&lt;/p&gt;
+&lt;p&gt;$$ 表示整行公式：&lt;/p&gt;
+&lt;p&gt;$$\sum_{i=1}^n a_i=0$$&lt;/p&gt;
+&lt;p&gt;$$f(x_1,x_x,\ldots,x_n) = x_1^2 + x_2^2 + \cdots + x_n^2 $$&lt;/p&gt;
+&lt;p&gt;$$\sum^{j-1}&lt;em&gt;{k=0}{\widehat{\gamma}&lt;/em&gt;{kj} z_k}$$&lt;/p&gt;
+&lt;p&gt;访问 &lt;a href=&quot;http://meta.math.stackexchange.com/questions/5020/mathjax-basic-tutorial-and-quick-reference&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;MathJax&lt;/a&gt; 参考更多使用方法。&lt;/p&gt;
+&lt;h3 id=&quot;6-加强的代码块&quot;&gt;&lt;a href=&quot;#6-加强的代码块&quot; class=&quot;headerlink&quot; title=&quot;6. 加强的代码块&quot;&gt;&lt;/a&gt;6. 加强的代码块&lt;/h3&gt;&lt;p&gt;支持四十一种编程语言的语法高亮的显示，行号显示。&lt;/p&gt;
+&lt;p&gt;非代码示例：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ sudo apt-get install vim-gnome&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;Python 示例：&lt;/p&gt;
+&lt;figure class=&quot;highlight python&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;decorator&quot;&gt;@requires_authorization&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;somefunc&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(param1=&lt;span class=&quot;string&quot;&gt;&#39;&#39;&lt;/span&gt;, param2=&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;)&lt;/span&gt;:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;string&quot;&gt;&#39;&#39;&#39;A docstring&#39;&#39;&#39;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt; param1 &amp;gt; param2: &lt;span class=&quot;comment&quot;&gt;# interesting&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&#39;Greater&#39;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; (param2 - param1 + &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;) &lt;span class=&quot;keyword&quot;&gt;or&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;None&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;class&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;SomeClass&lt;/span&gt;:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;pass&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;prompt&quot;&gt;&amp;gt;&amp;gt;&amp;gt; &lt;/span&gt;message = &lt;span class=&quot;string&quot;&gt;&#39;&#39;&#39;interpreter&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;prompt&quot;&gt;... &lt;/span&gt;prompt&#39;&#39;&#39;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;JavaScript 示例：&lt;/p&gt;
+&lt;figure class=&quot;highlight javascript&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;/**&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;* nth element in the fibonacci series.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;* @param n &amp;gt;= 0&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;* @return the nth element, &amp;gt;= 0.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;*/&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;fib&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;n&lt;/span&gt;) &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; a = &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;, b = &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; tmp;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;while&lt;/span&gt; (--n &amp;gt;= &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;tmp = a;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;a += b;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;b = tmp;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; a;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;built_in&quot;&gt;document&lt;/span&gt;.write(fib(&lt;span class=&quot;number&quot;&gt;10&lt;/span&gt;));&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h3 id=&quot;7-流程图&quot;&gt;&lt;a href=&quot;#7-流程图&quot; class=&quot;headerlink&quot; title=&quot;7. 流程图&quot;&gt;&lt;/a&gt;7. 流程图&lt;/h3&gt;&lt;h4 id=&quot;示例&quot;&gt;&lt;a href=&quot;#示例&quot; class=&quot;headerlink&quot; title=&quot;示例&quot;&gt;&lt;/a&gt;示例&lt;/h4&gt;&lt;figure class=&quot;highlight&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;st=&amp;#62;start: Start:&amp;#62;https://www.zybuluo.com&amp;#10;io=&amp;#62;inputoutput: verification&amp;#10;op=&amp;#62;operation: Your Operation&amp;#10;cond=&amp;#62;condition: Yes or No?&amp;#10;sub=&amp;#62;subroutine: Your Subroutine&amp;#10;e=&amp;#62;end&amp;#10;&amp;#10;st-&amp;#62;io-&amp;#62;op-&amp;#62;cond&amp;#10;cond(yes)-&amp;#62;e&amp;#10;cond(no)-&amp;#62;sub-&amp;#62;io&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h4 id=&quot;更多语法参考：流程图语法参考&quot;&gt;&lt;a href=&quot;#更多语法参考：流程图语法参考&quot; class=&quot;headerlink&quot; title=&quot;更多语法参考：流程图语法参考&quot;&gt;&lt;/a&gt;更多语法参考：&lt;a href=&quot;http://adrai.github.io/flowchart.js/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;流程图语法参考&lt;/a&gt;&lt;/h4&gt;&lt;h3 id=&quot;8-序列图&quot;&gt;&lt;a href=&quot;#8-序列图&quot; class=&quot;headerlink&quot; title=&quot;8. 序列图&quot;&gt;&lt;/a&gt;8. 序列图&lt;/h3&gt;&lt;h4 id=&quot;示例-1&quot;&gt;&lt;a href=&quot;#示例-1&quot; class=&quot;headerlink&quot; title=&quot;示例 1&quot;&gt;&lt;/a&gt;示例 1&lt;/h4&gt;&lt;figure class=&quot;highlight&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;Alice-&amp;#62;Bob: Hello Bob, how are you?&amp;#10;Note right of Bob: Bob thinks&amp;#10;Bob--&amp;#62;Alice: I am good thanks!&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h4 id=&quot;示例-2&quot;&gt;&lt;a href=&quot;#示例-2&quot; class=&quot;headerlink&quot; title=&quot;示例 2&quot;&gt;&lt;/a&gt;示例 2&lt;/h4&gt;&lt;figure class=&quot;highlight&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;Title: Here is a title&amp;#10;A-&amp;#62;B: Normal line&amp;#10;B--&amp;#62;C: Dashed line&amp;#10;C-&amp;#62;&amp;#62;D: Open arrow&amp;#10;D--&amp;#62;&amp;#62;A: Dashed open arrow&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h4 id=&quot;更多语法参考：序列图语法参考&quot;&gt;&lt;a href=&quot;#更多语法参考：序列图语法参考&quot; class=&quot;headerlink&quot; title=&quot;更多语法参考：序列图语法参考&quot;&gt;&lt;/a&gt;更多语法参考：&lt;a href=&quot;http://bramp.github.io/js-sequence-diagrams/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;序列图语法参考&lt;/a&gt;&lt;/h4&gt;&lt;h3 id=&quot;9-表格支持&quot;&gt;&lt;a href=&quot;#9-表格支持&quot; class=&quot;headerlink&quot; title=&quot;9. 表格支持&quot;&gt;&lt;/a&gt;9. 表格支持&lt;/h3&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;项目&lt;/th&gt;
+&lt;th style=&quot;text-align:right&quot;&gt;价格&lt;/th&gt;
+&lt;th style=&quot;text-align:center&quot;&gt;数量&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;计算机&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;\$1600&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;5&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;手机&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;\$12&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;12&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;管线&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;\$1&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;234&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&quot;10-定义型列表&quot;&gt;&lt;a href=&quot;#10-定义型列表&quot; class=&quot;headerlink&quot; title=&quot;10. 定义型列表&quot;&gt;&lt;/a&gt;10. 定义型列表&lt;/h3&gt;&lt;p&gt;名词 1&lt;br&gt;:   定义 1（左侧有一个可见的冒号和四个不可见的空格）&lt;/p&gt;
+&lt;p&gt;代码块 2&lt;br&gt;:   这是代码块的定义（左侧有一个可见的冒号和四个不可见的空格）&lt;/p&gt;
+&lt;p&gt;代码块（左侧有八个不可见的空格）&lt;/p&gt;
+&lt;h3 id=&quot;11-Html-标签&quot;&gt;&lt;a href=&quot;#11-Html-标签&quot; class=&quot;headerlink&quot; title=&quot;11. Html 标签&quot;&gt;&lt;/a&gt;11. Html 标签&lt;/h3&gt;&lt;p&gt;本站支持在 Markdown 语法中嵌套 Html 标签，譬如，你可以用 Html 写一个纵跨两行的表格：&lt;/p&gt;
+&lt;table&gt;&lt;br&gt;&lt;tr&gt;&lt;br&gt;&lt;th rowspan=&quot;2&quot;&gt;值班人员&lt;/th&gt;&lt;br&gt;&lt;th&gt;星期一&lt;/th&gt;&lt;br&gt;&lt;th&gt;星期二&lt;/th&gt;&lt;br&gt;&lt;th&gt;星期三&lt;/th&gt;&lt;br&gt;&lt;/tr&gt;&lt;br&gt;&lt;tr&gt;&lt;br&gt;&lt;td&gt;李强&lt;/td&gt;&lt;br&gt;&lt;td&gt;张明&lt;/td&gt;&lt;br&gt;&lt;td&gt;王平&lt;/td&gt;&lt;br&gt;&lt;/tr&gt;&lt;br&gt;&lt;/table&gt;
+
+
+&lt;table&gt;&lt;br&gt;&lt;tr&gt;&lt;br&gt;&lt;th rowspan=&quot;2&quot;&gt;值班人员&lt;/th&gt;&lt;br&gt;&lt;th&gt;星期一&lt;/th&gt;&lt;br&gt;&lt;th&gt;星期二&lt;/th&gt;&lt;br&gt;&lt;th&gt;星期三&lt;/th&gt;&lt;br&gt;&lt;/tr&gt;&lt;br&gt;&lt;tr&gt;&lt;br&gt;&lt;td&gt;李强&lt;/td&gt;&lt;br&gt;&lt;td&gt;张明&lt;/td&gt;&lt;br&gt;&lt;td&gt;王平&lt;/td&gt;&lt;br&gt;&lt;/tr&gt;&lt;br&gt;&lt;/table&gt;
+
+&lt;h3 id=&quot;12-内嵌图标&quot;&gt;&lt;a href=&quot;#12-内嵌图标&quot; class=&quot;headerlink&quot; title=&quot;12. 内嵌图标&quot;&gt;&lt;/a&gt;12. 内嵌图标&lt;/h3&gt;&lt;p&gt;本站的图标系统对外开放，在文档中输入&lt;/p&gt;
+&lt;p&gt;&lt;i class=&quot;icon-weibo&quot;&gt;&lt;/i&gt;&lt;/p&gt;
+&lt;p&gt;即显示微博的图标： &lt;i class=&quot;icon-weibo icon-2x&quot;&gt;&lt;/i&gt;&lt;/p&gt;
+&lt;p&gt;替换 上述 &lt;code&gt;i 标签&lt;/code&gt; 内的 &lt;code&gt;icon-weibo&lt;/code&gt; 以显示不同的图标，例如：&lt;/p&gt;
+&lt;p&gt;&lt;i class=&quot;icon-renren&quot;&gt;&lt;/i&gt;&lt;/p&gt;
+&lt;p&gt;即显示人人的图标： &lt;i class=&quot;icon-renren icon-2x&quot;&gt;&lt;/i&gt;&lt;/p&gt;
+&lt;p&gt;更多的图标和玩法可以参看 &lt;a href=&quot;http://fortawesome.github.io/Font-Awesome/3.2.1/icons/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;font-awesome&lt;/a&gt; 官方网站。&lt;/p&gt;
+&lt;h3 id=&quot;13-待办事宜-Todo-列表&quot;&gt;&lt;a href=&quot;#13-待办事宜-Todo-列表&quot; class=&quot;headerlink&quot; title=&quot;13. 待办事宜 Todo 列表&quot;&gt;&lt;/a&gt;13. 待办事宜 Todo 列表&lt;/h3&gt;&lt;p&gt;使用带有 [ ] 或 [x] （未完成或已完成）项的列表语法撰写一个待办事宜列表，并且支持子列表嵌套以及混用Markdown语法，例如：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;[ ] &lt;strong&gt;Cmd Markdown 开发&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;[ ] 改进 Cmd 渲染算法，使用局部渲染技术提高渲染效率&lt;/li&gt;
+&lt;li&gt;[ ] 支持以 PDF 格式导出文稿&lt;/li&gt;
+&lt;li&gt;[x] 新增Todo列表功能 &lt;a href=&quot;https://github.com/blog/1375-task-lists-in-gfm-issues-pulls-comments&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;语法参考&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;[x] 改进 LaTex 功能&lt;/li&gt;
+&lt;li&gt;[x] 修复 LaTex 公式渲染问题&lt;/li&gt;
+&lt;li&gt;[x] 新增 LaTex 公式编号功能 &lt;a href=&quot;http://docs.mathjax.org/en/latest/tex.html#tex-eq-numbers&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;语法参考&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;[ ] &lt;strong&gt;七月旅行准备&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;[ ] 准备邮轮上需要携带的物品&lt;/li&gt;
+&lt;li&gt;[ ] 浏览日本免税店的物品&lt;/li&gt;
+&lt;li&gt;[x] 购买蓝宝石公主号七月一日的船票&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;对应显示如下待办事宜 Todo 列表：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;[ ] &lt;strong&gt;Cmd Markdown 开发&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;[ ] 改进 Cmd 渲染算法，使用局部渲染技术提高渲染效率&lt;/li&gt;
+&lt;li&gt;[ ] 支持以 PDF 格式导出文稿&lt;/li&gt;
+&lt;li&gt;[x] 新增Todo列表功能 &lt;a href=&quot;https://github.com/blog/1375-task-lists-in-gfm-issues-pulls-comments&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;语法参考&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;[x] 改进 LaTex 功能&lt;/li&gt;
+&lt;li&gt;[x] 修复 LaTex 公式渲染问题&lt;/li&gt;
+&lt;li&gt;[x] 新增 LaTex 公式编号功能 &lt;a href=&quot;http://docs.mathjax.org/en/latest/tex.html#tex-eq-numbers&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;语法参考&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;[ ] &lt;strong&gt;七月旅行准备&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;[ ] 准备邮轮上需要携带的物品&lt;/li&gt;
+&lt;li&gt;[ ] 浏览日本免税店的物品&lt;/li&gt;
+&lt;li&gt;[x] 购买蓝宝石公主号七月一日的船票&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;[^footnote]: 这是一个 &lt;em&gt;注脚&lt;/em&gt; 的 &lt;strong&gt;文本&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;[^footnote2]: 这是另一个 &lt;em&gt;注脚&lt;/em&gt; 的 &lt;strong&gt;文本&lt;/strong&gt;。&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;Cmd-Markdown-简明语法手册&quot;&gt;&lt;a href=&quot;#Cmd-Markdown-简明语法手册&quot; class=&quot;headerlink&quot; title=&quot;Cmd Markdown 简明语法手册&quot;&gt;&lt;/a&gt;Cmd Markdown 简明语法手册&lt;/h1&gt;&lt;p&gt;标签
+    
+    </summary>
+    
+      <category term="学习" scheme="devedbox.com/categories/%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="Cmd Markdown" scheme="devedbox.com/tags/Cmd-Markdown/"/>
+    
+      <category term="语法" scheme="devedbox.com/tags/%E8%AF%AD%E6%B3%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>关于自己</title>
+    <link href="devedbox.com/2016/03/02/%E5%85%B3%E4%BA%8E%E8%87%AA%E5%B7%B1/"/>
+    <id>devedbox.com/2016/03/02/关于自己/</id>
+    <published>2016-03-02T08:08:41.000Z</published>
+    <updated>2016-08-02T01:28:45.000Z</updated>
+    
+    <content type="html">&lt;h1 id=&quot;关于我&quot;&gt;&lt;a href=&quot;#关于我&quot; class=&quot;headerlink&quot; title=&quot;关于我&quot;&gt;&lt;/a&gt;关于我&lt;/h1&gt;&lt;h2 id=&quot;生活&quot;&gt;&lt;a href=&quot;#生活&quot; class=&quot;headerlink&quot; title=&quot;生活&quot;&gt;&lt;/a&gt;生活&lt;/h2&gt;&lt;p&gt;生活，先生后活。活着是为了更好的生。在嘈杂的世界待久了，也许，我们都会忘了自己最初的样子，不论是在做什么，或者现在有着怎样的成就。在10年以前，我们是一个怎样的姿态来面对这个世界，10年以后，我们又能做出怎样的改变？其实，不变的是生活，生活是一本读不完的教科书，够我们从序言读到目录，目录我们永远读不透，每时每刻，生活都可能发生改变。生活是最好的指导我们生和活的指向灯，它告诉我们，应该怎样在这个嘈杂的世界静下心来，用一颗平静的心抚平嘈杂的世界。在这个过程中，我们可以做出很多改变，我们会吸收到很多世界上的东西，很多能够让我们放松警惕的东西，那么，如果我们任由放纵的话，也许，我们就会变的身不由己。所以，在这个追求生活的过程中，我们要不断的问自己的内心，是不是喜欢这样的东西，或者说这样的东西对我来讲有没有可以利用的价值。一成不变是不可能的，我们要有目标的改变自我，这个有目标的改变自我并不是说我要将我前面10年养成的习惯丢弃，而是能够完善自我，在完善自我的这个过程中寻求一种我们的价值所在，实现我们梦寐以求的梦想或理想。内心的力量很强大，我们的外在表现都是内心力量的体现，所以，我们在实现自己价值的过程中，要不断努力的强化自己的内心的内在的东西，不以物喜不以己悲，能够用一颗最真诚的心看待问题，能够在最脆弱的时候让自己的内心告诉自己：我可以！在人生这条路上没有什么可以难倒自己的，难倒自己的永远只有自己，因为：&lt;code&gt;选择怎样的生活，将会定义我们的生与我们的活&lt;/code&gt;.&lt;/p&gt;
+&lt;h2 id=&quot;为什么创业？&quot;&gt;&lt;a href=&quot;#为什么创业？&quot; class=&quot;headerlink&quot; title=&quot;为什么创业？&quot;&gt;&lt;/a&gt;为什么创业？&lt;/h2&gt;&lt;p&gt;&lt;code&gt;创业&lt;/code&gt;是一种生活方式。创业是一种态度，创业是一种桀骜不驯的态度，创业是一种让自己在潮流中寻找自我的方式。创业是是一种信仰，一种在这个年龄大多数人需要的态度、精神，因为：&lt;code&gt;累并快乐着&lt;/code&gt;.&lt;/p&gt;
+&lt;h2 id=&quot;我是谁？&quot;&gt;&lt;a href=&quot;#我是谁？&quot; class=&quot;headerlink&quot; title=&quot;我是谁？&quot;&gt;&lt;/a&gt;我是谁？&lt;/h2&gt;&lt;p&gt;我就是我，颜色不一样的烟火… iOS开发者一枚😄&lt;/p&gt;
+&lt;h2 id=&quot;鸣谢&quot;&gt;&lt;a href=&quot;#鸣谢&quot; class=&quot;headerlink&quot; title=&quot;鸣谢&quot;&gt;&lt;/a&gt;鸣谢&lt;/h2&gt;&lt;p&gt;感谢平台的力量，感谢开源的力量&lt;br&gt;&lt;code&gt;感谢最爱的人的陪伴&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id=&quot;联系我&quot;&gt;&lt;a href=&quot;#联系我&quot; class=&quot;headerlink&quot; title=&quot;联系我&quot;&gt;&lt;/a&gt;联系我&lt;/h2&gt;&lt;h3 id=&quot;酱游科技&quot;&gt;&lt;a href=&quot;#酱游科技&quot; class=&quot;headerlink&quot; title=&quot;酱游科技&quot;&gt;&lt;/a&gt;酱游科技&lt;/h3&gt;&lt;p&gt;&lt;code&gt;Wechat&amp;amp;Phone：15680002585&lt;/code&gt;&lt;br&gt;&lt;code&gt;Weibo: @devedbox&lt;/code&gt;&lt;br&gt;&lt;code&gt;GitHub: https://github.com/devedbox&lt;/code&gt;&lt;br&gt;&lt;code&gt;LinkedIn：艾星&lt;/code&gt;&lt;br&gt;&lt;code&gt;Email：devedbox@gmail.com&lt;/code&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;关于我&quot;&gt;&lt;a href=&quot;#关于我&quot; class=&quot;headerlink&quot; title=&quot;关于我&quot;&gt;&lt;/a&gt;关于我&lt;/h1&gt;&lt;h2 id=&quot;生活&quot;&gt;&lt;a href=&quot;#生活&quot; class=&quot;headerlink&quot; title=&quot;生活&quot;&gt;&lt;/a&gt;生活&lt;/h2&gt;&lt;p
+    
+    </summary>
+    
+      <category term="随笔" scheme="devedbox.com/categories/%E9%9A%8F%E7%AC%94/"/>
+    
+    
+      <category term="杂记" scheme="devedbox.com/tags/%E6%9D%82%E8%AE%B0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>小工蜂业主端开发规范</title>
+    <link href="devedbox.com/2016/03/02/%E5%B0%8F%E5%B7%A5%E8%9C%82%E4%B8%9A%E4%B8%BB%E7%AB%AF(GFPropertyOwner)%E5%BC%80%E5%8F%91%E8%A7%84%E8%8C%83/"/>
+    <id>devedbox.com/2016/03/02/小工蜂业主端(GFPropertyOwner)开发规范/</id>
+    <published>2016-03-02T08:08:41.000Z</published>
+    <updated>2016-03-19T10:23:57.000Z</updated>
+    
+    <content type="html">&lt;p&gt;#小工蜂业主端开发规范&lt;/p&gt;
+&lt;h2 id=&quot;版本纪录&quot;&gt;&lt;a href=&quot;#版本纪录&quot; class=&quot;headerlink&quot; title=&quot;版本纪录&quot;&gt;&lt;/a&gt;版本纪录&lt;/h2&gt;&lt;blockquote&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;版本&lt;/th&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;修改人员&lt;/th&gt;
+&lt;th style=&quot;text-align:right&quot;&gt;日期&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;1.0.0&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;艾星&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;2016年3月19日&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;说明&quot;&gt;&lt;a href=&quot;#说明&quot; class=&quot;headerlink&quot; title=&quot;说明&quot;&gt;&lt;/a&gt;说明&lt;/h2&gt;&lt;p&gt;此文档用于指导服务器拟定API交付文档以及客户端开发规范，在实际开发中，客户端可根据实际情况做响应的调整，调整的内容需要在此文档做出相应的更改和增删。服务器在拟定开发文档若有本文未涉及到的字段命名或定义，需及时提出增加或修改意见，一切字段的命名或者修改需要做好相应的纪录，避免后期开发调试过程中出现不该出现的因为字段命名而产生的错误！&lt;/p&gt;
+&lt;h2 id=&quot;命名空间&quot;&gt;&lt;a href=&quot;#命名空间&quot; class=&quot;headerlink&quot; title=&quot;命名空间&quot;&gt;&lt;/a&gt;命名空间&lt;/h2&gt;&lt;p&gt;&lt;code&gt;GFPropertyOwner&lt;/code&gt;缩写：&lt;code&gt;GFPO&lt;/code&gt;.&lt;/p&gt;
+&lt;h2 id=&quot;通用模型&quot;&gt;&lt;a href=&quot;#通用模型&quot; class=&quot;headerlink&quot; title=&quot;通用模型&quot;&gt;&lt;/a&gt;通用模型&lt;/h2&gt;&lt;h3 id=&quot;网络请求通用描述语：&quot;&gt;&lt;a href=&quot;#网络请求通用描述语：&quot; class=&quot;headerlink&quot; title=&quot;网络请求通用描述语：&quot;&gt;&lt;/a&gt;网络请求通用描述语：&lt;/h3&gt;&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;request- 请求完成一个操作，涉及到服务器有逻辑处理的成分在里边.&lt;/li&gt;
+&lt;li&gt;get- 请求数据信息，比如请求维修统计数据、请求验证码.&lt;/li&gt;
+&lt;li&gt;update- 更新信息，涉及到服务器更新数据库操作.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;此处的描述语更多的是在语意上通俗的表述一个操作，比如请求下单的时候，涉及到服务器的逻辑、数据库操作比较多，但是更新信息同样也涉及到了同样的操作，为什么更新信息用&lt;code&gt;update&lt;/code&gt;而不用&lt;code&gt;request&lt;/code&gt;呢？其实都可以，但是对比一下&lt;code&gt;requestOrder:&lt;/code&gt;和&lt;code&gt;updateOrder:&lt;/code&gt;在语意上&lt;code&gt;request&lt;/code&gt;更接近我们所要表述的意思.&lt;/p&gt;
+&lt;h3 id=&quot;字段描述&quot;&gt;&lt;a href=&quot;#字段描述&quot; class=&quot;headerlink&quot; title=&quot;字段描述&quot;&gt;&lt;/a&gt;字段描述&lt;/h3&gt;&lt;h4 id=&quot;Name&quot;&gt;&lt;a href=&quot;#Name&quot; class=&quot;headerlink&quot; title=&quot;Name&quot;&gt;&lt;/a&gt;Name&lt;/h4&gt;&lt;p&gt;字段定义.&lt;/p&gt;
+&lt;h4 id=&quot;Defination&quot;&gt;&lt;a href=&quot;#Defination&quot; class=&quot;headerlink&quot; title=&quot;Defination&quot;&gt;&lt;/a&gt;Defination&lt;/h4&gt;&lt;p&gt;字段中文描述.&lt;/p&gt;
+&lt;h4 id=&quot;Type&quot;&gt;&lt;a href=&quot;#Type&quot; class=&quot;headerlink&quot; title=&quot;Type&quot;&gt;&lt;/a&gt;Type&lt;/h4&gt;&lt;p&gt;字段对应的数据类型，大致分为两种：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;number&lt;/code&gt;：表示使用&lt;code&gt;int&lt;/code&gt;、&lt;code&gt;long&lt;/code&gt;、&lt;code&gt;double&lt;/code&gt;，具体类型在服务器给定的API文档中指定，在客户端研发的过程中根据各自平台选择相应的适合的数据类型.&lt;/p&gt;
+&lt;p&gt; &lt;code&gt;string&lt;/code&gt;：表述使用字符串类型.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;object&lt;/code&gt;：指代对象类型，在相应的地方会进行相应的指定.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&quot;Value&quot;&gt;&lt;a href=&quot;#Value&quot; class=&quot;headerlink&quot; title=&quot;Value&quot;&gt;&lt;/a&gt;Value&lt;/h4&gt;&lt;p&gt;字段定义值，针对&lt;code&gt;enum&lt;/code&gt;类型.&lt;/p&gt;
+&lt;h2 id=&quot;模型定义&quot;&gt;&lt;a href=&quot;#模型定义&quot; class=&quot;headerlink&quot; title=&quot;模型定义&quot;&gt;&lt;/a&gt;模型定义&lt;/h2&gt;&lt;h3 id=&quot;服务器返回数据GFPOResponseObject&quot;&gt;&lt;a href=&quot;#服务器返回数据GFPOResponseObject&quot; class=&quot;headerlink&quot; title=&quot;服务器返回数据GFPOResponseObject&quot;&gt;&lt;/a&gt;服务器返回数据&lt;code&gt;GFPOResponseObject&lt;/code&gt;&lt;/h3&gt;&lt;blockquote&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;Name&lt;/th&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;Defination&lt;/th&gt;
+&lt;th style=&quot;text-align:right&quot;&gt;Type&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;statusCode&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;响应码&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;number&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;statusInfo&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;响应信息&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;string&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&quot;意见反馈GFPOFeedbackObject&quot;&gt;&lt;a href=&quot;#意见反馈GFPOFeedbackObject&quot; class=&quot;headerlink&quot; title=&quot;意见反馈GFPOFeedbackObject&quot;&gt;&lt;/a&gt;意见反馈&lt;code&gt;GFPOFeedbackObject&lt;/code&gt;&lt;/h3&gt;&lt;blockquote&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;Name&lt;/th&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;Defination&lt;/th&gt;
+&lt;th style=&quot;text-align:right&quot;&gt;Type&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;content&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;反馈内容&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;string&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;contacts&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;联系方式&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;string&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&quot;评价GFPOCommentObject&quot;&gt;&lt;a href=&quot;#评价GFPOCommentObject&quot; class=&quot;headerlink&quot; title=&quot;评价GFPOCommentObject&quot;&gt;&lt;/a&gt;评价&lt;code&gt;GFPOCommentObject&lt;/code&gt;&lt;/h3&gt;&lt;blockquote&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;Name&lt;/th&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;Defination&lt;/th&gt;
+&lt;th style=&quot;text-align:right&quot;&gt;Type&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;content&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;评价内容&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;string&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;level&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;服务星级&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;number&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&quot;付款GFPOPaymentObject&quot;&gt;&lt;a href=&quot;#付款GFPOPaymentObject&quot; class=&quot;headerlink&quot; title=&quot;付款GFPOPaymentObject&quot;&gt;&lt;/a&gt;付款&lt;code&gt;GFPOPaymentObject&lt;/code&gt;&lt;/h3&gt;&lt;blockquote&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;Name&lt;/th&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;Defination&lt;/th&gt;
+&lt;th style=&quot;text-align:right&quot;&gt;Type&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;order&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;待付款订单&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;&lt;code&gt;GFPOProcessingOrderObject&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;price&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;价格&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;number&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;gratuity&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;红包&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;number&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;channel&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;支付渠道&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;&lt;code&gt;GFPOPaymentChannel&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&quot;支付方式定义GFPOPaymentChannel&quot;&gt;&lt;a href=&quot;#支付方式定义GFPOPaymentChannel&quot; class=&quot;headerlink&quot; title=&quot;支付方式定义GFPOPaymentChannel&quot;&gt;&lt;/a&gt;支付方式定义&lt;code&gt;GFPOPaymentChannel&lt;/code&gt;&lt;/h4&gt;&lt;blockquote&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;Name&lt;/th&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;Defination&lt;/th&gt;
+&lt;th style=&quot;text-align:right&quot;&gt;Value&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;GFPOPaymentChannelNone&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;没有选择支付方式&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;0&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;GFPOPaymentChannelWeChat&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;微信支付&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;1&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;GFPOPaymentChannelAliPay&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;支付宝支付&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;2&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&quot;维修统计GFPOStatisticsObject&quot;&gt;&lt;a href=&quot;#维修统计GFPOStatisticsObject&quot; class=&quot;headerlink&quot; title=&quot;维修统计GFPOStatisticsObject&quot;&gt;&lt;/a&gt;维修统计&lt;code&gt;GFPOStatisticsObject&lt;/code&gt;&lt;/h3&gt;&lt;blockquote&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;Name&lt;/th&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;Defination&lt;/th&gt;
+&lt;th style=&quot;text-align:right&quot;&gt;Type&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;expenses&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;总支出&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;number&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;water&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;水分类支出&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;number&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;electricity&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;电分类支出&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;number&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;appliance&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;家电分类支出&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;number&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;locker&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;锁分类支出&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;number&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&quot;取消订单GFPOOrderCancelBlameObject&quot;&gt;&lt;a href=&quot;#取消订单GFPOOrderCancelBlameObject&quot; class=&quot;headerlink&quot; title=&quot;取消订单GFPOOrderCancelBlameObject&quot;&gt;&lt;/a&gt;取消订单&lt;code&gt;GFPOOrderCancelBlameObject&lt;/code&gt;&lt;/h3&gt;&lt;blockquote&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;Name&lt;/th&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;Defination&lt;/th&gt;
+&lt;th style=&quot;text-align:right&quot;&gt;Type&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;blame&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;订单取消原因&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;&lt;code&gt;GFPOOrderBlame&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;descriptions&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;描述&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;string&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&quot;取消原因GFPOOrderBlame&quot;&gt;&lt;a href=&quot;#取消原因GFPOOrderBlame&quot; class=&quot;headerlink&quot; title=&quot;取消原因GFPOOrderBlame&quot;&gt;&lt;/a&gt;取消原因&lt;code&gt;GFPOOrderBlame&lt;/code&gt;&lt;/h4&gt;&lt;blockquote&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;Name&lt;/th&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;Defination&lt;/th&gt;
+&lt;th style=&quot;text-align:right&quot;&gt;Value&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;GFPOOrderBlameOther&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;其他原因&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;0&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;GFPOOrderBlamePerson&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;个人原因&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;1&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;GFPOOrderBlameMaster&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;师傅原因&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;2&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&quot;用户GFPOUserObject&quot;&gt;&lt;a href=&quot;#用户GFPOUserObject&quot; class=&quot;headerlink&quot; title=&quot;用户GFPOUserObject&quot;&gt;&lt;/a&gt;用户&lt;code&gt;GFPOUserObject&lt;/code&gt;&lt;/h4&gt;&lt;blockquote&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;Name&lt;/th&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;Defination&lt;/th&gt;
+&lt;th style=&quot;text-align:center&quot;&gt;Type&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;userId&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;用户id&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;number(string)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;phone&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;电话号码&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;number(string)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;avatar&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;头像&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;string&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;nickname&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;用户昵称&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;string&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&quot;订单GFPOOrderObject&quot;&gt;&lt;a href=&quot;#订单GFPOOrderObject&quot; class=&quot;headerlink&quot; title=&quot;订单GFPOOrderObject&quot;&gt;&lt;/a&gt;订单&lt;code&gt;GFPOOrderObject&lt;/code&gt;&lt;/h3&gt;&lt;blockquote&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;Name&lt;/th&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;Defination&lt;/th&gt;
+&lt;th style=&quot;text-align:right&quot;&gt;Type&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;orderId&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;订单id&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;string&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;type&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;订单一级类型&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;number&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;subtype&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;订单二级类型&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;number&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;category&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;订单三级类型&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;number&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;workTime&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;上门时间&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;number&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;&lt;code&gt;creationTime&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;订单创建时间&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;number&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;phone&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;联系电话&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;string&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;longitude&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;经度&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;number&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;latitude&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;纬度&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;number&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;province&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;省份名称&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;string&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;city&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;城市名称&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;string&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;district&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;区县名称&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;string&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;street&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;街道地址&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;string&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;address&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;详细地址补充&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;string&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;descriptions&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;备注信息&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;string&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;其中，&lt;code&gt;creationTime&lt;/code&gt;在服务器端进行制定，以服务器时间为准，客户端在省城订单的时候不需要次参数，当数据提交到服务器的时候，服务器进行指定.&lt;/p&gt;
+&lt;h3 id=&quot;进行中的订单-订单-GFPOProcessingOrderObject&quot;&gt;&lt;a href=&quot;#进行中的订单-订单-GFPOProcessingOrderObject&quot; class=&quot;headerlink&quot; title=&quot;进行中的订单:订单 GFPOProcessingOrderObject&quot;&gt;&lt;/a&gt;进行中的订单:&lt;code&gt;订单&lt;/code&gt; &lt;code&gt;GFPOProcessingOrderObject&lt;/code&gt;&lt;/h3&gt;&lt;p&gt;进行中的订单继承于普通订单，在普通订单的基础上，还拥有以下属性：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;Name&lt;/th&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;Defination&lt;/th&gt;
+&lt;th style=&quot;text-align:right&quot;&gt;Type&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;&lt;code&gt;updationTime&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;订单状态更改时间&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;number&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;state&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;订单状态&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;number&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;substate&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;订单子状态&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;number&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;masterName&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;师傅名字&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;string&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;masterPhone&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;师傅电话&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;string&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;其中，&lt;code&gt;updationTime&lt;/code&gt;是每次订单状态更改都会更新的时间属性，在业主端客户端用来进行排序.&lt;/p&gt;
+&lt;h3 id=&quot;历史订单：进行中的订单-GFPOHistoryOrderObject&quot;&gt;&lt;a href=&quot;#历史订单：进行中的订单-GFPOHistoryOrderObject&quot; class=&quot;headerlink&quot; title=&quot;历史订单：进行中的订单 GFPOHistoryOrderObject&quot;&gt;&lt;/a&gt;历史订单：&lt;code&gt;进行中的订单&lt;/code&gt; &lt;code&gt;GFPOHistoryOrderObject&lt;/code&gt;&lt;/h3&gt;&lt;p&gt;历史订单同样继承于进行中的订单，在进行中的订单的基础上，多了以下属性：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;Name&lt;/th&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;Defination&lt;/th&gt;
+&lt;th style=&quot;text-align:right&quot;&gt;Type&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;isPayed&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;订单是否支付&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;boolean&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;isCommented&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;订单是否评价&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;boolean&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;comment&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;评价内容&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;&lt;code&gt;GFPOCommentObject&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;cost&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;支付价格&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;number&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&quot;订单类型&quot;&gt;&lt;a href=&quot;#订单类型&quot; class=&quot;headerlink&quot; title=&quot;订单类型&quot;&gt;&lt;/a&gt;订单类型&lt;/h3&gt;&lt;p&gt;订单类型以&lt;strong&gt;小工蜂师傅&lt;/strong&gt;的定义为准，主要是更改了相应的的字段和命名空间：&lt;br&gt;&lt;img src=&quot;http://ww1.sinaimg.cn/large/d2297bd2gw1f217z5nu0bj214e0q8ani.jpg&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
+&lt;h3 id=&quot;订单状态&quot;&gt;&lt;a href=&quot;#订单状态&quot; class=&quot;headerlink&quot; title=&quot;订单状态&quot;&gt;&lt;/a&gt;订单状态&lt;/h3&gt;&lt;p&gt;订单状态以&lt;strong&gt;小工蜂师傅&lt;/strong&gt;的定义为准，相关的定义及更改如下：&lt;br&gt;&lt;img src=&quot;http://ww3.sinaimg.cn/large/d2297bd2gw1f225ebi8ccj20u00mqdl9.jpg&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
+&lt;h2 id=&quot;模块划分&quot;&gt;&lt;a href=&quot;#模块划分&quot; class=&quot;headerlink&quot; title=&quot;模块划分&quot;&gt;&lt;/a&gt;模块划分&lt;/h2&gt;&lt;h2 id=&quot;用户模块&quot;&gt;&lt;a href=&quot;#用户模块&quot; class=&quot;headerlink&quot; title=&quot;用户模块&quot;&gt;&lt;/a&gt;用户模块&lt;/h2&gt;&lt;h3 id=&quot;描述&quot;&gt;&lt;a href=&quot;#描述&quot; class=&quot;headerlink&quot; title=&quot;描述&quot;&gt;&lt;/a&gt;描述&lt;/h3&gt;&lt;p&gt;用户模块用来描述&lt;strong&gt;小工蜂业主&lt;/strong&gt;（用户）的属性及操作性功能，在&lt;strong&gt;小工蜂业主端1.0&lt;/strong&gt;版本中主要分为以下几点：&lt;/p&gt;
+&lt;h3 id=&quot;用户相关&quot;&gt;&lt;a href=&quot;#用户相关&quot; class=&quot;headerlink&quot; title=&quot;用户相关&quot;&gt;&lt;/a&gt;用户相关&lt;/h3&gt;&lt;h4 id=&quot;登录、退出登录&quot;&gt;&lt;a href=&quot;#登录、退出登录&quot; class=&quot;headerlink&quot; title=&quot;登录、退出登录&quot;&gt;&lt;/a&gt;登录、退出登录&lt;/h4&gt;&lt;p&gt;无密登录，验证码动态密码登录.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;getVerifyCode&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;请求参数&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;无参请求&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;返回数据类型&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;Key&lt;/th&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;Defination&lt;/th&gt;
+&lt;th style=&quot;text-align:right&quot;&gt;Type&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;statusCode&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;响应码&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;number&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;statusInfo&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;响应信息&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;string&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;code&gt;requestLoginWithInfo:&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;请求参数&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;Key&lt;/th&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;Defination&lt;/th&gt;
+&lt;th style=&quot;text-align:center&quot;&gt;Type&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;phone&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;电话号码&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;number(string)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;verifyCode&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;登录验证码&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;number(string)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;返回数据类型&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;Key&lt;/th&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;Defination&lt;/th&gt;
+&lt;th style=&quot;text-align:right&quot;&gt;Type&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;statusCode&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;响应码&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;number&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;statusInfo&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;响应信息&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;string&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;userId&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;用户id&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;string&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;token&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;token&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;string&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;code&gt;requestLogout&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;请求参数&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;无参请求&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;返回数据类型&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;Key&lt;/th&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;Defination&lt;/th&gt;
+&lt;th style=&quot;text-align:right&quot;&gt;Type&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;statusCode&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;响应码&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;number&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;statusInfo&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;响应信息&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;string&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&quot;下单操作&quot;&gt;&lt;a href=&quot;#下单操作&quot; class=&quot;headerlink&quot; title=&quot;下单操作&quot;&gt;&lt;/a&gt;下单操作&lt;/h4&gt;&lt;p&gt;&lt;code&gt;requestOrderWithInfo:&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;请求参数&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;Key&lt;/th&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;Defination&lt;/th&gt;
+&lt;th style=&quot;text-align:right&quot;&gt;Type&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;type&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;订单一级类型&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;number&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;subtype&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;订单二级类型&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;number&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;category&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;订单三级类型&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;number&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;workTime&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;上门时间&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;number&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;phone&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;联系电话&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;string&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;longitude&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;经度&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;number&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;latitude&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;纬度&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;number&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;province&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;省份名称&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;string&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;city&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;城市名称&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;string&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;district&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;区县名称&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;string&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;street&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;街道地址&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;string&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;address&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;详细地址补充&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;string&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;descriptions&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;备注信息&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;string&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;返回数据类型&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;Key&lt;/th&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;Defination&lt;/th&gt;
+&lt;th style=&quot;text-align:right&quot;&gt;Type&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;statusCode&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;响应码&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;number&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;statusInfo&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;响应信息&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;string&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&quot;订单支付、评价&quot;&gt;&lt;a href=&quot;#订单支付、评价&quot; class=&quot;headerlink&quot; title=&quot;订单支付、评价&quot;&gt;&lt;/a&gt;订单支付、评价&lt;/h4&gt;&lt;p&gt;&lt;code&gt;getPaymentWithOrderInfo:&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;请求参数&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;Key&lt;/th&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;Defination&lt;/th&gt;
+&lt;th style=&quot;text-align:right&quot;&gt;Type&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;orderId&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;订单id&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;number&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;返回数据类型&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;Key&lt;/th&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;Defination&lt;/th&gt;
+&lt;th style=&quot;text-align:right&quot;&gt;Type&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;statusCode&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;响应码&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;number&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;statusInfo&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;响应信息&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;string&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;payment&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;支付信息&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;待定&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;code&gt;requestCommentWithInfo:&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;请求参数&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;Key&lt;/th&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;Defination&lt;/th&gt;
+&lt;th style=&quot;text-align:right&quot;&gt;Type&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;level&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;星级&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;number&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;content&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;评价内容&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;string&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;orderId&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;相应的订单id&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;string&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;返回数据类型&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;Key&lt;/th&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;Defination&lt;/th&gt;
+&lt;th style=&quot;text-align:right&quot;&gt;Type&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;statusCode&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;响应码&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;number&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;statusInfo&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;响应信息&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;string&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&quot;修改信息（头像、昵称）&quot;&gt;&lt;a href=&quot;#修改信息（头像、昵称）&quot; class=&quot;headerlink&quot; title=&quot;修改信息（头像、昵称）&quot;&gt;&lt;/a&gt;修改信息（头像、昵称）&lt;/h4&gt;&lt;p&gt;&lt;code&gt;updateAvatarWithUrl:&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;请求参数&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;Key&lt;/th&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;Defination&lt;/th&gt;
+&lt;th style=&quot;text-align:right&quot;&gt;Type&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;avatar&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;头像url&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;string&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;返回数据类型&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;Key&lt;/th&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;Defination&lt;/th&gt;
+&lt;th style=&quot;text-align:right&quot;&gt;Type&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;statusCode&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;响应码&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;number&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;statusInfo&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;响应信息&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;string&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;code&gt;updateNicknameWithContent:&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;请求参数&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;Key&lt;/th&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;Defination&lt;/th&gt;
+&lt;th style=&quot;text-align:right&quot;&gt;Type&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;nickname&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;昵称&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;string&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;返回数据类型&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;Key&lt;/th&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;Defination&lt;/th&gt;
+&lt;th style=&quot;text-align:right&quot;&gt;Type&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;statusCode&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;响应码&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;number&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;statusInfo&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;响应信息&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;string&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&quot;查看维修统计数据&quot;&gt;&lt;a href=&quot;#查看维修统计数据&quot; class=&quot;headerlink&quot; title=&quot;查看维修统计数据&quot;&gt;&lt;/a&gt;查看维修统计数据&lt;/h4&gt;&lt;p&gt;&lt;code&gt;getStatistics&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;请求参数&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;无参请求&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;返回数据类型&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;Key&lt;/th&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;Defination&lt;/th&gt;
+&lt;th style=&quot;text-align:right&quot;&gt;Type&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;statusCode&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;响应码&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;number&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;statusInfo&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;响应信息&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;string&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;expenses&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;总支出&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;number&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;water&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;水分类支出&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;number&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;electricity&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;电分类支出&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;number&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;appliance&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;家电分类支出&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;number&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;locker&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;锁分类支出&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;number&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&quot;意见反馈&quot;&gt;&lt;a href=&quot;#意见反馈&quot; class=&quot;headerlink&quot; title=&quot;意见反馈&quot;&gt;&lt;/a&gt;意见反馈&lt;/h4&gt;&lt;p&gt;&lt;code&gt;requestFeedbackWithInfo:&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;请求参数&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;Key&lt;/th&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;Defination&lt;/th&gt;
+&lt;th style=&quot;text-align:right&quot;&gt;Type&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;content&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;反馈内容&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;string&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;contacts&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;联系方式&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;string&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;返回数据类型&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;Key&lt;/th&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;Defination&lt;/th&gt;
+&lt;th style=&quot;text-align:right&quot;&gt;Type&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;statusCode&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;响应码&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;number&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;statusInfo&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;响应信息&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;string&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&quot;用户本地操作&quot;&gt;&lt;a href=&quot;#用户本地操作&quot; class=&quot;headerlink&quot; title=&quot;用户本地操作&quot;&gt;&lt;/a&gt;用户本地操作&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;登录界面查看&lt;strong&gt;用户协议&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;下单界面查看&lt;strong&gt;服务说明&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;关于界面&lt;strong&gt;评分&lt;/strong&gt;和&lt;strong&gt;用户协议&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;个人中心查看&lt;strong&gt;官方配件清单&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&quot;订单模块&quot;&gt;&lt;a href=&quot;#订单模块&quot; class=&quot;headerlink&quot; title=&quot;订单模块&quot;&gt;&lt;/a&gt;订单模块&lt;/h2&gt;&lt;h3 id=&quot;描述-1&quot;&gt;&lt;a href=&quot;#描述-1&quot; class=&quot;headerlink&quot; title=&quot;描述&quot;&gt;&lt;/a&gt;描述&lt;/h3&gt;&lt;p&gt;订单模块用来定义和描述&lt;strong&gt;维修订单&lt;/strong&gt;的基本属性以及与订单相关的一些网络请求操作，基本数据结构定义了订单相关的字段和基本描述，操作定义了如下单、支付等一系列操作。&lt;/p&gt;
+&lt;h3 id=&quot;订单相关&quot;&gt;&lt;a href=&quot;#订单相关&quot; class=&quot;headerlink&quot; title=&quot;订单相关&quot;&gt;&lt;/a&gt;订单相关&lt;/h3&gt;&lt;h4 id=&quot;请求进行中的订单&quot;&gt;&lt;a href=&quot;#请求进行中的订单&quot; class=&quot;headerlink&quot; title=&quot;请求进行中的订单&quot;&gt;&lt;/a&gt;请求进行中的订单&lt;/h4&gt;&lt;p&gt;&lt;code&gt;getProcessingOrdersBeforeTimeInternal:&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;请求参数&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;Key&lt;/th&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;Defination&lt;/th&gt;
+&lt;th style=&quot;text-align:right&quot;&gt;Type&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;timeInternal&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;时间戳&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;number&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;返回数据类型&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;Key&lt;/th&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;Defination&lt;/th&gt;
+&lt;th style=&quot;text-align:right&quot;&gt;Type&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;statusCode&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;响应码&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;number&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;statusInfo&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;响应信息&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;string&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;orders&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;响应信息&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;List&amp;lt;&lt;code&gt;GFPOProcessingOrderObject&lt;/code&gt;&amp;gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&quot;请求历史订单&quot;&gt;&lt;a href=&quot;#请求历史订单&quot; class=&quot;headerlink&quot; title=&quot;请求历史订单&quot;&gt;&lt;/a&gt;请求历史订单&lt;/h4&gt;&lt;p&gt;&lt;code&gt;getHistoryOrdersBeforeTimeInternal:&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;请求参数&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;Key&lt;/th&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;Defination&lt;/th&gt;
+&lt;th style=&quot;text-align:right&quot;&gt;Type&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;timeInternal&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;时间戳&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;number&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;返回数据类型&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;Key&lt;/th&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;Defination&lt;/th&gt;
+&lt;th style=&quot;text-align:right&quot;&gt;Type&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;statusCode&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;响应码&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;number&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;statusInfo&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;响应信息&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;string&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;orders&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;响应信息&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;List&amp;lt;&lt;code&gt;GFPOHistoryOrderObject&lt;/code&gt;&amp;gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&quot;取消订单&quot;&gt;&lt;a href=&quot;#取消订单&quot; class=&quot;headerlink&quot; title=&quot;取消订单&quot;&gt;&lt;/a&gt;取消订单&lt;/h4&gt;&lt;p&gt;&lt;code&gt;requestCancelOrderWithId:&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;请求参数&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;Key&lt;/th&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;Defination&lt;/th&gt;
+&lt;th style=&quot;text-align:right&quot;&gt;Type&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;orderId&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;订单id&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;string&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;返回数据类型&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;Key&lt;/th&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;Defination&lt;/th&gt;
+&lt;th style=&quot;text-align:right&quot;&gt;Type&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;statusCode&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;响应码&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;number&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;statusInfo&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;响应信息&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;string&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&quot;评价订单&quot;&gt;&lt;a href=&quot;#评价订单&quot; class=&quot;headerlink&quot; title=&quot;评价订单&quot;&gt;&lt;/a&gt;评价订单&lt;/h4&gt;&lt;p&gt;&lt;code&gt;requestCommentOrderWithId:&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;请求参数&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;Key&lt;/th&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;Defination&lt;/th&gt;
+&lt;th style=&quot;text-align:right&quot;&gt;Type&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;comment&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;评价&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;&lt;code&gt;GFPOCommentObject&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;返回数据类型&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;Key&lt;/th&gt;
+&lt;th style=&quot;text-align:left&quot;&gt;Defination&lt;/th&gt;
+&lt;th style=&quot;text-align:right&quot;&gt;Type&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;statusCode&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;响应码&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;number&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;statusInfo&lt;/td&gt;
+&lt;td style=&quot;text-align:left&quot;&gt;响应信息&lt;/td&gt;
+&lt;td style=&quot;text-align:right&quot;&gt;string&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;支付模块&quot;&gt;&lt;a href=&quot;#支付模块&quot; class=&quot;headerlink&quot; title=&quot;支付模块&quot;&gt;&lt;/a&gt;支付模块&lt;/h2&gt;&lt;h3 id=&quot;描述-2&quot;&gt;&lt;a href=&quot;#描述-2&quot; class=&quot;headerlink&quot; title=&quot;描述&quot;&gt;&lt;/a&gt;描述&lt;/h3&gt;&lt;p&gt;支付使用&lt;code&gt;Ping++&lt;/code&gt;支付服务，有服务器返回的&lt;code&gt;Payment&lt;/code&gt;信息向第三方支付调用支付.&lt;/p&gt;
+&lt;h2 id=&quot;评价模块&quot;&gt;&lt;a href=&quot;#评价模块&quot; class=&quot;headerlink&quot; title=&quot;评价模块&quot;&gt;&lt;/a&gt;评价模块&lt;/h2&gt;&lt;h3 id=&quot;描述-3&quot;&gt;&lt;a href=&quot;#描述-3&quot; class=&quot;headerlink&quot; title=&quot;描述&quot;&gt;&lt;/a&gt;描述&lt;/h3&gt;&lt;p&gt;评价包括星级和评价内容，需要由客户端调用服务器请求完成评价流程.&lt;/p&gt;
+&lt;h2 id=&quot;定位系统&quot;&gt;&lt;a href=&quot;#定位系统&quot; class=&quot;headerlink&quot; title=&quot;定位系统&quot;&gt;&lt;/a&gt;定位系统&lt;/h2&gt;&lt;h3 id=&quot;描述-4&quot;&gt;&lt;a href=&quot;#描述-4&quot; class=&quot;headerlink&quot; title=&quot;描述&quot;&gt;&lt;/a&gt;描述&lt;/h3&gt;&lt;p&gt;定位系统使用第三方定位服务，如&lt;code&gt;百度&lt;/code&gt;、&lt;code&gt;高德&lt;/code&gt;所提供的sdk，具体情况&lt;em&gt;待讨论决定&lt;/em&gt;.&lt;/p&gt;
+&lt;h2 id=&quot;附录&quot;&gt;&lt;a href=&quot;#附录&quot; class=&quot;headerlink&quot; title=&quot;附录&quot;&gt;&lt;/a&gt;附录&lt;/h2&gt;&lt;h3 id=&quot;HTTP-Status-Code&quot;&gt;&lt;a href=&quot;#HTTP-Status-Code&quot; class=&quot;headerlink&quot; title=&quot;HTTP Status Code&quot;&gt;&lt;/a&gt;HTTP Status Code&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;///----------------------------------------------------------------------&amp;#10;/// Typedef&amp;#10;///----------------------------------------------------------------------&amp;#10;/// HTTP status codes.&amp;#10;///&amp;#10;/// The list here is based on the description at Wikipedia.&amp;#10;/// The initial version of this list was written on April 20, 2013.&amp;#10;///&amp;#10;/// @see &amp;#60;a href=&amp;#34;http://en.wikipedia.org/wiki/List_of_HTTP_status_codes&amp;#34;&amp;#10;///      &amp;#62;List of HTTP status codes&amp;#60;/a&amp;#62;&amp;#10;enum &amp;#123;&amp;#10;    ///--------------------------------------------------&amp;#10;    // 1xx Informational&amp;#10;    ///--------------------------------------------------&amp;#10;    /// 100 Continue.&amp;#10;    kHTTPStatusCodeContinue = 100,&amp;#10;    /// 101 Switching Protocols.&amp;#10;    kHTTPStatusCodeSwitchingProtocols = 101,&amp;#10;#if !defined(HTTP_STATUS_CODES_EXCLUDE_WEBDAV) &amp;#38;&amp;#38; !defined(HTTP_STATUS_CODES_EXCLUDE_RFC_2518)&amp;#10;    /// 103 Processing (WebDAV; RFC 2518).&amp;#10;    kHTTPStatusCodeProcessing = 102,&amp;#10;#endif&amp;#10;    ///--------------------------------------------------&amp;#10;    // 2xx Success&amp;#10;    ///--------------------------------------------------&amp;#10;    /// 200 OK.&amp;#10;    kHTTPStatusCodeOK = 200,&amp;#10;    /// 201 Created.&amp;#10;    kHTTPStatusCodeCreated = 201,&amp;#10;    /// 202 Accepted.&amp;#10;    kHTTPStatusCodeAccepted = 202,&amp;#10;    /// 203 Non-Authoritative Information (since HTTP/1.1).&amp;#10;    kHTTPStatusCodeNonAuthoritativeInformation = 203,&amp;#10;    /// 204 No Content.&amp;#10;    kHTTPStatusCodeNoContent = 204,&amp;#10;    /// 205 Reset Content.&amp;#10;    kHTTPStatusCodeResetContent = 205,&amp;#10;    /// 206 Partial Content.&amp;#10;    kHTTPStatusCodePartialContent = 206,&amp;#10;#if !defined(HTTP_STATUS_CODES_EXCLUDE_WEBDAV) &amp;#38;&amp;#38; !defined(HTTP_STATUS_CODES_EXCLUDE_RFC_4918)&amp;#10;    /// 207 Multi-Status (WebDAV; RFC 4918).&amp;#10;    kHTTPStatusCodeMultiStatus = 207,&amp;#10;#endif&amp;#10;#if !defined(HTTP_STATUS_CODES_EXCLUDE_WEBDAV) &amp;#38;&amp;#38; !defined(HTTP_STATUS_CODES_EXCLUDE_RFC_5842)&amp;#10;    /// 208 Already Reported (WebDAV; RFC 5842).&amp;#10;    kHTTPStatusCodeAlreadyReported = 208,&amp;#10;#endif&amp;#10;#if !defined(HTTP_STATUS_CODES_EXCLUDE_RFC_3229)&amp;#10;    /// 226 IM Used (RFC 3229)&amp;#10;    kHTTPStatusCodeIMUsed = 226,&amp;#10;#endif&amp;#10;#if !defined(HTTP_STATUS_CODES_EXCLUDE_RTSP) &amp;#38;&amp;#38; !defined(HTTP_STATUS_CODES_EXCLUDE_RFC_2326)&amp;#10;    /// 250 Low on Storage Space (RTSP; RFC 2326).&amp;#10;    kHTTPStatusCodeLowOnStorageSpace = 250,&amp;#10;#endif&amp;#10;    ///--------------------------------------------------&amp;#10;    // 3xx Redirection&amp;#10;    ///--------------------------------------------------&amp;#10;    /// 300 Multiple Choices.&amp;#10;    kHTTPStatusCodeMultipleChoices = 300,&amp;#10;    /// 301 Moved Permanently.&amp;#10;    kHTTPStatusCodeMovedPermanently = 301,&amp;#10;    /// 302 Found.&amp;#10;    kHTTPStatusCodeFound = 302,&amp;#10;    /// 303 See Other (since HTTP/1.1).&amp;#10;    kHTTPStatusCodeSeeOther = 303,&amp;#10;    /// 304 Not Modified.&amp;#10;    kHTTPStatusCodeNotModified = 304,&amp;#10;    /// 305 Use Proxy (since HTTP/1.1).&amp;#10;    kHTTPStatusCodeUseProxy = 305,&amp;#10;    /// 306 Switch Proxy.&amp;#10;    kHTTPStatusCodeSwitchProxy = 306,&amp;#10;    /// 307 Temporary Redirect (since HTTP/1.1).&amp;#10;    kHTTPStatusCodeTemporaryRedirect = 307,&amp;#10;    /// 308 Permanent Redirect (approved as experimental RFC).&amp;#10;    kHTTPStatusCodePermanentRedirect = 308,&amp;#10;    ///--------------------------------------------------&amp;#10;    // 4xx Client Error&amp;#10;    ///--------------------------------------------------&amp;#10;    /// 400 Bad Request.&amp;#10;    kHTTPStatusCodeBadRequest = 400,&amp;#10;    /// 401 Unauthorized.&amp;#10;    kHTTPStatusCodeUnauthorized = 401,&amp;#10;    /// 402 Payment Required.&amp;#10;    kHTTPStatusCodePaymentRequired = 402,&amp;#10;    /// 403 Forbidden.&amp;#10;    kHTTPStatusCodeForbidden = 403,&amp;#10;    /// 404 Not Found.&amp;#10;    kHTTPStatusCodeNotFound = 404,&amp;#10;    /// 405 Method Not Allowed.&amp;#10;    kHTTPStatusCodeMethodNotAllowed = 405,&amp;#10;    /// 406 Not Acceptable.&amp;#10;    kHTTPStatusCodeNotAcceptable = 406,&amp;#10;    /// 407 Proxy Authentication Required.&amp;#10;    kHTTPStatusCodeProxyAuthenticationRequired = 407,&amp;#10;    /// 408 Request Timeout.&amp;#10;    kHTTPStatusCodeRequestTimeout = 408,&amp;#10;    /// 409 Conflict.&amp;#10;    kHTTPStatusCodeConflict = 409,&amp;#10;    /// 410 Gone.&amp;#10;    kHTTPStatusCodeGone = 410,&amp;#10;    /// 411 Length Required.&amp;#10;    kHTTPStatusCodeLengthRequired = 411,&amp;#10;    /// 412 Precondition Failed.&amp;#10;    kHTTPStatusCodePreconditionFailed = 412,&amp;#10;    /// 413 Request Entity Too Large.&amp;#10;    kHTTPStatusCodeRequestEntityTooLarge = 413,&amp;#10;    /// 414 Request-URI Too Long.&amp;#10;    kHTTPStatusCodeRequestURITooLong = 414,&amp;#10;    /// 415 Unsupported Media Type.&amp;#10;    kHTTPStatusCodeUnsupportedMediaType = 415,&amp;#10;    /// 416 Requested Range Not Satisfiable.&amp;#10;    kHTTPStatusCodeRequestedRangeNotSatisfiable = 416,&amp;#10;    /// 417 Expectation Failed.&amp;#10;    kHTTPStatusCodeExpectationFailed = 417,&amp;#10;#if !defined(HTTP_STATUS_CODES_EXCLUDE_RFC_2324)&amp;#10;    /// 418 I&amp;#39;m a teapot (RFC 2324).&amp;#10;    kHTTPStatusCodeImATeapot = 418,&amp;#10;#endif&amp;#10;#if !defined(HTTP_STATUS_CODES_EXCLUDE_TWITTER)&amp;#10;    /// 420 Enhance Your Calm (Twitter).&amp;#10;    kHTTPStatusCodeEnhanceYourCalm = 420,&amp;#10;#endif&amp;#10;#if !defined(HTTP_STATUS_CODES_EXCLUDE_WEBDAV) &amp;#38;&amp;#38; !defined(HTTP_STATUS_CODES_EXCLUDE_RFC_4918)&amp;#10;    /// 422 Unprocessable Entity (WebDAV; RFC 4918).&amp;#10;    kHTTPStatusCodeUnprocessableEntity = 422,&amp;#10;#endif&amp;#10;#if !defined(HTTP_STATUS_CODES_EXCLUDE_WEBDAV) &amp;#38;&amp;#38; !defined(HTTP_STATUS_CODES_EXCLUDE_RFC_4918)&amp;#10;    /// 423 Locked (WebDAV; RFC 4918).&amp;#10;    kHTTPStatusCodeLocked = 423,&amp;#10;#endif&amp;#10;#if !defined(HTTP_STATUS_CODES_EXCLUDE_WEBDAV) &amp;#38;&amp;#38; !defined(HTTP_STATUS_CODES_EXCLUDE_RFC_4918)&amp;#10;    /// 424 Failed Dependency (WebDAV; RFC 4918).&amp;#10;    kHTTPStatusCodeFailedDependency = 424,&amp;#10;#endif&amp;#10;    /// 425 Unordered Collection (Internet draft).&amp;#10;    kHTTPStatusCodeUnorderedCollection = 425,&amp;#10;#if !defined(HTTP_STATUS_CODES_EXCLUDE_RFC_2817)&amp;#10;    /// 426 Upgrade Required (RFC 2817).&amp;#10;    kHTTPStatusCodeUpgradeRequired = 426,&amp;#10;#endif&amp;#10;#if !defined(HTTP_STATUS_CODES_EXCLUDE_RFC_6585)&amp;#10;    /// 428 Precondition Required (RFC 6585).&amp;#10;    kHTTPStatusCodePreconditionRequired = 428,&amp;#10;#endif&amp;#10;#if !defined(HTTP_STATUS_CODES_EXCLUDE_RFC_6585)&amp;#10;    /// 429 Too Many Requests (RFC 6585).&amp;#10;    kHTTPStatusCodeTooManyRequests = 429,&amp;#10;#endif&amp;#10;#if !defined(HTTP_STATUS_CODES_EXCLUDE_RFC_6585)&amp;#10;    /// 431 Request Header Fields Too Large (RFC 6585).&amp;#10;    kHTTPStatusCodeRequestHeaderFieldsTooLarge = 431,&amp;#10;#endif&amp;#10;#if !defined(HTTP_STATUS_CODES_EXCLUDE_NGINX)&amp;#10;    /// 444 No Response (Nginx).&amp;#10;    kHTTPStatusCodeNoResponse = 444,&amp;#10;#endif&amp;#10;#if !defined(HTTP_STATUS_CODES_EXCLUDE_MICROSOFT)&amp;#10;    /// 449 Retry With (Microsoft).&amp;#10;    kHTTPStatusCodeRetryWith = 449,&amp;#10;#endif&amp;#10;#if !defined(HTTP_STATUS_CODES_EXCLUDE_MICROSOFT)&amp;#10;    /// 450 Blocked by Windows Parental Controls (Microsoft).&amp;#10;    kHTTPStatusCodeBlockedByWindowsParentalControls = 450,&amp;#10;#endif&amp;#10;#if !defined(HTTP_STATUS_CODES_EXCLUDE_RTSP)&amp;#10;    /// 451 Parameter Not Understood (RTSP).&amp;#10;    kHTTPStatusCodeParameterNotUnderstood = 451,&amp;#10;#endif&amp;#10;    /// 451 Unavailable For Legal Reasons (Internet draft).&amp;#10;    kHTTPStatusCodeUnavailableForLegalReasons = 451,&amp;#10;#if !defined(HTTP_STATUS_CODES_EXCLUDE_MICROSOFT)&amp;#10;    /// 451 Redirect (Microsoft).&amp;#10;    kHTTPStatusCodeRedirect = 451,&amp;#10;#endif&amp;#10;#if !defined(HTTP_STATUS_CODES_EXCLUDE_RTSP)&amp;#10;    /// 452 Conference Not Found (RTSP).&amp;#10;    kHTTPStatusCodeConferenceNotFound = 452,&amp;#10;#endif&amp;#10;#if !defined(HTTP_STATUS_CODES_EXCLUDE_RTSP)&amp;#10;    /// 453 Not Enough Bandwidth (RTSP).&amp;#10;    kHTTPStatusCodeNotEnoughBandwidth = 453,&amp;#10;#endif&amp;#10;#if !defined(HTTP_STATUS_CODES_EXCLUDE_RTSP)&amp;#10;    /// 454 Session Not Found (RTSP).&amp;#10;    kHTTPStatusCodeSessionNotFound = 454,&amp;#10;#endif&amp;#10;#if !defined(HTTP_STATUS_CODES_EXCLUDE_RTSP)&amp;#10;    /// 455 Method Not Valid in This State (RTSP).&amp;#10;    kHTTPStatusCodeMethodNotValidInThisState = 455,&amp;#10;#endif&amp;#10;#if !defined(HTTP_STATUS_CODES_EXCLUDE_RTSP)&amp;#10;    /// 456 Header Field Not Valid for Resource (RTSP).&amp;#10;    kHTTPStatusCodeHeaderFieldNotValidForResource = 456,&amp;#10;#endif&amp;#10;#if !defined(HTTP_STATUS_CODES_EXCLUDE_RTSP)&amp;#10;    /// 457 Invalid Range (RTSP).&amp;#10;    kHTTPStatusCodeInvalidRange = 457,&amp;#10;#endif&amp;#10;#if !defined(HTTP_STATUS_CODES_EXCLUDE_RTSP)&amp;#10;    /// 458 Parameter Is Read-Only (RTSP).&amp;#10;    kHTTPStatusCodeParameterIsReadOnly = 458,&amp;#10;#endif&amp;#10;#if !defined(HTTP_STATUS_CODES_EXCLUDE_RTSP)&amp;#10;    /// 459 Aggregate Operation Not Allowed (RTSP).&amp;#10;    kHTTPStatusCodeAggregateOperationNotAllowed = 459,&amp;#10;#endif&amp;#10;#if !defined(HTTP_STATUS_CODES_EXCLUDE_RTSP)&amp;#10;    /// 460 Only Aggregate Operation Allowed (RTSP).&amp;#10;    kHTTPStatusCodeOnlyAggregateOperationAllowed = 460,&amp;#10;#endif&amp;#10;#if !defined(HTTP_STATUS_CODES_EXCLUDE_RTSP)&amp;#10;    /// 461 Unsupported Transport (RTSP).&amp;#10;    kHTTPStatusCodeUnsupportedTransport = 461,&amp;#10;#endif&amp;#10;#if !defined(HTTP_STATUS_CODES_EXCLUDE_RTSP)&amp;#10;    /// 462 Destination Unreachable (RTSP).&amp;#10;    kHTTPStatusCodeDestinationUnreachable = 462,&amp;#10;#endif&amp;#10;#if !defined(HTTP_STATUS_CODES_EXCLUDE_NGINX)&amp;#10;    /// 494 Request Header Too Large (Nginx).&amp;#10;    kHTTPStatusCodeRequestHeaderTooLarge = 494,&amp;#10;#endif&amp;#10;#if !defined(HTTP_STATUS_CODES_EXCLUDE_NGINX)&amp;#10;    /// 495 Cert Error (Nginx).&amp;#10;    kHTTPStatusCodeCertError = 495,&amp;#10;#endif&amp;#10;#if !defined(HTTP_STATUS_CODES_EXCLUDE_NGINX)&amp;#10;    /// 496 No Cert (Nginx).&amp;#10;    kHTTPStatusCodeNoCert = 496,&amp;#10;#endif&amp;#10;#if !defined(HTTP_STATUS_CODES_EXCLUDE_NGINX)&amp;#10;    /// 497 HTTP to HTTPS (Nginx).&amp;#10;    kHTTPStatusCodeHTTPToHTTPS = 497,&amp;#10;#endif&amp;#10;#if !defined(HTTP_STATUS_CODES_EXCLUDE_NGINX)&amp;#10;    /// 499 Client Closed Request (Nginx).&amp;#10;    kHTTPStatusCodeClientClosedRequest = 499,&amp;#10;#endif&amp;#10;    ///--------------------------------------------------&amp;#10;    // 5xx Server Error&amp;#10;    ///--------------------------------------------------&amp;#10;    /// 500 Internal Server Error.&amp;#10;    kHTTPStatusCodeInternalServerError = 500,&amp;#10;    /// 501 Not Implemented&amp;#10;    kHTTPStatusCodeNotImplemented = 501,&amp;#10;    /// 502 Bad Gateway.&amp;#10;    kHTTPStatusCodeBadGateway = 502,&amp;#10;    /// 503 Service Unavailable.&amp;#10;    kHTTPStatusCodeServiceUnavailable = 503,&amp;#10;    /// 504 Gateway Timeout.&amp;#10;    kHTTPStatusCodeGatewayTimeout = 504,&amp;#10;    /// 505 HTTP Version Not Supported.&amp;#10;    kHTTPStatusCodeHTTPVersionNotSupported = 505,&amp;#10;#if !defined(HTTP_STATUS_CODES_EXCLUDE_RFC_2295)&amp;#10;    /// 506 Variant Also Negotiates (RFC 2295).&amp;#10;    kHTTPStatusCodeVariantAlsoNegotiates = 506,&amp;#10;#endif&amp;#10;#if !defined(HTTP_STATUS_CODES_EXCLUDE_WEBDAV) &amp;#38;&amp;#38; !defined(HTTP_STATUS_CODES_EXCLUDE_RFC_4918)&amp;#10;    /// 507 Insufficient Storage (WebDAV; RFC 4918).&amp;#10;    kHTTPStatusCodeInsufficientStorage = 507,&amp;#10;#endif&amp;#10;#if !defined(HTTP_STATUS_CODES_EXCLUDE_WEBDAV) &amp;#38;&amp;#38; !defined(HTTP_STATUS_CODES_EXCLUDE_RFC_5842)&amp;#10;    /// 508 Loop Detected (WebDAV; RFC 5842).&amp;#10;    kHTTPStatusCodeLoopDetected = 508,&amp;#10;#endif&amp;#10;    /// 509 Bandwidth Limit Exceeded (Apache bw/limited extension).&amp;#10;    kHTTPStatusCodeBandwidthLimitExceeded = 509,&amp;#10;#if !defined(HTTP_STATUS_CODES_EXCLUDE_RFC_2774)&amp;#10;    /// 510 Not Extended (RFC 2774).&amp;#10;    kHTTPStatusCodeNotExtended = 510,&amp;#10;#endif&amp;#10;#if !defined(HTTP_STATUS_CODES_EXCLUDE_RFC_6585)&amp;#10;    /// 511 Network Authentication Required (RFC 6585).&amp;#10;    kHTTPStatusCodeNetworkAuthenticationRequired = 511,&amp;#10;#endif&amp;#10;#if !defined(HTTP_STATUS_CODES_EXCLUDE_RTSP)&amp;#10;    /// 551 Option not supported (RTSP).&amp;#10;    kHTTPStatusCodeOptionNotSupported = 551,&amp;#10;#endif&amp;#10;    /// 598 Network read timeout error (Unknown).&amp;#10;    kHTTPStatusCodeNetworkReadTimeoutError = 598,&amp;#10;    /// 599 Network connect timeout error (Unknown).&amp;#10;    kHTTPStatusCodeNetworkConnectTimeoutError = 599&amp;#10;&amp;#125;;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;#小工蜂业主端开发规范&lt;/p&gt;
+&lt;h2 id=&quot;版本纪录&quot;&gt;&lt;a href=&quot;#版本纪录&quot; class=&quot;headerlink&quot; title=&quot;版本纪录&quot;&gt;&lt;/a&gt;版本纪录&lt;/h2&gt;&lt;blockquote&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&quot;t
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>AXPopoverView</title>
+    <link href="devedbox.com/2016/03/02/AXPopoverView/"/>
+    <id>devedbox.com/2016/03/02/AXPopoverView/</id>
+    <published>2016-03-02T05:57:01.000Z</published>
+    <updated>2016-08-02T01:09:42.000Z</updated>
+    
+    <content type="html">&lt;h1 id=&quot;AXPopoverView&quot;&gt;&lt;a href=&quot;#AXPopoverView&quot; class=&quot;headerlink&quot; title=&quot;AXPopoverView&quot;&gt;&lt;/a&gt;AXPopoverView&lt;/h1&gt;&lt;h2 id=&quot;Summary&quot;&gt;&lt;a href=&quot;#Summary&quot; class=&quot;headerlink&quot; title=&quot;Summary&quot;&gt;&lt;/a&gt;Summary&lt;/h2&gt;&lt;p&gt;&lt;code&gt;AXPopoverView&lt;/code&gt; is an iOS customizable view that displays a bubble style view with a custom view when some messages need to show from a target view or a target rect. &lt;code&gt;AXPopoverView&lt;/code&gt; contains how to use custom view to customize the popover view. The popover view (mostly used as &lt;code&gt;Label&lt;/code&gt; or &lt;code&gt;Other&lt;/code&gt;) is a convenient and hommization way for developer to use.&lt;/p&gt;
+&lt;h2 id=&quot;Features&quot;&gt;&lt;a href=&quot;#Features&quot; class=&quot;headerlink&quot; title=&quot;Features&quot;&gt;&lt;/a&gt;Features&lt;/h2&gt;&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;Popover animation&lt;/li&gt;
+&lt;li&gt;Customizable&lt;/li&gt;
+&lt;li&gt;Translucent blur effect support&lt;/li&gt;
+&lt;li&gt;Customizable animator block support&lt;/li&gt;
+&lt;li&gt;UI_APPEARANCE_SELECTOR configuration&lt;/li&gt;
+&lt;li&gt;Scrollable&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;Requirements&quot;&gt;&lt;a href=&quot;#Requirements&quot; class=&quot;headerlink&quot; title=&quot;Requirements&quot;&gt;&lt;/a&gt;Requirements&lt;/h2&gt;&lt;p&gt;&lt;code&gt;AXPopoverView&lt;/code&gt; works on any iOS version after &lt;code&gt;iOS 7.0&lt;/code&gt;. It depends on the following Apple frameworks, which should already be included with most Xcode templates:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;Foundation.framework&lt;/li&gt;
+&lt;li&gt;UIKit.framework&lt;/li&gt;
+&lt;li&gt;CoreGraphics.framework&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;You will need the latest developer tools in order to build AXPopoverView. Old Xcode versions might work, but compatibility will not be explicitly maintained.&lt;/p&gt;
+&lt;h2 id=&quot;Adding-AXPopoverView-to-your-project&quot;&gt;&lt;a href=&quot;#Adding-AXPopoverView-to-your-project&quot; class=&quot;headerlink&quot; title=&quot;Adding AXPopoverView to your project&quot;&gt;&lt;/a&gt;Adding AXPopoverView to your project&lt;/h2&gt;&lt;h3 id=&quot;CocoaPods&quot;&gt;&lt;a href=&quot;#CocoaPods&quot; class=&quot;headerlink&quot; title=&quot;CocoaPods&quot;&gt;&lt;/a&gt;CocoaPods&lt;/h3&gt;&lt;p&gt;&lt;a href=&quot;http://cocoapods.org&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;CocoaPods&lt;/a&gt; is the recommended way to add AXPopoverView to your project.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Add a pod entry for AXPopoverView to your Podfile &lt;code&gt;pod &amp;#39;AXPopoverView&amp;#39;, &amp;#39;~&amp;gt; 0.2.0&amp;#39;&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Install the pod(s) by running &lt;code&gt;pod install&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Include AXPopoverView wherever you need it with &lt;code&gt;#import &amp;quot;AXPopoverView.h&amp;quot;&lt;/code&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&quot;Source-files&quot;&gt;&lt;a href=&quot;#Source-files&quot; class=&quot;headerlink&quot; title=&quot;Source files&quot;&gt;&lt;/a&gt;Source files&lt;/h3&gt;&lt;p&gt;Alternatively you can directly add the &lt;code&gt;AXPopoverView.h&lt;/code&gt; and &lt;code&gt;AXPopoverView.m&lt;/code&gt; source files to your project.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Download the &lt;a href=&quot;https://github.com/devedbox/AXPopoverView/archive/master.zip&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;latest code version&lt;/a&gt; or add the repository as a git submodule to your git-tracked project. &lt;/li&gt;
+&lt;li&gt;Open your project in Xcode, then drag and drop &lt;code&gt;AXPopoverView.h&lt;/code&gt; and &lt;code&gt;AXPopoverView.m&lt;/code&gt; onto your project (use the “Product Navigator view”). Make sure to select Copy items when asked if you extracted the code archive outside of your project. &lt;/li&gt;
+&lt;li&gt;Include AXPopoverView wherever you need it with &lt;code&gt;#import &amp;quot;AXPopoverView.h&amp;quot;&lt;/code&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&quot;Usage&quot;&gt;&lt;a href=&quot;#Usage&quot; class=&quot;headerlink&quot; title=&quot;Usage&quot;&gt;&lt;/a&gt;Usage&lt;/h2&gt;&lt;p&gt;&lt;code&gt;AXPopoverView&lt;/code&gt; support &lt;code&gt;UI_APPEARANCE_SELECTOR&lt;/code&gt; to configure look of popover view will display on the screen. You should add your customizable code to &lt;code&gt;configuration block&lt;/code&gt; when you using the &lt;code&gt;+ instance methods&lt;/code&gt;.&lt;/p&gt;
+&lt;h3 id=&quot;Showing-amp-hiding&quot;&gt;&lt;a href=&quot;#Showing-amp-hiding&quot; class=&quot;headerlink&quot; title=&quot;Showing&amp;amp;hiding&quot;&gt;&lt;/a&gt;Showing&amp;amp;hiding&lt;/h3&gt;&lt;p&gt;Using &lt;code&gt;showInRect:animated:completion:&lt;/code&gt; &lt;code&gt;hideAnimated:afterDelay:completion:&lt;/code&gt; to show popover view or hide. You can also using convenient methods to show the popover label like this:&lt;br&gt;&lt;figure class=&quot;highlight&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;[AXPopoverLabel showFromView:sender animated:YES duration:2.0 title:@&amp;#34;Your title.&amp;#34; detail:@&amp;#34;Your detail contents.&amp;#34; configuration:nil];&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;Oh, that’s easy!!!&lt;/p&gt;
+&lt;h3 id=&quot;appearance-configuration&quot;&gt;&lt;a href=&quot;#appearance-configuration&quot; class=&quot;headerlink&quot; title=&quot;appearance configuration&quot;&gt;&lt;/a&gt;appearance configuration&lt;/h3&gt;&lt;p&gt;Using the selector masked as &lt;code&gt;UI_APPEARANCE_SELECTOR&lt;/code&gt; to custimize the popover view when application has started.&lt;br&gt;&lt;figure class=&quot;highlight&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;[[AXPopoverView appearance] setBackgroundColor:[UIColor colorWithRed:0.165f green:0.639f blue:0.937f alpha:1.00f]];&amp;#10;[[AXPopoverView appearance] setBackgroundDrawingColor:[UIColor colorWithRed:0.165f green:0.639f blue:0.937f alpha:1.00f]];&amp;#10;[[AXPopoverView appearance] setPreferredArrowDirection:AXPopoverArrowDirectionTop];&amp;#10;[[AXPopoverView appearance] setTitleTextColor:[UIColor whiteColor]];&amp;#10;[[AXPopoverView appearance] setDetailTextColor:[UIColor whiteColor]];&amp;#10;[[AXPopoverView appearance] setArrowConstant:6];&amp;#10;[[AXPopoverView appearance] setTranslucentStyle:AXPopoverTranslucentDefault];&amp;#10;[[AXPopoverView appearance] setAnimator:[AXPopoverViewAnimator animatorWithShowing:^(AXPopoverView * _Nonnull popoverView, BOOL animated, CGRect targetRect) &amp;#123;&amp;#10;if (animated) &amp;#123;&amp;#10;CGRect fromFrame = CGRectZero;&amp;#10;fromFrame.origin = popoverView.animatedFromPoint;&amp;#10;popoverView.transform = CGAffineTransformMakeScale(0, 0);&amp;#10;popoverView.layer.anchorPoint = popoverView.arrowPosition;&amp;#10;[UIView animateWithDuration:0.5 delay:0.0 usingSpringWithDamping:0.5 initialSpringVelocity:0.5 options:7 animations:^&amp;#123;&amp;#10;popoverView.transform = CGAffineTransformIdentity;&amp;#10;&amp;#125; completion:^(BOOL finish) &amp;#123;&amp;#10;// Call `viewDidShow:` when the animation finished.&amp;#10;if (finish) [popoverView viewDidShow:animated];&amp;#10;&amp;#125;];&amp;#10;&amp;#125;&amp;#10;&amp;#125; hiding:nil]];&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;h3 id=&quot;block-configuration&quot;&gt;&lt;a href=&quot;#block-configuration&quot; class=&quot;headerlink&quot; title=&quot;block configuration&quot;&gt;&lt;/a&gt;block configuration&lt;/h3&gt;&lt;p&gt;Simply using a block to customize a specific popover view will show.&lt;br&gt;&lt;figure class=&quot;highlight&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;[AXPopoverView showFromView:sender animated:YES duration:2.0 title:@&amp;#34;Your title.&amp;#34; detail:@&amp;#34;Your detail contents.&amp;#34; configuration:^(AXPopoverView *popoverView) &amp;#123;&amp;#10;popoverView.showsOnPopoverWindow = NO;&amp;#10;popoverView.translucent = NO;&amp;#10;popoverView.preferredArrowDirection = AXPopoverArrowDirectionTop;&amp;#10;popoverView.translucentStyle = AXPopoverTranslucentLight;&amp;#10;&amp;#125;];&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;You can also use as this:&lt;/p&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;AXPopoverView *popoverView = [AXPopoverView new];&amp;#10;popoverView.title = @&amp;#34;Your title.&amp;#34;;&amp;#10;popoverView.detail = @&amp;#34;Your detail contents.&amp;#34;;&amp;#10;popoverView.showsOnPopoverWindow = NO;&amp;#10;popoverView.translucent = NO;&amp;#10;popoverView.preferredArrowDirection = AXPopoverArrowDirectionTop;&amp;#10;popoverView.translucentStyle = AXPopoverTranslucentLight;&amp;#10;[popoverView showFromView:sender animated:YES duration:2.0];&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h3 id=&quot;UI-Updates&quot;&gt;&lt;a href=&quot;#UI-Updates&quot; class=&quot;headerlink&quot; title=&quot;UI Updates&quot;&gt;&lt;/a&gt;UI Updates&lt;/h3&gt;&lt;p&gt;UI updates should always be done on the main thread. like &lt;code&gt;setOffsets:&lt;/code&gt;, &lt;code&gt;setArrowAngle:&lt;/code&gt;, &lt;code&gt;setTitleFont:&lt;/code&gt;, &lt;code&gt;setDetailFont:&lt;/code&gt;, &lt;code&gt;setTranslucent:&lt;/code&gt;, &lt;code&gt;setArrowCornerRadius:&lt;/code&gt; and so on.&lt;/p&gt;
+&lt;p&gt;If you need to run your long-running task in the main thread, you should perform it with a slight delay, so UIKit will have enough time to update the UI (i.e., draw the HUD) before you block the main thread with your task.&lt;/p&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;if ([NSThread isMainThread]) &amp;#123;&amp;#10;/// Do updaing.&amp;#10;&amp;#125; else &amp;#123;&amp;#10;dispatch_async(dispatch_get_main_queue(), ^&amp;#123;&amp;#10;/// Do updating.&amp;#10;&amp;#125;);&amp;#10;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;License&quot;&gt;&lt;a href=&quot;#License&quot; class=&quot;headerlink&quot; title=&quot;License&quot;&gt;&lt;/a&gt;License&lt;/h2&gt;&lt;p&gt;This code is distributed under the terms and conditions of the &lt;a href=&quot;LICENSE&quot;&gt;MIT license&lt;/a&gt;. &lt;/p&gt;
+&lt;h2 id=&quot;Change-log&quot;&gt;&lt;a href=&quot;#Change-log&quot; class=&quot;headerlink&quot; title=&quot;Change-log&quot;&gt;&lt;/a&gt;Change-log&lt;/h2&gt;&lt;p&gt;Updating… &lt;/p&gt;
+&lt;h3 id=&quot;0-2-0-2015-11-27-22-34&quot;&gt;&lt;a href=&quot;#0-2-0-2015-11-27-22-34&quot; class=&quot;headerlink&quot; title=&quot;0.2.0@2015.11.27 22:34&quot;&gt;&lt;/a&gt;&lt;code&gt;0.2.0&lt;/code&gt;@&lt;code&gt;2015.11.27 22:34&lt;/code&gt;&lt;/h3&gt;&lt;p&gt;Deleted &lt;code&gt;AXPopoverLabel&lt;/code&gt; and merged &lt;code&gt;AXPopoverLabel&lt;/code&gt; to &lt;code&gt;AXPopoverView&lt;/code&gt;. You can use &lt;code&gt;AXPopoverView&lt;/code&gt; instead of&lt;br&gt;&lt;code&gt;AXPopoverLabel&lt;/code&gt;. Enjoy!!!&lt;/p&gt;
+&lt;h3 id=&quot;0-3-0-2015-11-28-16-00&quot;&gt;&lt;a href=&quot;#0-3-0-2015-11-28-16-00&quot; class=&quot;headerlink&quot; title=&quot;0.3.0@2015.11.28 16:00&quot;&gt;&lt;/a&gt;&lt;code&gt;0.3.0&lt;/code&gt;@&lt;code&gt;2015.11.28 16:00&lt;/code&gt;&lt;/h3&gt;&lt;p&gt;Added:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;ol&gt;
+&lt;li&gt;indicator view.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;ol&gt;
+&lt;li&gt;progress view.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;ol&gt;
+&lt;li&gt;button items.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;ol&gt;
+&lt;li&gt;custom header view and footer view for customization.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Updated pod spec file to &lt;code&gt;0.3.0&lt;/code&gt;&lt;/p&gt;
+&lt;h3 id=&quot;0-4-0-2015-12-24-17-40&quot;&gt;&lt;a href=&quot;#0-4-0-2015-12-24-17-40&quot; class=&quot;headerlink&quot; title=&quot;0.4.0@2015.12.24 17:40&quot;&gt;&lt;/a&gt;&lt;code&gt;0.4.0&lt;/code&gt;@&lt;code&gt;2015.12.24 17:40&lt;/code&gt;&lt;/h3&gt;&lt;p&gt;Added animator of animation to customize a showing/hiding animation. Both are using block. See &lt;code&gt;AXPopoverView+Animator&lt;/code&gt; for more details.&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;AXPopoverView&quot;&gt;&lt;a href=&quot;#AXPopoverView&quot; class=&quot;headerlink&quot; title=&quot;AXPopoverView&quot;&gt;&lt;/a&gt;AXPopoverView&lt;/h1&gt;&lt;h2 id=&quot;Summary&quot;&gt;&lt;a href=&quot;#Su
+    
+    </summary>
+    
+      <category term="开发" scheme="devedbox.com/categories/%E5%BC%80%E5%8F%91/"/>
+    
+    
+      <category term="AXPopoverView" scheme="devedbox.com/tags/AXPopoverView/"/>
+    
+      <category term="Objective-C" scheme="devedbox.com/tags/Objective-C/"/>
+    
+      <category term="iOS" scheme="devedbox.com/tags/iOS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="devedbox.com/2016/03/01/hello-world/"/>
+    <id>devedbox.com/2016/03/01/hello-world/</id>
+    <published>2016-02-29T16:00:00.000Z</published>
+    <updated>2016-08-02T01:12:04.000Z</updated>
+    
+    <content type="html">&lt;p&gt;Welcome to &lt;a href=&quot;http://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;http://hexo.io/docs/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;documentation&lt;/a&gt; for more info. If you get any problems when using Hexo, you can find the answer in &lt;a href=&quot;http://hexo.io/docs/troubleshooting.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;troubleshooting&lt;/a&gt; or you can ask me on &lt;a href=&quot;https://github.com/hexojs/hexo/issues&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;GitHub&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&quot;Quick-Start&quot;&gt;&lt;a href=&quot;#Quick-Start&quot; class=&quot;headerlink&quot; title=&quot;Quick Start&quot;&gt;&lt;/a&gt;Quick Start&lt;/h2&gt;&lt;h3 id=&quot;Create-a-new-post&quot;&gt;&lt;a href=&quot;#Create-a-new-post&quot; class=&quot;headerlink&quot; title=&quot;Create a new post&quot;&gt;&lt;/a&gt;Create a new post&lt;/h3&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ hexo new &lt;span class=&quot;string&quot;&gt;&quot;My New Post&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;More info: &lt;a href=&quot;http://hexo.io/docs/writing.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Writing&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&quot;Run-server&quot;&gt;&lt;a href=&quot;#Run-server&quot; class=&quot;headerlink&quot; title=&quot;Run server&quot;&gt;&lt;/a&gt;Run server&lt;/h3&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ hexo server&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;More info: &lt;a href=&quot;http://hexo.io/docs/server.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Server&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&quot;Generate-static-files&quot;&gt;&lt;a href=&quot;#Generate-static-files&quot; class=&quot;headerlink&quot; title=&quot;Generate static files&quot;&gt;&lt;/a&gt;Generate static files&lt;/h3&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ hexo generate&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;More info: &lt;a href=&quot;http://hexo.io/docs/generating.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Generating&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&quot;Deploy-to-remote-sites&quot;&gt;&lt;a href=&quot;#Deploy-to-remote-sites&quot; class=&quot;headerlink&quot; title=&quot;Deploy to remote sites&quot;&gt;&lt;/a&gt;Deploy to remote sites&lt;/h3&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ hexo deploy&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;More info: &lt;a href=&quot;http://hexo.io/docs/deployment.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Deployment&lt;/a&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Welcome to &lt;a href=&quot;http://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;http://hexo.io
+    
+    </summary>
+    
+      <category term="教程" scheme="devedbox.com/categories/%E6%95%99%E7%A8%8B/"/>
+    
+    
+      <category term="Hexo" scheme="devedbox.com/tags/Hexo/"/>
+    
+  </entry>
+  
+</feed>

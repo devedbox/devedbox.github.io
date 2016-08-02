@@ -1,0 +1,1066 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="AXWebViewController,Objective-C,WebKit,iOS," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="devedbox" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0" />
+
+
+
+
+
+
+<meta name="description" content="AXWebViewController##SummaryAXWebViewController是一款易用的基于UIWebView（20160716更新：iOS8.0以上使用WKWebView实现）封装的网页浏览控制器. 在系统功能的基础上添加了工具条导航，可以刷新、返回、前进、等操作，同时，AXWebViewController还实现了微信样式的导航返回支持，集成简单，使用方便。如图所示：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AXWebViewController">
+<meta property="og:url" content="devedbox.com/2016/08/02/AXWebViewController/index.html">
+<meta property="og:site_name" content="devedbox">
+<meta property="og:description" content="AXWebViewController##SummaryAXWebViewController是一款易用的基于UIWebView（20160716更新：iOS8.0以上使用WKWebView实现）封装的网页浏览控制器. 在系统功能的基础上添加了工具条导航，可以刷新、返回、前进、等操作，同时，AXWebViewController还实现了微信样式的导航返回支持，集成简单，使用方便。如图所示：">
+<meta property="og:image" content="https://travis-ci.org/devedbox/AXWebViewController.svg?branch=master">
+<meta property="og:image" content="https://img.shields.io/cocoapods/v/AXWebViewController.svg?style=flat">
+<meta property="og:image" content="https://img.shields.io/cocoapods/l/AXWebViewController.svg?style=flat">
+<meta property="og:image" content="https://img.shields.io/cocoapods/p/AXWebViewController.svg?style=flat">
+<meta property="og:image" content="http://ww3.sinaimg.cn/large/d2297bd2gw1f5wpniezqpg209o0h44qr.gif">
+<meta property="og:image" content="http://ww4.sinaimg.cn/large/d2297bd2gw1f5wpmh7vfgg209o0h4qv5.gif">
+<meta property="og:updated_time" content="2016-08-02T01:34:32.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="AXWebViewController">
+<meta name="twitter:description" content="AXWebViewController##SummaryAXWebViewController是一款易用的基于UIWebView（20160716更新：iOS8.0以上使用WKWebView实现）封装的网页浏览控制器. 在系统功能的基础上添加了工具条导航，可以刷新、返回、前进、等操作，同时，AXWebViewController还实现了微信样式的导航返回支持，集成简单，使用方便。如图所示：">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> AXWebViewController | devedbox </title>
+</head>
+
+<!-- custom analytics part create by xiamo -->
+<script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+<script>AV.initialize("dGgPPFSrVcACvpPPwfL3UwTs-gzGzoHsz", "QewucF4h9rLTKPzLpeshgEer");</script>
+<script>
+function showTime(Counter) {
+	var query = new AV.Query(Counter);
+	$(".leancloud_visitors").each(function() {
+		var url = $(this).attr("id").trim();
+		query.equalTo("url", url);
+		query.find({
+			success: function(results) {
+				if (results.length == 0) {
+					var content = '0 ' + $(document.getElementById(url)).text();
+					$(document.getElementById(url)).text(content);
+					return;
+				}
+				for (var i = 0; i < results.length; i++) {
+					var object = results[i];
+					var content = object.get('time') + ' ' + $(document.getElementById(url)).text();
+					$(document.getElementById(url)).text(content);
+				}
+			},
+			error: function(object, error) {
+				console.log("Error: " + error.code + " " + error.message);
+			}
+		});
+
+	});
+}
+
+function addCount(Counter) {
+	var Counter = AV.Object.extend("Counter");
+	url = $(".leancloud_visitors").attr('id').trim();
+	title = $(".leancloud_visitors").attr('data-flag-title').trim();
+	var query = new AV.Query(Counter);
+	query.equalTo("url", url);
+	query.find({
+		success: function(results) {
+			if (results.length > 0) {
+				var counter = results[0];
+				counter.fetchWhenSave(true);
+				counter.increment("time");
+				counter.save(null, {
+					success: function(counter) {
+						var content =  counter.get('time') + ' ' + $(document.getElementById(url)).text();
+						$(document.getElementById(url)).text(content);
+					},
+					error: function(counter, error) {
+						console.log('Failed to save Visitor num, with error message: ' + error.message);
+					}
+				});
+			} else {
+				var newcounter = new Counter();
+				newcounter.set("title", title);
+				newcounter.set("url", url);
+				newcounter.set("time", 1);
+				newcounter.save(null, {
+					success: function(newcounter) {
+					    console.log("newcounter.get('time')="+newcounter.get('time'));
+						var content = newcounter.get('time') + ' ' + $(document.getElementById(url)).text();
+						$(document.getElementById(url)).text(content);
+					},
+					error: function(newcounter, error) {
+						console.log('Failed to create');
+					}
+				});
+			}
+		},
+		error: function(error) {
+			console.log('Error:' + error.code + " " + error.message);
+		}
+	});
+}
+$(function() {
+	var Counter = AV.Object.extend("Counter");
+	if ($('.leancloud_visitors').length == 1) {
+		addCount(Counter);
+	} else if ($('.post-title-link').length > 1) {
+		showTime(Counter);
+	}
+}); 
+</script>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?32614a826ac53952df6db42620ff904e";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">devedbox</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">devedbox'blog | iOS | Objective-C | Swift | Cocoa</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+      
+      
+        <li class="menu-item menu-item-search">
+          <a href="#" class="st-search-show-outputs">
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'Yw4Mn9e_Adahe2DHcnrS','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                AXWebViewController
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-02T08:59:12+08:00" content="2016-08-02">
+              2016-08-02
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/教程/" itemprop="url" rel="index">
+                    <span itemprop="name">教程</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/08/02/AXWebViewController/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/02/AXWebViewController/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2016/08/02/AXWebViewController/" class="leancloud_visitors" data-flag-title="AXWebViewController">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="AXWebViewController"><a href="#AXWebViewController" class="headerlink" title="AXWebViewController"></a>AXWebViewController<a href="https://travis-ci.org/devedbox/AXWebViewController" target="_blank" rel="external"><img src="https://travis-ci.org/devedbox/AXWebViewController.svg?branch=master" alt="Build Status"></a><a href="http://cocoapods.org/pods/AXWebViewController" target="_blank" rel="external"><img src="https://img.shields.io/cocoapods/v/AXWebViewController.svg?style=flat" alt="Version"></a><a href="http://cocoapods.org/pods/AXWebViewController" target="_blank" rel="external"><img src="https://img.shields.io/cocoapods/l/AXWebViewController.svg?style=flat" alt="License"></a><a href="http://cocoapods.org/pods/AXWebViewController" target="_blank" rel="external"><img src="https://img.shields.io/cocoapods/p/AXWebViewController.svg?style=flat" alt="Platform"></a></h1><p>##Summary<br><code>AXWebViewController</code>是一款易用的基于<code>UIWebView</code>（20160716更新：iOS8.0以上使用<code>WKWebView</code>实现）封装的网页浏览控制器. 在系统功能的基础上添加了工具条导航，可以刷新、返回、前进、等操作，同时，<code>AXWebViewController</code>还实现了<code>微信样式</code>的导航返回支持，集成简单，使用方便。如图所示：</p>
+<p><a href="http://ww3.sinaimg.cn/large/d2297bd2gw1f5wpniezqpg209o0h44qr.gif" target="_blank" rel="external"><img src="http://ww3.sinaimg.cn/large/d2297bd2gw1f5wpniezqpg209o0h44qr.gif" alt="sample2"></a>    <a href="http://ww4.sinaimg.cn/large/d2297bd2gw1f5wpmh7vfgg209o0h4qv5.gif" target="_blank" rel="external"><img src="http://ww4.sinaimg.cn/large/d2297bd2gw1f5wpmh7vfgg209o0h4qv5.gif" alt="sample"></a></p>
+<p><a href="http://video.weibo.com/show?fid=1034:5a4102ad40573447a44ae74d56a80451" target="_blank" rel="external">视频链接</a></p>
+<h2 id="Features"><a href="#Features" class="headerlink" title="Features"></a>Features</h2><blockquote>
+<ul>
+<li>手势滑动返回上个网页</li>
+<li>微信样式导航返回</li>
+<li>网页加载失败提示（iOS8.0以下）</li>
+<li>网页加载进度提示</li>
+<li>网页来源提示</li>
+<li>支持<strong>Peek</strong>和<strong>Pop</strong>浏览网页，并且commit之后在本网页进行加载，不用跳转到Safari进行浏览，这里使用到了很多运行时的方法，因此，在使用的过程中可能会抛异常。</li>
+</ul>
+</blockquote>
+<h2 id="Requirements"><a href="#Requirements" class="headerlink" title="Requirements"></a>Requirements</h2><p><code>AXWebViewController</code> 对系统版本支持到iOS7.0，需要使用到：</p>
+<blockquote>
+<ul>
+<li>Foundation.framework</li>
+<li>UIKit.framework</li>
+</ul>
+</blockquote>
+<p>使用的时候最好使用最新版Xcode。</p>
+<h2 id="Adding-AXWebViewController-to-your-projet"><a href="#Adding-AXWebViewController-to-your-projet" class="headerlink" title="Adding AXWebViewController to your projet"></a>Adding AXWebViewController to your projet</h2><h3 id="CocoaPods"><a href="#CocoaPods" class="headerlink" title="CocoaPods"></a>CocoaPods</h3><p><a href="http://cocoapods.org" target="_blank" rel="external">CocoaPods</a> is the recommended way to add AXWebViewController to your project.</p>
+<ol>
+<li>Add a pod entry for AXPopoverView to your Podfile <code>pod &#39;AXWebViewController&#39;, &#39;~&gt; 0.1.10&#39;</code></li>
+<li>Install the pod(s) by running <code>pod install</code>.</li>
+<li>Include AXPopoverView wherever you need it with <code>#import &quot;AXWebViewController.h&quot;</code>.</li>
+</ol>
+<h3 id="Source-files"><a href="#Source-files" class="headerlink" title="Source files"></a>Source files</h3><p>Alternatively you can directly add the <code>AXWebViewController.h</code>、<code>AXWebNavigationViewController.h</code> and <code>AXWebViewController.m</code>、<code>AXWebNavigationViewController.m</code> source files to your project.</p>
+<ol>
+<li>Download the <a href="https://github.com/devedbox/AXWebViewController/archive/master.zip" target="_blank" rel="external">latest code version</a> or add the repository as a git submodule to your git-tracked project. </li>
+<li>Open your project in Xcode, then drag and drop <code>AXWebViewController.h</code> and <code>AXWebViewControllerm</code> onto your project (use the “Product Navigator view”). Make sure to select Copy items when asked if you extracted the code archive outside of your project. </li>
+<li>Include AXPopoverView wherever you need it with <code>#import &quot;AXWebViewController.h&quot;</code>.</li>
+</ol>
+<h2 id="License"><a href="#License" class="headerlink" title="License"></a>License</h2><p>This code is distributed under the terms and conditions of the <a href="LICENSE">MIT license</a>. </p>
+<h2 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h2><p><code>AXWebViewController</code>使用和使用普通<code>UIViewController</code>一样简单，只需要在需要使用的地方使用<code>URL</code>初始化即可：<br><figure class="highlight"><table><tr><td class="code"><pre><span class="line">AXWebViewController *webVC = [[AXWebViewController alloc] initWithAddress:@&#34;http://www.baidu.com&#34;];&#10;webVC.showsToolBar = NO;&#10;webVC.navigationController.navigationBar.translucent = NO;&#10;self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:0.100f green:0.100f blue:0.100f alpha:0.800f];&#10;self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:0.996f green:0.867f blue:0.522f alpha:1.00f];&#10;[self.navigationController pushViewController:webVC animated:YES];</span><br></pre></td></tr></table></figure></p>
+<h3 id="使用工具条导航"><a href="#使用工具条导航" class="headerlink" title="使用工具条导航"></a>使用工具条导航</h3><p>使用工具条只需在<code>AXWebViewController</code>初始化之后加入一句代码：<br><figure class="highlight"><table><tr><td class="code"><pre><span class="line">webVC.navigationType = AXWebViewControllerNavigationToolItem;&#10;webVC.showsToolBar = YES;</span><br></pre></td></tr></table></figure></p>
+<p>注意，在设置<code>navigationType</code>为<code>AXWebViewControllerNavigationToolItem</code>之后，须确认<code>showsToolBar</code>为<code>YES</code>才能生效.</p>
+<h3 id="使用微信样式导航"><a href="#使用微信样式导航" class="headerlink" title="使用微信样式导航"></a>使用微信样式导航</h3><p>在<code>AXWebViewController</code>初始化之后加入一句代码：<br><figure class="highlight"><table><tr><td class="code"><pre><span class="line">webVC.navigationType = AXWebViewControllerNavigationBarItem;</span><br></pre></td></tr></table></figure></p>
+<p>即可生效.</p>
+<h3 id="Peek-amp-Pop"><a href="#Peek-amp-Pop" class="headerlink" title="Peek&amp;Pop"></a>Peek&amp;Pop</h3><p>Peek和Pop使用的是原生的系统功能，在使用的时候只需要将<code>webView.allowsLinkPreview</code>设置为<code>YES</code>即可使用，这里需要注意下，在实现Peek和Pop的时候，使用了Runtime的相关知识，而且使用AOP的一个框架<strong><a href="https://github.com/steipete/Aspects" target="_blank" rel="external">Aspects</a></strong>进行了编程，在使用的过程中可能会出错，当然，出错的几率也是很小的（苹果不可能隔三差五的去修改自家的Private API吧=  =），实现原理就不多讲了，基本上就是运行时的一些知识，代码如下：<br><figure class="highlight"><table><tr><td class="code"><pre><span class="line">&#10;- (void)hookWebContentCommitPreviewHandler &#123;&#10;    // Find the `WKContentView` in the webview.&#10;    __weak typeof(self) wself = self;&#10;    for (UIView *_view in _webView.scrollView.subviews) &#123;&#10;    if ([_view isKindOfClass:NSClassFromString(@&#34;WKContentView&#34;)]) &#123;&#10;    id _previewItemController = object_getIvar(_view, class_getInstanceVariable([_view class], &#34;_previewItemController&#34;));&#10;    Class _class = [_previewItemController class];&#10;    SEL _performCustomCommitSelector = NSSelectorFromString(@&#34;previewInteractionController:interactionProgress:forRevealAtLocation:inSourceView:containerView:&#34;);&#10;    [_previewItemController aspect_hookSelector:_performCustomCommitSelector withOptions:AspectPositionAfter usingBlock:^() &#123;&#10;        UIViewController *pred = [_previewItemController valueForKeyPath:@&#34;presentedViewController&#34;];&#10;        [pred aspect_hookSelector:NSSelectorFromString(@&#34;_addRemoteView&#34;) withOptions:AspectPositionAfter usingBlock:^() &#123;&#10;            UIViewController *_remoteViewController = object_getIvar(pred, class_getInstanceVariable([pred class], &#34;_remoteViewController&#34;));&#10;            &#10;            [_remoteViewController aspect_hookSelector:@selector(viewDidLoad) withOptions:AspectPositionAfter usingBlock:^() &#123;&#10;                _remoteViewController.view.tintColor = wself.navigationController.navigationBar.tintColor;&#10;            &#125; error:NULL];&#10;        &#125; error:NULL];&#10;        &#10;        NSArray *ddActions = [pred valueForKeyPath:@&#34;ddActions&#34;];&#10;        id openURLAction = [ddActions firstObject];&#10;        &#10;        [openURLAction aspect_hookSelector:NSSelectorFromString(@&#34;perform&#34;) withOptions:AspectPositionInstead usingBlock:^ () &#123;&#10;            NSURL *_url = object_getIvar(openURLAction, class_getInstanceVariable([openURLAction class], &#34;_url&#34;));&#10;            [wself loadURL:_url];&#10;        &#125; error:NULL];&#10;        &#10;        id _lookupItem = object_getIvar(_previewItemController, class_getInstanceVariable([_class class], &#34;_lookupItem&#34;));&#10;        [_lookupItem aspect_hookSelector:NSSelectorFromString(@&#34;commit&#34;) withOptions:AspectPositionInstead usingBlock:^() &#123;&#10;            NSURL *_url = object_getIvar(_lookupItem, class_getInstanceVariable([_lookupItem class], &#34;_url&#34;));&#10;            [wself loadURL:_url];&#10;        &#125; error:NULL];&#10;        [_lookupItem aspect_hookSelector:NSSelectorFromString(@&#34;commitWithTransitionForPreviewViewController:inViewController:completion:&#34;) withOptions:AspectPositionInstead usingBlock:^() &#123;&#10;            NSURL *_url = object_getIvar(_lookupItem, class_getInstanceVariable([_lookupItem class], &#34;_url&#34;));&#10;            [wself loadURL:_url];&#10;        &#125; error:NULL];&#10;        /*&#10;         UIWindow&#10;         -UITransitionView&#10;         --UIVisualEffectView&#10;         ---_UIVisualEffectContentView&#10;         ----UIView&#10;         -----_UIPreviewActionSheetView&#10;         */&#10;        /*&#10;         for (UIView * transitionView in [UIApplication sharedApplication].keyWindow.subviews) &#123;&#10;         if ([transitionView isMemberOfClass:NSClassFromString(@&#34;UITransitionView&#34;)]) &#123;&#10;         transitionView.tintColor = wself.navigationController.navigationBar.tintColor;&#10;         for (UIView *__view in transitionView.subviews) &#123;&#10;         if ([__view isMemberOfClass:NSClassFromString(@&#34;UIVisualEffectView&#34;)]) &#123;&#10;         for (UIView *___view in __view.subviews) &#123;&#10;         if ([___view isMemberOfClass:NSClassFromString(@&#34;_UIVisualEffectContentView&#34;)]) &#123;&#10;         for (UIView *____view in ___view.subviews) &#123;&#10;         if ([____view isMemberOfClass:NSClassFromString(@&#34;UIView&#34;)]) &#123;&#10;         __weak typeof(____view) w____view = ____view;&#10;         [____view aspect_hookSelector:@selector(addSubview:) withOptions:AspectPositionAfter usingBlock:^() &#123;&#10;         for (UIView *actionSheet in w____view.subviews) &#123;&#10;         if ([actionSheet isMemberOfClass:NSClassFromString(@&#34;_UIPreviewActionSheetView&#34;)]) &#123;&#10;         break;&#10;         &#125;&#10;         &#125;&#10;         &#125; error:NULL];&#10;         &#125;&#10;         &#125;break;&#10;         &#125;&#10;         &#125;break;&#10;         &#125;&#10;         &#125;break;&#10;         &#125;&#10;         &#125;&#10;         */&#10;    &#125; error:NULL];&#10;    break;&#10;    &#125;&#10;    &#125;&#10;&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="致谢"><a href="#致谢" class="headerlink" title="致谢"></a>致谢</h2><p><a href="https://github.com/Roxasora/RxWebViewController" target="_blank" rel="external">RxWebViewController</a>为我提供了思路，有些地方做了参考</p>
+<p>使用了<a href="https://github.com/ninjinkun/NJKWebViewProgress" target="_blank" rel="external">NJKWebViewProgress</a>作为进度条，感谢！</p>
+<h2 id="更新日志"><a href="#更新日志" class="headerlink" title="更新日志"></a>更新日志</h2><h3 id="0-1-10"><a href="#0-1-10" class="headerlink" title="0.1.10"></a>0.1.10</h3><p>使用基于<code>UIWebView</code>的实现，进度条使用<code>NJKWebViewProgress</code>实现.</p>
+<h3 id="0-2-0"><a href="#0-2-0" class="headerlink" title="0.2.0"></a>0.2.0</h3><p>iOS8.0以上使用<code>WKWebView</code>实现，进度条使用<code>UIProgressView</code>实现. 实现了本页面Peek&amp;Pop而不用跳转到Safari进行浏览.</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/AXWebViewController/" rel="tag">#AXWebViewController</a>
+          
+            <a href="/tags/Objective-C/" rel="tag">#Objective-C</a>
+          
+            <a href="/tags/WebKit/" rel="tag">#WebKit</a>
+          
+            <a href="/tags/iOS/" rel="tag">#iOS</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/03/09/How to Use CocoaPods with Swift/" rel="next" title="怎样在Swift中使用CocoaPods">
+                <i class="fa fa-chevron-left"></i> 怎样在Swift中使用CocoaPods
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/08/02/AXWebViewController/"
+           data-title="AXWebViewController" data-url="devedbox.com/2016/08/02/AXWebViewController/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="devedbox" />
+          <p class="site-author-name" itemprop="name">devedbox</p>
+          <p class="site-description motion-element" itemprop="description">你给我想不到的快乐像绿洲给了沙漠</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">11</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+          
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/devedbox" target="_blank">
+                  
+                    <i class="fa fa-github"></i> GitHub
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/AAxXxA" target="_blank">
+                  
+                    <i class="fa fa-weibo"></i> Weibo
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#AXWebViewController"><span class="nav-number">1.</span> <span class="nav-text">AXWebViewController</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Features"><span class="nav-number">1.1.</span> <span class="nav-text">Features</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Requirements"><span class="nav-number">1.2.</span> <span class="nav-text">Requirements</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Adding-AXWebViewController-to-your-projet"><span class="nav-number">1.3.</span> <span class="nav-text">Adding AXWebViewController to your projet</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CocoaPods"><span class="nav-number">1.3.1.</span> <span class="nav-text">CocoaPods</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Source-files"><span class="nav-number">1.3.2.</span> <span class="nav-text">Source files</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#License"><span class="nav-number">1.4.</span> <span class="nav-text">License</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Usage"><span class="nav-number">1.5.</span> <span class="nav-text">Usage</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用工具条导航"><span class="nav-number">1.5.1.</span> <span class="nav-text">使用工具条导航</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用微信样式导航"><span class="nav-number">1.5.2.</span> <span class="nav-text">使用微信样式导航</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Peek-amp-Pop"><span class="nav-number">1.5.3.</span> <span class="nav-text">Peek&Pop</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#致谢"><span class="nav-number">1.6.</span> <span class="nav-text">致谢</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更新日志"><span class="nav-number">1.7.</span> <span class="nav-text">更新日志</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#0-1-10"><span class="nav-number">1.7.1.</span> <span class="nav-text">0.1.10</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0-2-0"><span class="nav-number">1.7.2.</span> <span class="nav-text">0.2.0</span></a></li></ol></li></ol></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">devedbox</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  
+
+
+  
+
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=0.5.0"></script>
+
+
+
+  
+  
+<script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    NexT.motion.middleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+
+      if (CONFIG.scheme !== 'Pisces' && (CONFIG.sidebar.display === 'post' || CONFIG.sidebar.display === 'always')) {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          NexT.utils.displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"devedbox"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("dGgPPFSrVcACvpPPwfL3UwTs-gzGzoHsz", "QewucF4h9rLTKPzLpeshgEer");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+
+</body>
+</html>

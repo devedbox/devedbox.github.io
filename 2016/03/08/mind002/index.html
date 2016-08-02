@@ -1,0 +1,1078 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="devedbox, iOS, Objective-C, Swift, Cocoa" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="devedbox" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0" />
+
+
+
+
+
+
+<meta name="description" content="—-记一次谈话心得.编辑：酱游科技IT技术部
+收获外包是一个很具有挑战性的东西，在我们没有任何经验的前提下做外包，其实是一个很大的挑战，所以，能够在与这方面有了一些经验甚至小成就的人谈，是会有很多收获的，但是，别人讲的虽然很有道理，不一定适合我们，我们也不可能照葫芦画瓢的去完全照抄别人的那一套，我们需要做的是在别人的基础上提炼出适合自己的一种方式。我对一些别人的观点甚至做事的方式持一种怀疑态度，真">
+<meta property="og:type" content="article">
+<meta property="og:title" content="技术之路－外包">
+<meta property="og:url" content="devedbox.com/2016/03/08/mind002/index.html">
+<meta property="og:site_name" content="devedbox">
+<meta property="og:description" content="—-记一次谈话心得.编辑：酱游科技IT技术部
+收获外包是一个很具有挑战性的东西，在我们没有任何经验的前提下做外包，其实是一个很大的挑战，所以，能够在与这方面有了一些经验甚至小成就的人谈，是会有很多收获的，但是，别人讲的虽然很有道理，不一定适合我们，我们也不可能照葫芦画瓢的去完全照抄别人的那一套，我们需要做的是在别人的基础上提炼出适合自己的一种方式。我对一些别人的观点甚至做事的方式持一种怀疑态度，真">
+<meta property="og:updated_time" content="2016-03-09T01:18:57.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="技术之路－外包">
+<meta name="twitter:description" content="—-记一次谈话心得.编辑：酱游科技IT技术部
+收获外包是一个很具有挑战性的东西，在我们没有任何经验的前提下做外包，其实是一个很大的挑战，所以，能够在与这方面有了一些经验甚至小成就的人谈，是会有很多收获的，但是，别人讲的虽然很有道理，不一定适合我们，我们也不可能照葫芦画瓢的去完全照抄别人的那一套，我们需要做的是在别人的基础上提炼出适合自己的一种方式。我对一些别人的观点甚至做事的方式持一种怀疑态度，真">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 技术之路－外包 | devedbox </title>
+</head>
+
+<!-- custom analytics part create by xiamo -->
+<script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+<script>AV.initialize("dGgPPFSrVcACvpPPwfL3UwTs-gzGzoHsz", "QewucF4h9rLTKPzLpeshgEer");</script>
+<script>
+function showTime(Counter) {
+	var query = new AV.Query(Counter);
+	$(".leancloud_visitors").each(function() {
+		var url = $(this).attr("id").trim();
+		query.equalTo("url", url);
+		query.find({
+			success: function(results) {
+				if (results.length == 0) {
+					var content = '0 ' + $(document.getElementById(url)).text();
+					$(document.getElementById(url)).text(content);
+					return;
+				}
+				for (var i = 0; i < results.length; i++) {
+					var object = results[i];
+					var content = object.get('time') + ' ' + $(document.getElementById(url)).text();
+					$(document.getElementById(url)).text(content);
+				}
+			},
+			error: function(object, error) {
+				console.log("Error: " + error.code + " " + error.message);
+			}
+		});
+
+	});
+}
+
+function addCount(Counter) {
+	var Counter = AV.Object.extend("Counter");
+	url = $(".leancloud_visitors").attr('id').trim();
+	title = $(".leancloud_visitors").attr('data-flag-title').trim();
+	var query = new AV.Query(Counter);
+	query.equalTo("url", url);
+	query.find({
+		success: function(results) {
+			if (results.length > 0) {
+				var counter = results[0];
+				counter.fetchWhenSave(true);
+				counter.increment("time");
+				counter.save(null, {
+					success: function(counter) {
+						var content =  counter.get('time') + ' ' + $(document.getElementById(url)).text();
+						$(document.getElementById(url)).text(content);
+					},
+					error: function(counter, error) {
+						console.log('Failed to save Visitor num, with error message: ' + error.message);
+					}
+				});
+			} else {
+				var newcounter = new Counter();
+				newcounter.set("title", title);
+				newcounter.set("url", url);
+				newcounter.set("time", 1);
+				newcounter.save(null, {
+					success: function(newcounter) {
+					    console.log("newcounter.get('time')="+newcounter.get('time'));
+						var content = newcounter.get('time') + ' ' + $(document.getElementById(url)).text();
+						$(document.getElementById(url)).text(content);
+					},
+					error: function(newcounter, error) {
+						console.log('Failed to create');
+					}
+				});
+			}
+		},
+		error: function(error) {
+			console.log('Error:' + error.code + " " + error.message);
+		}
+	});
+}
+$(function() {
+	var Counter = AV.Object.extend("Counter");
+	if ($('.leancloud_visitors').length == 1) {
+		addCount(Counter);
+	} else if ($('.post-title-link').length > 1) {
+		showTime(Counter);
+	}
+}); 
+</script>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?32614a826ac53952df6db42620ff904e";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">devedbox</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">devedbox'blog | iOS | Objective-C | Swift | Cocoa</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+      
+      
+        <li class="menu-item menu-item-search">
+          <a href="#" class="st-search-show-outputs">
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'Yw4Mn9e_Adahe2DHcnrS','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                技术之路－外包
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-03-08T11:15:52+08:00" content="2016-03-08">
+              2016-03-08
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/03/08/mind002/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/08/mind002/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2016/03/08/mind002/" class="leancloud_visitors" data-flag-title="技术之路－外包">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>—-记一次谈话心得.<br>编辑：<a href="http://www.jiangtour.cn" target="_blank" rel="external">酱游科技</a>IT技术部</p>
+<h1 id="收获"><a href="#收获" class="headerlink" title="收获"></a>收获</h1><p>外包是一个很具有挑战性的东西，在我们没有任何经验的前提下做外包，其实是一个很大的挑战，所以，能够在与这方面有了一些经验甚至小成就的人谈，是会有很多收获的，但是，别人讲的虽然很有道理，不一定适合我们，我们也不可能照葫芦画瓢的去完全照抄别人的那一套，我们需要做的是在别人的基础上提炼出适合自己的一种方式。我对一些别人的观点甚至做事的方式持一种怀疑态度，真的是这样的吗？</p>
+<h2 id="谈判（技术牵引、展现诚意、适当回扣）"><a href="#谈判（技术牵引、展现诚意、适当回扣）" class="headerlink" title="谈判（技术牵引、展现诚意、适当回扣）"></a>谈判（技术牵引、展现诚意、适当回扣）</h2><p>合理谈判，用技术的眼光去看问题，在一些问题上要提供可行的且对我们有利的解决方案。</p>
+<h3 id="分阶段"><a href="#分阶段" class="headerlink" title="分阶段"></a>分阶段</h3><p>将大画小，分不同的阶段解决不同阶段亟待解决的问题，有目的性的完成每个阶段的目标性问题。</p>
+<ol>
+<li>第一阶段定需求，拟出项目主线并根据主线制定<strong>产品需求文档(PRD)</strong>。</li>
+<li>第二阶段谈价钱，旁敲侧击出对方的预算这些相关的东西，并根据这些东西适当的给出价格。</li>
+<li>第三阶段表诚意，在这个基础上表明自己的诚意，若有相关竞争的团队，则试探出对方的报价或者项目对接人回扣这套东西，做一些适当的调整以保证项目能够最终谈成。</li>
+</ol>
+<h4 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h4><blockquote>
+<ul>
+<li>第一阶段主要谈需求，谈项目主线，根据谈判结果有一周左右时间出具体的方案。</li>
+<li>第二阶段是根据第一轮筛选后的，期间的一周时间要与对方的对接人私下多交流，从话语中探出对方在此项目的角色，对方的为人等，如果对方只是项目经理或者跟对方公司关联不大的人，从话语中探出对方吃回扣那套，就要表明自己的回扣一般10%~15%，90%的人都吃这套，也是关键点，然后探出对方对此项目的预算，根据预算报价，加大成功可能性。</li>
+<li>第三阶段一般就最后两个团队竞标，展示出自己的诚意，能通过第二阶段打通的人脉来探出对方外包公司的报价是最好，然后下调自己的价位。</li>
+</ul>
+</blockquote>
+<h2 id="开发"><a href="#开发" class="headerlink" title="开发"></a>开发</h2><h3 id="开发周期"><a href="#开发周期" class="headerlink" title="开发周期"></a>开发周期</h3><ol>
+<li>第一阶段定需求，根据主线拟定PRD文档。</li>
+<li>第二阶段出产品图，给需求方查看。</li>
+<li>第三阶段开发产品，先出demo版，多余需求方进行持续的交流沟通。</li>
+</ol>
+<h4 id="注意-1"><a href="#注意-1" class="headerlink" title="注意"></a>注意</h4><blockquote>
+<ul>
+<li>外包的开发，分三期，一期定需求、二期出界面、三期开发；也分三个版本，demo版、可运行版本、成品。</li>
+<li>一期定需求：根据主线些产品需求文档PRD，跟对方核对需求，签字。</li>
+<li>二期出界面：界面先出主线图，二级页面，出两到三套的界面图（主要定风格、整体样式），当然这里有一套比较完美的其它的是作为对比存在的，给老板选择，让他看到你认真做了，而且他选择也让他参与其中。其中一套一定要接近产品原型，引导对方选择这套，而这套图也将作为技术开这块指定方案，拉近工期。确定好一二级界面后，再出之后的三级四级页面，PRD中一般不会写得那么细，所以在图设计好确定后也要签字，以免不必要的修改。</li>
+<li>三期开发：主要根据之前累计的模板快速套出产品，不要一次性做出产品在与对方交流，每周最好交流，没半个月出一个版本，所谓版本不是迭代版本而是demo、可运行的、成品几个阶段的版本，让别人看到实际的东西，别人才心里有底。</li>
+</ul>
+</blockquote>
+<h4 id="关于产品"><a href="#关于产品" class="headerlink" title="关于产品"></a>关于产品</h4><p>优先满足界面，客户一般是不关注后台代码也看不懂代码，他们唯一能看到的就是界面展示效果，所有在出版本时候也可以有点吧界面完成。</p>
+<h4 id="关于修改"><a href="#关于修改" class="headerlink" title="关于修改"></a>关于修改</h4><p>修改在所难免，小修改还是要满足的，但是一定要表现出自己的不情愿与加大了工作量，但是大的修改必须要谈，引导选择其它简单的方案，或者砍掉一部分功能；实在要修改要添加功能，谈价钱。</p>
+<h1 id="项目的评判"><a href="#项目的评判" class="headerlink" title="项目的评判"></a>项目的评判</h1><p>怎么样去评判一个项目，一个项目要具有一个怎样的样子我们才应该去做？或者说，这个项目到底能够给我们带来什么？在做这个项目的过程中，我们能够有哪些收获？我们做一个外包项目的出发点往往都很直接很明确，那就是赚钱，但是经过昨天与这个行业一些做的比价好的人的接触，我发现，我们只是把自己限制在了一个框架内，因为外包是一个长久的合作或者是一个长久的需要时间去积累的东西，在这个积累的时间内我们可以做很多东西，例如：人脉资源、口碑、谈判的技巧以及技术的实现，这些是钱买不到的东西，这些东西能够创造的价值甚至还要超过我们挣的钱的5番、10番。总之一句话，并不是说钱多的项目我们就要去做，我们要理性的分析这个东西能不能够给我们带来金钱以外的东西，这才是对于现阶段的我们最重要的地方。</p>
+<h1 id="利益最大化"><a href="#利益最大化" class="headerlink" title="利益最大化"></a>利益最大化</h1><p>能够挣钱的外包才是一个好外包，我们不用去过多的考虑此外的东西，我们不用去过多的关注项目本身。我们在接触的时候就要理性的去判断，这个项目能不能让我们的收益最大化，因为有钱挣才是我们的终极目标。在这个过程中，我们可以做出一些衡量，在能够保证基本资金收益的前提下，是否可以获得除了金钱以外的东西，因为我们现阶段属于创业初期，可能说利益的这个东西已经不仅仅指代金钱了，我们能够获得的其它方面的东西其实对我们来说永远是我们原始财富的积累：</p>
+<ul>
+<li>时间周期长，预算充足。</li>
+<li>时间紧，预算充足。</li>
+<li>时间一般，预算一般，能够获取技术上的一些锻炼的机会。</li>
+<li><strong>时间周期长，预算充足，能够获取技术上的锻炼的机会</strong>。</li>
+</ul>
+<p>这个只是一个大致的方向，具体的情况视情况而定，总之一个原则：最大化我们的利益，这个利益不只是金钱，还包括能够给我们带来更多机会、创造更多价值的东西。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ul>
+<li>谈外包需要先了解产品，然后出方案去竞选。</li>
+<li>谈项目，展现自己诚意，技术去牵制甲方，建议先做微信端同时建议之后出app端，一定适当的去回扣，关系很重要。</li>
+<li>模板，外包离不开模板，也是外包公司的生命力，模板可以自己开发产品累积，也可以选购一些现成的行业内比较成熟的模板，也可以买别人的产品反编译，但一定要把模板掌握在自己手里，能够轻松修改。</li>
+<li>注重表面功夫，不要太自已底层的性能、优化、安全之类的，一般外包维护期就3~6个月，在此期间业务一般增长不会爆表，可以安全渡过，之后就没什么事了。</li>
+<li>技术选型，一般项目检简单的做，一般项目在外包质保期间用户、并发不会很大，能保证产品流畅运行就ok。</li>
+<li>服务器，建议选购阿里云，而且让甲方预估自己每个阶段的用户数与并发量，根据用户数给甲方建议配置。</li>
+<li>在有技术积累的前提下，外包成本可以压到最低，从而达到利润最大化。</li>
+<li>谈外包是需要把甲方往自己希望的方向上引导，主动权掌握在自己手里，否则会有改不完的需求。</li>
+<li>尽量让客户先做微信端，然后网页，最后app。</li>
+<li>UI尽量做到最好，因为客户最先看到的是UI。</li>
+<li>UI出两套给客户选择，让客户主动选择做得好的一套。</li>
+<li>微信网页外包相对很好做，效率很高，但是钱比较少。</li>
+<li>确定客户需求的主线（注意，一定是主线，细节不考虑），估算开发成本，视情况报价。附加功能额外算价钱.</li>
+<li>谈好之后立即签合同，一切开发按照合同来，如果客户中途改需求，可以按照合同来视情况拒绝或接受（考虑下个版本，价格）。</li>
+</ul>
+<h1 id="关于我们"><a href="#关于我们" class="headerlink" title="关于我们"></a>关于我们</h1><h2 id="不足"><a href="#不足" class="headerlink" title="不足"></a>不足</h2><p>在以往的项目研发中，我们往往把精力专注于项目本身，很少将目光集中在技术的实现方面，在外包谈判的时候，很少有机会接触到实在的项目，一般都是直接以微信或者网页的形式给我们做，接触的形式与真正意义上的项目还是有很大的区别，其实在这样的一个过程中，我们就会很大程度上的忽略自己所扮演的角色以及我们所擅长的东西。再一点就是在技术研发与实现的过程中，我们能够遇见到一些问题的发生，比如说在设计框架的时候，是应该严格按照规范文档进行设计的，以及API的设计也是非常有讲究的，但是当我们真正去做的时候，却很容易忽略这方面的重要性，甚至是完全按照自己的意愿去写了，这样的一种方式是有问题的，也是目前在技术方面存在的问题之一，我们对于外包业务存在的问题归纳如下：</p>
+<ul>
+<li>接触的外包形式与真正的项目有区别。</li>
+<li>与外界接触少，对需求方所关注的问题缺乏一个认知。</li>
+<li>技术在研发的过程中往往忽略代码的重用性，特别是服务器。</li>
+<li>没有类似的模版或者流程化的东西，效率因此而比较低。</li>
+</ul>
+<h2 id="怎样解决"><a href="#怎样解决" class="headerlink" title="怎样解决"></a>怎样解决</h2><p>在整项目的研发过程中，不论是涉及到项目的谈判与竞标还是我们技术的实现，其实我们最缺乏的就是经验，那么我们应该怎么做呢？第一步首先要把自己现在有的东西做好，如果自己的东西都做不好，怎么去做别人的东西？所以我们在做好自己东西的同时，应该多去接触这些东西，能够接一些可以弥补我们技术实现的一些单子来积攒我们所缺乏的模版、经验的东西，从小单子不断的往大单子做，同时要将这一套流程深刻的运用起来。</p>
+<ul>
+<li>先把自己手上的东西做好。</li>
+<li>其次，从小单子多接触外包这方面的东西。</li>
+<li>从零开始积攒开发功能模块和模版。</li>
+<li>多运用流程化的东西。</li>
+</ul>
+<h2 id="技术方向"><a href="#技术方向" class="headerlink" title="技术方向"></a>技术方向</h2><p>在产品的研发中，技术的实现是最重要的环节，不管在塑造自己的<strong>口碑</strong>（说高大上点叫做品牌形象）还是在对自己的<strong>实力的提升</strong>方面，其实都是很重要的东西，在技术方面，昨天东哥也提到了关于<strong>开发模版</strong>的这样一个很实在的东西，其实开发模版在我个人的理解来看，就是在开发环节中的一种<em>常用的手段</em>，我个人十很注重这方面的东西的。但是在我们技术团队内部，这方面是很缺乏的。一方面是这方面的东西接触不多，缺乏这样的一个意识，每次在做项目的时候基本上都是在重复造轮子，这样的开发成本非常大，对我们这样的初期创业团队扩展外包业务甚至说在自己项目的过程中是非常不利的，因为第一点，<strong>开发成本会增大</strong>，每次花费在同样的功能模块的精力和时间就是成倍的在增加；第二点，<strong>维护的成本也很大</strong>，如果模块没有分离，相似的模块的维护成本也会随着项目的增加而成倍的增加。所以，在这个过程中，我们需要不断的弥补这方面的缺陷。</p>
+<h3 id="模块抽离"><a href="#模块抽离" class="headerlink" title="模块抽离"></a>模块抽离</h3><h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><p>在建立模版之前，其实更重要的是一些<strong>公用模块的抽离</strong>，因为模块的抽离是较模版建立而言更为简单、更好把控的环节，说白了，模版也是由这些小模块构建而成的。公用的模块不应该依赖于某一个或两个项目，而应该是与项目实体抽离分开的一个环节，在做项目的时候，<strong>就我们的现状而言，更重要的是注重这方面的问题</strong>。</p>
+<h4 id="实施方案"><a href="#实施方案" class="headerlink" title="实施方案"></a>实施方案</h4><h5 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h5><p>客户端主要指的是<code>iOS</code>和<code>Android</code>两个平台的开发，在项目的研发过程中，需要不断的积累使用的开源框架以及一些常用的工具类，在这个基础上做一个大致的分类，那么在下次使用的时候就可以根据特定的开发场景使用相应的一些模块话的功能：</p>
+<ul>
+<li>总结之前写过的项目<code>酱游</code>、<code>小工蜂师傅版</code>，将使用到的开源框架或者一些工具类整理归纳。</li>
+<li>在没有项目的时候，要多写一些框架，上传GitHub，并使用<a href="https://travis-ci.org/" target="_blank" rel="external">Travis ci</a>开源持续集成系统进行在线的测试服务，确保工具类能够正常使用。</li>
+<li>有项目的时候，在不影响项目周期的大前提下，尽量把模块抽离本工程开发，在新工程里边开发了之后集成在项目中使用。</li>
+</ul>
+<h5 id="服务器"><a href="#服务器" class="headerlink" title="服务器"></a>服务器</h5><p>服务器主要负责网页后端（前端界面的调试与部分js）、微信开发以及App后台的搭建，在项目研发的过程中，其实很多功能模块在相似的场景中是可以通用的，甚至可以将一些数据存储、逻辑操作等做成服务器集群的概念，也就是最近几年比较多的BaaS后端服务，但是这是一个相当浩大的工程，所以需要时间的积累：</p>
+<ul>
+<li>在项目开发的时候，做一个详细规划，同样的使用模块抽离的方式，将通用模块新建一个项目进行设计与实现，同时完成相应的测试以确保模块的功能的稳定性。</li>
+<li>没有项目的时候总结归纳之前的项目并对抽离完善一些相应的模块。</li>
+<li>对每个模块，要定期进行测试与维护，确保功能能够正常运行。</li>
+<li>有项目的时候要增加没有的模块，对现有的模块进行不断的完善。</li>
+</ul>
+<h1 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h1><p>在缺乏经验的这个阶段，我们需要的东西是学习，不断的学习、拼搏。只有多去学多去实践，才能获得最终属于我们自己的天空。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/03/05/AXBadgeView-Swift/" rel="next" title="iOS开发－应用内角标">
+                <i class="fa fa-chevron-left"></i> iOS开发－应用内角标
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/03/09/How to Use CocoaPods with Swift/" rel="prev" title="怎样在Swift中使用CocoaPods">
+                怎样在Swift中使用CocoaPods <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/03/08/mind002/"
+           data-title="技术之路－外包" data-url="devedbox.com/2016/03/08/mind002/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="devedbox" />
+          <p class="site-author-name" itemprop="name">devedbox</p>
+          <p class="site-description motion-element" itemprop="description">你给我想不到的快乐像绿洲给了沙漠</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">11</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+          
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/devedbox" target="_blank">
+                  
+                    <i class="fa fa-github"></i> GitHub
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/AAxXxA" target="_blank">
+                  
+                    <i class="fa fa-weibo"></i> Weibo
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#收获"><span class="nav-number">1.</span> <span class="nav-text">收获</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#谈判（技术牵引、展现诚意、适当回扣）"><span class="nav-number">1.1.</span> <span class="nav-text">谈判（技术牵引、展现诚意、适当回扣）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#分阶段"><span class="nav-number">1.1.1.</span> <span class="nav-text">分阶段</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#注意"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">注意</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开发"><span class="nav-number">1.2.</span> <span class="nav-text">开发</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#开发周期"><span class="nav-number">1.2.1.</span> <span class="nav-text">开发周期</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#注意-1"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">注意</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#关于产品"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">关于产品</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#关于修改"><span class="nav-number">1.2.1.3.</span> <span class="nav-text">关于修改</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#项目的评判"><span class="nav-number">2.</span> <span class="nav-text">项目的评判</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#利益最大化"><span class="nav-number">3.</span> <span class="nav-text">利益最大化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#关于我们"><span class="nav-number">5.</span> <span class="nav-text">关于我们</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#不足"><span class="nav-number">5.1.</span> <span class="nav-text">不足</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#怎样解决"><span class="nav-number">5.2.</span> <span class="nav-text">怎样解决</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#技术方向"><span class="nav-number">5.3.</span> <span class="nav-text">技术方向</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#模块抽离"><span class="nav-number">5.3.1.</span> <span class="nav-text">模块抽离</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#简介"><span class="nav-number">5.3.1.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实施方案"><span class="nav-number">5.3.1.2.</span> <span class="nav-text">实施方案</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#客户端"><span class="nav-number">5.3.1.2.1.</span> <span class="nav-text">客户端</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#服务器"><span class="nav-number">5.3.1.2.2.</span> <span class="nav-text">服务器</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#结语"><span class="nav-number">6.</span> <span class="nav-text">结语</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">devedbox</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  
+
+
+  
+
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=0.5.0"></script>
+
+
+
+  
+  
+<script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    NexT.motion.middleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+
+      if (CONFIG.scheme !== 'Pisces' && (CONFIG.sidebar.display === 'post' || CONFIG.sidebar.display === 'always')) {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          NexT.utils.displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"devedbox"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("dGgPPFSrVcACvpPPwfL3UwTs-gzGzoHsz", "QewucF4h9rLTKPzLpeshgEer");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+
+</body>
+</html>

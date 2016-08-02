@@ -1,0 +1,1086 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="AXPopoverView,Objective-C,iOS," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="devedbox" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0" />
+
+
+
+
+
+
+<meta name="description" content="AXPopoverViewSummaryAXPopoverView is an iOS customizable view that displays a bubble style view with a custom view when some messages need to show from a target view or a target rect. AXPopoverView co">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AXPopoverView">
+<meta property="og:url" content="devedbox.com/2016/03/02/AXPopoverView/index.html">
+<meta property="og:site_name" content="devedbox">
+<meta property="og:description" content="AXPopoverViewSummaryAXPopoverView is an iOS customizable view that displays a bubble style view with a custom view when some messages need to show from a target view or a target rect. AXPopoverView co">
+<meta property="og:updated_time" content="2016-08-02T01:09:42.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="AXPopoverView">
+<meta name="twitter:description" content="AXPopoverViewSummaryAXPopoverView is an iOS customizable view that displays a bubble style view with a custom view when some messages need to show from a target view or a target rect. AXPopoverView co">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> AXPopoverView | devedbox </title>
+</head>
+
+<!-- custom analytics part create by xiamo -->
+<script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+<script>AV.initialize("dGgPPFSrVcACvpPPwfL3UwTs-gzGzoHsz", "QewucF4h9rLTKPzLpeshgEer");</script>
+<script>
+function showTime(Counter) {
+	var query = new AV.Query(Counter);
+	$(".leancloud_visitors").each(function() {
+		var url = $(this).attr("id").trim();
+		query.equalTo("url", url);
+		query.find({
+			success: function(results) {
+				if (results.length == 0) {
+					var content = '0 ' + $(document.getElementById(url)).text();
+					$(document.getElementById(url)).text(content);
+					return;
+				}
+				for (var i = 0; i < results.length; i++) {
+					var object = results[i];
+					var content = object.get('time') + ' ' + $(document.getElementById(url)).text();
+					$(document.getElementById(url)).text(content);
+				}
+			},
+			error: function(object, error) {
+				console.log("Error: " + error.code + " " + error.message);
+			}
+		});
+
+	});
+}
+
+function addCount(Counter) {
+	var Counter = AV.Object.extend("Counter");
+	url = $(".leancloud_visitors").attr('id').trim();
+	title = $(".leancloud_visitors").attr('data-flag-title').trim();
+	var query = new AV.Query(Counter);
+	query.equalTo("url", url);
+	query.find({
+		success: function(results) {
+			if (results.length > 0) {
+				var counter = results[0];
+				counter.fetchWhenSave(true);
+				counter.increment("time");
+				counter.save(null, {
+					success: function(counter) {
+						var content =  counter.get('time') + ' ' + $(document.getElementById(url)).text();
+						$(document.getElementById(url)).text(content);
+					},
+					error: function(counter, error) {
+						console.log('Failed to save Visitor num, with error message: ' + error.message);
+					}
+				});
+			} else {
+				var newcounter = new Counter();
+				newcounter.set("title", title);
+				newcounter.set("url", url);
+				newcounter.set("time", 1);
+				newcounter.save(null, {
+					success: function(newcounter) {
+					    console.log("newcounter.get('time')="+newcounter.get('time'));
+						var content = newcounter.get('time') + ' ' + $(document.getElementById(url)).text();
+						$(document.getElementById(url)).text(content);
+					},
+					error: function(newcounter, error) {
+						console.log('Failed to create');
+					}
+				});
+			}
+		},
+		error: function(error) {
+			console.log('Error:' + error.code + " " + error.message);
+		}
+	});
+}
+$(function() {
+	var Counter = AV.Object.extend("Counter");
+	if ($('.leancloud_visitors').length == 1) {
+		addCount(Counter);
+	} else if ($('.post-title-link').length > 1) {
+		showTime(Counter);
+	}
+}); 
+</script>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?32614a826ac53952df6db42620ff904e";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">devedbox</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">devedbox'blog | iOS | Objective-C | Swift | Cocoa</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+      
+      
+        <li class="menu-item menu-item-search">
+          <a href="#" class="st-search-show-outputs">
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'Yw4Mn9e_Adahe2DHcnrS','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                AXPopoverView
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-03-02T13:57:01+08:00" content="2016-03-02">
+              2016-03-02
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/开发/" itemprop="url" rel="index">
+                    <span itemprop="name">开发</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/03/02/AXPopoverView/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/02/AXPopoverView/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2016/03/02/AXPopoverView/" class="leancloud_visitors" data-flag-title="AXPopoverView">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="AXPopoverView"><a href="#AXPopoverView" class="headerlink" title="AXPopoverView"></a>AXPopoverView</h1><h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p><code>AXPopoverView</code> is an iOS customizable view that displays a bubble style view with a custom view when some messages need to show from a target view or a target rect. <code>AXPopoverView</code> contains how to use custom view to customize the popover view. The popover view (mostly used as <code>Label</code> or <code>Other</code>) is a convenient and hommization way for developer to use.</p>
+<h2 id="Features"><a href="#Features" class="headerlink" title="Features"></a>Features</h2><blockquote>
+<ul>
+<li>Popover animation</li>
+<li>Customizable</li>
+<li>Translucent blur effect support</li>
+<li>Customizable animator block support</li>
+<li>UI_APPEARANCE_SELECTOR configuration</li>
+<li>Scrollable</li>
+</ul>
+</blockquote>
+<h2 id="Requirements"><a href="#Requirements" class="headerlink" title="Requirements"></a>Requirements</h2><p><code>AXPopoverView</code> works on any iOS version after <code>iOS 7.0</code>. It depends on the following Apple frameworks, which should already be included with most Xcode templates:</p>
+<blockquote>
+<ul>
+<li>Foundation.framework</li>
+<li>UIKit.framework</li>
+<li>CoreGraphics.framework</li>
+</ul>
+</blockquote>
+<p>You will need the latest developer tools in order to build AXPopoverView. Old Xcode versions might work, but compatibility will not be explicitly maintained.</p>
+<h2 id="Adding-AXPopoverView-to-your-project"><a href="#Adding-AXPopoverView-to-your-project" class="headerlink" title="Adding AXPopoverView to your project"></a>Adding AXPopoverView to your project</h2><h3 id="CocoaPods"><a href="#CocoaPods" class="headerlink" title="CocoaPods"></a>CocoaPods</h3><p><a href="http://cocoapods.org" target="_blank" rel="external">CocoaPods</a> is the recommended way to add AXPopoverView to your project.</p>
+<ol>
+<li>Add a pod entry for AXPopoverView to your Podfile <code>pod &#39;AXPopoverView&#39;, &#39;~&gt; 0.2.0&#39;</code></li>
+<li>Install the pod(s) by running <code>pod install</code>.</li>
+<li>Include AXPopoverView wherever you need it with <code>#import &quot;AXPopoverView.h&quot;</code>.</li>
+</ol>
+<h3 id="Source-files"><a href="#Source-files" class="headerlink" title="Source files"></a>Source files</h3><p>Alternatively you can directly add the <code>AXPopoverView.h</code> and <code>AXPopoverView.m</code> source files to your project.</p>
+<ol>
+<li>Download the <a href="https://github.com/devedbox/AXPopoverView/archive/master.zip" target="_blank" rel="external">latest code version</a> or add the repository as a git submodule to your git-tracked project. </li>
+<li>Open your project in Xcode, then drag and drop <code>AXPopoverView.h</code> and <code>AXPopoverView.m</code> onto your project (use the “Product Navigator view”). Make sure to select Copy items when asked if you extracted the code archive outside of your project. </li>
+<li>Include AXPopoverView wherever you need it with <code>#import &quot;AXPopoverView.h&quot;</code>.</li>
+</ol>
+<h2 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h2><p><code>AXPopoverView</code> support <code>UI_APPEARANCE_SELECTOR</code> to configure look of popover view will display on the screen. You should add your customizable code to <code>configuration block</code> when you using the <code>+ instance methods</code>.</p>
+<h3 id="Showing-amp-hiding"><a href="#Showing-amp-hiding" class="headerlink" title="Showing&amp;hiding"></a>Showing&amp;hiding</h3><p>Using <code>showInRect:animated:completion:</code> <code>hideAnimated:afterDelay:completion:</code> to show popover view or hide. You can also using convenient methods to show the popover label like this:<br><figure class="highlight"><table><tr><td class="code"><pre><span class="line">[AXPopoverLabel showFromView:sender animated:YES duration:2.0 title:@&#34;Your title.&#34; detail:@&#34;Your detail contents.&#34; configuration:nil];</span><br></pre></td></tr></table></figure></p>
+<p>Oh, that’s easy!!!</p>
+<h3 id="appearance-configuration"><a href="#appearance-configuration" class="headerlink" title="appearance configuration"></a>appearance configuration</h3><p>Using the selector masked as <code>UI_APPEARANCE_SELECTOR</code> to custimize the popover view when application has started.<br><figure class="highlight"><table><tr><td class="code"><pre><span class="line">[[AXPopoverView appearance] setBackgroundColor:[UIColor colorWithRed:0.165f green:0.639f blue:0.937f alpha:1.00f]];&#10;[[AXPopoverView appearance] setBackgroundDrawingColor:[UIColor colorWithRed:0.165f green:0.639f blue:0.937f alpha:1.00f]];&#10;[[AXPopoverView appearance] setPreferredArrowDirection:AXPopoverArrowDirectionTop];&#10;[[AXPopoverView appearance] setTitleTextColor:[UIColor whiteColor]];&#10;[[AXPopoverView appearance] setDetailTextColor:[UIColor whiteColor]];&#10;[[AXPopoverView appearance] setArrowConstant:6];&#10;[[AXPopoverView appearance] setTranslucentStyle:AXPopoverTranslucentDefault];&#10;[[AXPopoverView appearance] setAnimator:[AXPopoverViewAnimator animatorWithShowing:^(AXPopoverView * _Nonnull popoverView, BOOL animated, CGRect targetRect) &#123;&#10;if (animated) &#123;&#10;CGRect fromFrame = CGRectZero;&#10;fromFrame.origin = popoverView.animatedFromPoint;&#10;popoverView.transform = CGAffineTransformMakeScale(0, 0);&#10;popoverView.layer.anchorPoint = popoverView.arrowPosition;&#10;[UIView animateWithDuration:0.5 delay:0.0 usingSpringWithDamping:0.5 initialSpringVelocity:0.5 options:7 animations:^&#123;&#10;popoverView.transform = CGAffineTransformIdentity;&#10;&#125; completion:^(BOOL finish) &#123;&#10;// Call `viewDidShow:` when the animation finished.&#10;if (finish) [popoverView viewDidShow:animated];&#10;&#125;];&#10;&#125;&#10;&#125; hiding:nil]];</span><br></pre></td></tr></table></figure></p>
+<h3 id="block-configuration"><a href="#block-configuration" class="headerlink" title="block configuration"></a>block configuration</h3><p>Simply using a block to customize a specific popover view will show.<br><figure class="highlight"><table><tr><td class="code"><pre><span class="line">[AXPopoverView showFromView:sender animated:YES duration:2.0 title:@&#34;Your title.&#34; detail:@&#34;Your detail contents.&#34; configuration:^(AXPopoverView *popoverView) &#123;&#10;popoverView.showsOnPopoverWindow = NO;&#10;popoverView.translucent = NO;&#10;popoverView.preferredArrowDirection = AXPopoverArrowDirectionTop;&#10;popoverView.translucentStyle = AXPopoverTranslucentLight;&#10;&#125;];</span><br></pre></td></tr></table></figure></p>
+<p>You can also use as this:</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">AXPopoverView *popoverView = [AXPopoverView new];&#10;popoverView.title = @&#34;Your title.&#34;;&#10;popoverView.detail = @&#34;Your detail contents.&#34;;&#10;popoverView.showsOnPopoverWindow = NO;&#10;popoverView.translucent = NO;&#10;popoverView.preferredArrowDirection = AXPopoverArrowDirectionTop;&#10;popoverView.translucentStyle = AXPopoverTranslucentLight;&#10;[popoverView showFromView:sender animated:YES duration:2.0];</span><br></pre></td></tr></table></figure>
+<h3 id="UI-Updates"><a href="#UI-Updates" class="headerlink" title="UI Updates"></a>UI Updates</h3><p>UI updates should always be done on the main thread. like <code>setOffsets:</code>, <code>setArrowAngle:</code>, <code>setTitleFont:</code>, <code>setDetailFont:</code>, <code>setTranslucent:</code>, <code>setArrowCornerRadius:</code> and so on.</p>
+<p>If you need to run your long-running task in the main thread, you should perform it with a slight delay, so UIKit will have enough time to update the UI (i.e., draw the HUD) before you block the main thread with your task.</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">if ([NSThread isMainThread]) &#123;&#10;/// Do updaing.&#10;&#125; else &#123;&#10;dispatch_async(dispatch_get_main_queue(), ^&#123;&#10;/// Do updating.&#10;&#125;);&#10;&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="License"><a href="#License" class="headerlink" title="License"></a>License</h2><p>This code is distributed under the terms and conditions of the <a href="LICENSE">MIT license</a>. </p>
+<h2 id="Change-log"><a href="#Change-log" class="headerlink" title="Change-log"></a>Change-log</h2><p>Updating… </p>
+<h3 id="0-2-0-2015-11-27-22-34"><a href="#0-2-0-2015-11-27-22-34" class="headerlink" title="0.2.0@2015.11.27 22:34"></a><code>0.2.0</code>@<code>2015.11.27 22:34</code></h3><p>Deleted <code>AXPopoverLabel</code> and merged <code>AXPopoverLabel</code> to <code>AXPopoverView</code>. You can use <code>AXPopoverView</code> instead of<br><code>AXPopoverLabel</code>. Enjoy!!!</p>
+<h3 id="0-3-0-2015-11-28-16-00"><a href="#0-3-0-2015-11-28-16-00" class="headerlink" title="0.3.0@2015.11.28 16:00"></a><code>0.3.0</code>@<code>2015.11.28 16:00</code></h3><p>Added:</p>
+<blockquote>
+<ul>
+<li><ol>
+<li>indicator view.</li>
+</ol>
+</li>
+<li><ol>
+<li>progress view.</li>
+</ol>
+</li>
+<li><ol>
+<li>button items.</li>
+</ol>
+</li>
+<li><ol>
+<li>custom header view and footer view for customization.</li>
+</ol>
+</li>
+</ul>
+</blockquote>
+<p>Updated pod spec file to <code>0.3.0</code></p>
+<h3 id="0-4-0-2015-12-24-17-40"><a href="#0-4-0-2015-12-24-17-40" class="headerlink" title="0.4.0@2015.12.24 17:40"></a><code>0.4.0</code>@<code>2015.12.24 17:40</code></h3><p>Added animator of animation to customize a showing/hiding animation. Both are using block. See <code>AXPopoverView+Animator</code> for more details.</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/AXPopoverView/" rel="tag">#AXPopoverView</a>
+          
+            <a href="/tags/Objective-C/" rel="tag">#Objective-C</a>
+          
+            <a href="/tags/iOS/" rel="tag">#iOS</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/03/01/hello-world/" rel="next" title="Hello World">
+                <i class="fa fa-chevron-left"></i> Hello World
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/03/02/小工蜂业主端(GFPropertyOwner)开发规范/" rel="prev" title="小工蜂业主端开发规范">
+                小工蜂业主端开发规范 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/03/02/AXPopoverView/"
+           data-title="AXPopoverView" data-url="devedbox.com/2016/03/02/AXPopoverView/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="devedbox" />
+          <p class="site-author-name" itemprop="name">devedbox</p>
+          <p class="site-description motion-element" itemprop="description">你给我想不到的快乐像绿洲给了沙漠</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">11</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+          
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/devedbox" target="_blank">
+                  
+                    <i class="fa fa-github"></i> GitHub
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/AAxXxA" target="_blank">
+                  
+                    <i class="fa fa-weibo"></i> Weibo
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#AXPopoverView"><span class="nav-number">1.</span> <span class="nav-text">AXPopoverView</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Summary"><span class="nav-number">1.1.</span> <span class="nav-text">Summary</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Features"><span class="nav-number">1.2.</span> <span class="nav-text">Features</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Requirements"><span class="nav-number">1.3.</span> <span class="nav-text">Requirements</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Adding-AXPopoverView-to-your-project"><span class="nav-number">1.4.</span> <span class="nav-text">Adding AXPopoverView to your project</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CocoaPods"><span class="nav-number">1.4.1.</span> <span class="nav-text">CocoaPods</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Source-files"><span class="nav-number">1.4.2.</span> <span class="nav-text">Source files</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Usage"><span class="nav-number">1.5.</span> <span class="nav-text">Usage</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Showing-amp-hiding"><span class="nav-number">1.5.1.</span> <span class="nav-text">Showing&hiding</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#appearance-configuration"><span class="nav-number">1.5.2.</span> <span class="nav-text">appearance configuration</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#block-configuration"><span class="nav-number">1.5.3.</span> <span class="nav-text">block configuration</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UI-Updates"><span class="nav-number">1.5.4.</span> <span class="nav-text">UI Updates</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#License"><span class="nav-number">1.6.</span> <span class="nav-text">License</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Change-log"><span class="nav-number">1.7.</span> <span class="nav-text">Change-log</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#0-2-0-2015-11-27-22-34"><span class="nav-number">1.7.1.</span> <span class="nav-text">0.2.0@2015.11.27 22:34</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0-3-0-2015-11-28-16-00"><span class="nav-number">1.7.2.</span> <span class="nav-text">0.3.0@2015.11.28 16:00</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0-4-0-2015-12-24-17-40"><span class="nav-number">1.7.3.</span> <span class="nav-text">0.4.0@2015.12.24 17:40</span></a></li></ol></li></ol></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">devedbox</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  
+
+
+  
+
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=0.5.0"></script>
+
+
+
+  
+  
+<script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    NexT.motion.middleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+
+      if (CONFIG.scheme !== 'Pisces' && (CONFIG.sidebar.display === 'post' || CONFIG.sidebar.display === 'always')) {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          NexT.utils.displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"devedbox"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("dGgPPFSrVcACvpPPwfL3UwTs-gzGzoHsz", "QewucF4h9rLTKPzLpeshgEer");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+
+</body>
+</html>
