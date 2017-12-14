@@ -1,0 +1,1189 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Guide,Swift,SwiftLint,iOS," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="devedbox" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0" />
+
+
+
+
+
+
+<meta name="description" content="文档概述Swift是苹果公司(Apple Inc.)于2014年推出的一门新的计算机编程语言，可以用来编写iOS、Mac OS、tvOS以及watchOS的应用. Swift是一门新的语言，与OC相比，拥有众多优势，例如：Swift支持OOP、FRP和泛型编程等多种编程范式，相比陈旧的OC而言，使用Swift可以写出很多效率更高、更安全、更优雅的代码.
+关于Swift的更多信息，此文档不展开讨论，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Swift代码规范与实践">
+<meta property="og:url" content="devedbox.com/2017/12/14/Swift-Style-Guide/index.html">
+<meta property="og:site_name" content="devedbox">
+<meta property="og:description" content="文档概述Swift是苹果公司(Apple Inc.)于2014年推出的一门新的计算机编程语言，可以用来编写iOS、Mac OS、tvOS以及watchOS的应用. Swift是一门新的语言，与OC相比，拥有众多优势，例如：Swift支持OOP、FRP和泛型编程等多种编程范式，相比陈旧的OC而言，使用Swift可以写出很多效率更高、更安全、更优雅的代码.
+关于Swift的更多信息，此文档不展开讨论，">
+<meta property="og:image" content="https://github.com/devedbox/assets/blob/master/src/images/blogs/commits_preview.png?raw=true">
+<meta property="og:image" content="https://github.com/devedbox/assets/blob/master/src/images/blogs/language_preview.png?raw=true">
+<meta property="og:image" content="https://github.com/realm/SwiftLint/raw/master/assets/runscript.png">
+<meta property="og:image" content="https://github.com/realm/SwiftLint/raw/master/assets/custom-rule.png">
+<meta property="og:updated_time" content="2017-12-14T15:15:54.741Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Swift代码规范与实践">
+<meta name="twitter:description" content="文档概述Swift是苹果公司(Apple Inc.)于2014年推出的一门新的计算机编程语言，可以用来编写iOS、Mac OS、tvOS以及watchOS的应用. Swift是一门新的语言，与OC相比，拥有众多优势，例如：Swift支持OOP、FRP和泛型编程等多种编程范式，相比陈旧的OC而言，使用Swift可以写出很多效率更高、更安全、更优雅的代码.
+关于Swift的更多信息，此文档不展开讨论，">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> Swift代码规范与实践 | devedbox </title>
+</head>
+
+<!-- custom analytics part create by xiamo -->
+<script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+<script>AV.initialize("dGgPPFSrVcACvpPPwfL3UwTs-gzGzoHsz", "QewucF4h9rLTKPzLpeshgEer");</script>
+<script>
+function showTime(Counter) {
+	var query = new AV.Query(Counter);
+	$(".leancloud_visitors").each(function() {
+		var url = $(this).attr("id").trim();
+		query.equalTo("url", url);
+		query.find({
+			success: function(results) {
+				if (results.length == 0) {
+					var content = '0 ' + $(document.getElementById(url)).text();
+					$(document.getElementById(url)).text(content);
+					return;
+				}
+				for (var i = 0; i < results.length; i++) {
+					var object = results[i];
+					var content = object.get('time') + ' ' + $(document.getElementById(url)).text();
+					$(document.getElementById(url)).text(content);
+				}
+			},
+			error: function(object, error) {
+				console.log("Error: " + error.code + " " + error.message);
+			}
+		});
+
+	});
+}
+
+function addCount(Counter) {
+	var Counter = AV.Object.extend("Counter");
+	url = $(".leancloud_visitors").attr('id').trim();
+	title = $(".leancloud_visitors").attr('data-flag-title').trim();
+	var query = new AV.Query(Counter);
+	query.equalTo("url", url);
+	query.find({
+		success: function(results) {
+			if (results.length > 0) {
+				var counter = results[0];
+				counter.fetchWhenSave(true);
+				counter.increment("time");
+				counter.save(null, {
+					success: function(counter) {
+						var content =  counter.get('time') + ' ' + $(document.getElementById(url)).text();
+						$(document.getElementById(url)).text(content);
+					},
+					error: function(counter, error) {
+						console.log('Failed to save Visitor num, with error message: ' + error.message);
+					}
+				});
+			} else {
+				var newcounter = new Counter();
+				newcounter.set("title", title);
+				newcounter.set("url", url);
+				newcounter.set("time", 1);
+				newcounter.save(null, {
+					success: function(newcounter) {
+					    console.log("newcounter.get('time')="+newcounter.get('time'));
+						var content = newcounter.get('time') + ' ' + $(document.getElementById(url)).text();
+						$(document.getElementById(url)).text(content);
+					},
+					error: function(newcounter, error) {
+						console.log('Failed to create');
+					}
+				});
+			}
+		},
+		error: function(error) {
+			console.log('Error:' + error.code + " " + error.message);
+		}
+	});
+}
+$(function() {
+	var Counter = AV.Object.extend("Counter");
+	if ($('.leancloud_visitors').length == 1) {
+		addCount(Counter);
+	} else if ($('.post-title-link').length > 1) {
+		showTime(Counter);
+	}
+}); 
+</script>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?32614a826ac53952df6db42620ff904e";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">devedbox</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">devedbox'blog | iOS | Objective-C | Swift | Cocoa</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+      
+      
+        <li class="menu-item menu-item-search">
+          <a href="#" class="st-search-show-outputs">
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'Yw4Mn9e_Adahe2DHcnrS','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Swift代码规范与实践
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-12-14T23:11:17+08:00" content="2017-12-14">
+              2017-12-14
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/教程/" itemprop="url" rel="index">
+                    <span itemprop="name">教程</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/教程/SwiftLint/" itemprop="url" rel="index">
+                    <span itemprop="name">SwiftLint</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/12/14/Swift-Style-Guide/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/12/14/Swift-Style-Guide/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2017/12/14/Swift-Style-Guide/" class="leancloud_visitors" data-flag-title="Swift代码规范与实践">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="文档概述"><a href="#文档概述" class="headerlink" title="文档概述"></a>文档概述</h1><p>Swift是苹果公司(Apple Inc.)于2014年推出的一门新的计算机编程语言，可以用来编写iOS、Mac OS、tvOS以及watchOS的应用. Swift是一门新的语言，与OC相比，拥有众多优势，例如：Swift支持OOP、FRP和泛型编程等多种编程范式，相比陈旧的OC而言，使用Swift可以写出很多效率更高、更安全、更优雅的代码.</p>
+<p>关于Swift的更多信息，此文档不展开讨论，给出以下参考：</p>
+<ul>
+<li><a href="https://github.com/apple/swift" target="_blank" rel="external">Swift on GitHub</a></li>
+<li><a href="https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/index.html#//apple_ref/doc/uid/TP40014097-CH3-ID0" target="_blank" rel="external">Swift Programming Language</a></li>
+</ul>
+<p>本篇文档着重探讨一个问题，那就是Swift编程规范的问题，例如：</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line">someArray.<span class="built_in">map</span>(&#123; $<span class="number">0</span> &#125;)</span><br><span class="line">someArray.<span class="built_in">map</span> &#123; $<span class="number">0</span> &#125;</span><br><span class="line">someArray.<span class="built_in">map</span>(&#123; element <span class="keyword">in</span></span><br><span class="line">    <span class="keyword">return</span> element</span><br><span class="line">&#125;)</span><br><span class="line">someArray.<span class="built_in">map</span>(&#123; element <span class="keyword">in</span></span><br><span class="line">    element</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>以上几种写法，在相同的语义和上下文环境中，都是同一个意思，得到的结果也是一样的，再如：</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> optionalValue: <span class="type">OptionalType</span></span><br><span class="line"><span class="comment">// 对于可选类型解析的方式：</span></span><br><span class="line"><span class="comment">// 1. if判断.</span></span><br><span class="line"><span class="keyword">if</span> optionValue != <span class="literal">nil</span> &#123;</span><br><span class="line">    <span class="comment">// 进行当value有值时的操作.</span></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">// 进行当value为nil时的操作.</span></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 2.a. if可选绑定.</span></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">let</span> value = optionalValue &#123;</span><br><span class="line">    <span class="comment">// 进行当value有值时的操作.</span></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">// 进行当value为nil时的操作.</span></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 2.b. guard可选绑定.</span></span><br><span class="line"><span class="keyword">guard</span> <span class="keyword">let</span> value = optionalValue <span class="keyword">else</span> &#123; </span><br><span class="line">    <span class="comment">// 进行当value为nil时的操作.</span></span><br><span class="line">    <span class="comment">// ... </span></span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 进行当value有值时的操作.</span></span><br><span class="line"><span class="comment">// ...</span></span><br></pre></td></tr></table></figure>
+<p>对于<a href="https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/OptionalChaining.html#//apple_ref/doc/uid/TP40014097-CH21-ID245" target="_blank" rel="external">可选绑定(Optional Chaining)</a>的处理，以上几种方式皆可，但是在实际的项目中，对不同的场景，在代码规范上就需要注意，例如：在上述<code>2.a</code>和<code>2.b</code>都可以应用的地方，优选<code>2.b</code>，因为这样的写法逻辑判断更明确.</p>
+<p>Swift作为一个简单的语言，易学易用，那么怎样才能尽量规范化，尽量使不同的Programmer写出风格上尽量统一的代码呢？为了解决这个问题，Swift开源社区出了一个工具：<a href="https://github.com/realm/SwiftLint" target="_blank" rel="external">SwiftLint</a>. SwiftLint由<a href="https://github.com/realm" target="_blank" rel="external">Realm</a>进行开发和维护，项目概况：<img src="https://github.com/devedbox/assets/blob/master/src/images/blogs/commits_preview.png?raw=true" alt="commits"></p>
+<p><img src="https://github.com/devedbox/assets/blob/master/src/images/blogs/language_preview.png?raw=true" alt="language"></p>
+<h1 id="SwiftLint"><a href="#SwiftLint" class="headerlink" title="SwiftLint"></a>SwiftLint</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>SwiftLint是一款用于检查Swift源码编程规范的工具，SwiftLint使用事先给定的规则，通过对<a href="http://clang.llvm.org" target="_blank" rel="external">Clang</a>层和Swift的代码检查工具<a href="http://www.jpsim.com/uncovering-sourcekit/" target="_blank" rel="external">SourceKit</a>嵌入的方式工作，在静态代码检查期间对代码中不满足规则的代码给出警告或者错误提示；SwiftLint还支持<code>autocorrect</code>以自动更正代码的规范，但是这个操作存在一定的风险，因为<code>autocorrect</code>是在语言层面进行的修正工作，盲目的使用可能会造成业务逻辑方面的错误；若需要在业务逻辑的地方忽略SwiftLint的警告，可通过声明的方式：</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="comment">// swiftlint:disable warning_type</span></span><br></pre></td></tr></table></figure>
+<p>进行屏蔽.</p>
+<p>由于SwiftLint主要是对SourceKit代码检查嵌入的方式进行工作的，所以SwiftLint是独立于Swift版本的，这使得SwiftLint不依赖于Swift的版本，在同一个项目工程里，SwiftLint可以同时与多个Swift版本工作，例如可以在工程里使用一个SwiftLint版本同时兼容Swift3.2和Swift4.0.</p>
+<p>SwiftLint使用事先定好的规则进行代码的检查，规则的定义分为两种：</p>
+<ol>
+<li>默认规则</li>
+<li>可选规则</li>
+</ol>
+<p>默认规则是<strong>默认开启</strong>的，可选规则是<strong>默认不开启</strong>的，两者都可以在配置文件中进行配置. </p>
+<h2 id="工具安装"><a href="#工具安装" class="headerlink" title="工具安装"></a>工具安装</h2><h3 id="使用HomeBrew"><a href="#使用HomeBrew" class="headerlink" title="使用HomeBrew"></a>使用<a href="http://brew.sh/" target="_blank" rel="external">HomeBrew</a></h3><p>打开Terminal，输入以下命令：</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">brew install swiftlint</span><br></pre></td></tr></table></figure>
+<p><em>注意</em>：如果Mac OS的系统是迁移的，可能会造成<code>/usr/local/...</code>下面的文件夹的权限问题，需手动开启当前用户的rw权限.</p>
+<h3 id="使用CocoaPods"><a href="#使用CocoaPods" class="headerlink" title="使用CocoaPods"></a>使用<a href="https://cocoapods.org/" target="_blank" rel="external">CocoaPods</a></h3><p>在<code>Podfile</code>里添加以下<code>pod</code>:</p>
+<figure class="highlight ruby"><table><tr><td class="code"><pre><span class="line">pod <span class="string">'SwiftLint'</span></span><br></pre></td></tr></table></figure>
+<p>运行：</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">pod install --verbose</span><br></pre></td></tr></table></figure>
+<p>即可安装. 通过CocoaPods安装的方式，需要在Script Build Phases里添加：<code>${PODS_ROOT}/SwiftLint/swiftlint</code>才能使用. 使用CocoaPods安装的方式还有一个好处，就是可以指定安装的SwiftLint的版本，这是官方给出的一个Swift版本的支持：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>对于Swift3.x和Swift4.x，可以使用最新的版本，但是对于更老的版本，只能使用对应的版本才能正常使用SwiftLint的功能.</p>
+<h3 id="使用Mint"><a href="#使用Mint" class="headerlink" title="使用Mint"></a>使用<a href="https://github.com/yonaskolb/mint" target="_blank" rel="external">Mint</a></h3><p>对于<a href="https://github.com/yonaskolb/mint" target="_blank" rel="external">Mint</a>的介绍，Mint是一个安装和运行Swift命令行的包管理器，<a href="https://github.com/yonaskolb/mint" target="_blank" rel="external">GitHub主页</a></p>
+<p>使用Mint安装，输入以下命令：</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">mint run realm/SwiftLint</span><br></pre></td></tr></table></figure>
+<p>即可.</p>
+<h3 id="使用安装包"><a href="#使用安装包" class="headerlink" title="使用安装包"></a>使用安装包</h3><p>在项目主页<a href="https://github.com/realm/SwiftLint/releases/latest" target="_blank" rel="external">latest GitHub release</a>下载<code>SwiftLint.pkg</code>进行安装.</p>
+<h3 id="源码编译"><a href="#源码编译" class="headerlink" title="源码编译"></a>源码编译</h3><p>仅支持Xcode9.x(或更高)的版本. 安装方式：</p>
+<p>先<code>clone</code><a href="https://github.com/realm/SwiftLint" target="_blank" rel="external">SwiftLint</a>，然后运行<code>git submodule update --init --recursive; make install</code>即可.</p>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><h3 id="Xcode"><a href="#Xcode" class="headerlink" title="Xcode"></a>Xcode</h3><p>在Xcode里使用是推荐的做法，也是标准的方式. </p>
+<p>在Xcode里集成SwiftLint的功能，只需新加一个<code>Run Script Phase</code>：</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">if which swiftlint &#62;/dev/null; then&#10;  swiftlint&#10;else&#10;  echo &#34;warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint&#34;&#10;fi</span><br></pre></td></tr></table></figure>
+<p><img src="https://github.com/realm/SwiftLint/raw/master/assets/runscript.png" alt="sample"></p>
+<p>如果是使用CocoaPods的方式安装的话，把以上脚本更改为：</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">&#34;$&#123;PODS_ROOT&#125;/SwiftLint/swiftlint&#34;</span><br></pre></td></tr></table></figure>
+<p>即可.</p>
+<h3 id="falstlane"><a href="#falstlane" class="headerlink" title="falstlane"></a>falstlane</h3><p>SwiftLint提供了对fastlane的支持，添加：</p>
+<figure class="highlight ruby"><table><tr><td class="code"><pre><span class="line">swiftlint(</span><br><span class="line">  <span class="symbol">mode:</span> <span class="symbol">:lint</span>,                            <span class="comment"># SwiftLint mode: :lint (default) or :autocorrect</span></span><br><span class="line">  <span class="symbol">executable:</span> <span class="string">"Pods/SwiftLint/swiftlint"</span>, <span class="comment"># The SwiftLint binary path (optional). Important if you've installed it via CocoaPods</span></span><br><span class="line">  <span class="symbol">output_file:</span> <span class="string">"swiftlint.result.json"</span>,   <span class="comment"># The path of the output file (optional)</span></span><br><span class="line">  <span class="symbol">reporter:</span> <span class="string">"json"</span>,                       <span class="comment"># The custom reporter to use (optional)</span></span><br><span class="line">  <span class="symbol">config_file:</span> <span class="string">".swiftlint-ci.yml"</span>,       <span class="comment"># The path of the configuration file (optional)</span></span><br><span class="line">  <span class="symbol">ignore_exit_status:</span> <span class="keyword">true</span>                <span class="comment"># Allow fastlane to continue even if SwiftLint returns a non-zero exit status</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<h3 id="命令行"><a href="#命令行" class="headerlink" title="命令行"></a>命令行</h3><p>输入<code>swiftlint help</code>：</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">$ swiftlint help&#10;Available commands:&#10;   autocorrect  Automatically correct warnings and errors&#10;   help         Display general or command-specific help&#10;   lint         Print lint warnings and errors for the Swift files in the current directory (default command)&#10;   rules        Display the list of rules and their identifiers&#10;   version      Display the current version of SwiftLint</span><br></pre></td></tr></table></figure>
+<p>在包含<code>.swift</code>文件的文件夹运行<code>swiftlint</code>将会对文件夹进行遍历查找文件进行检查.</p>
+<p>指定文件的<code>swiftlint lint</code>/<code>swiftlint autocorrect</code>，需加上option: <code>--use-script-input-files</code>并且设置以下环境变量：</p>
+<p><code>SCRIPT_INPUT_FILE_COUNT</code></p>
+<p><code>SCRIPT_INPUT_FILE_0</code>, <code>SCRIPT_INPUT_FILE_1</code>…<code>SCRIPT_INPUT_FILE_{SCRIPT_INPUT_FILE_COUNT}</code>.</p>
+<p>关于设置input files的环境变量参考： <a href="http://indiestack.com/2014/12/speeding-up-custom-script-phases/" target="_blank" rel="external">custom Xcode script phases</a>.</p>
+<h3 id="其他IDE"><a href="#其他IDE" class="headerlink" title="其他IDE"></a>其他IDE</h3><p>其他IDE的使用，可以查阅<a href="https://github.com/realm/SwiftLint" target="_blank" rel="external">官方项目文档</a>了解更多.</p>
+<h3 id="Swift语言多版本"><a href="#Swift语言多版本" class="headerlink" title="Swift语言多版本"></a>Swift语言多版本</h3><p>SwiftLint是对SrouceKit的嵌入，所以对多个Swift语言的版本，只要SourceKit的版本一致，那么SwiftLint就能在拥有相同SourceKit的Swift语言版本下正常工作. 在运行SwiftLint时，需保证与编译代码的toolchain一致. 当Xcode有多个版本的toolchain时，可能会覆盖SwiftLint默认的toolchain，这是官方给出的SwiftLint查找使用toolchain的顺序：</p>
+<ul>
+<li><code>$XCODE_DEFAULT_TOOLCHAIN_OVERRIDE</code></li>
+<li><code>$TOOLCHAIN_DIR</code> or <code>$TOOLCHAINS</code></li>
+<li><code>xcrun -find swift</code></li>
+<li><code>/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain</code></li>
+<li><code>/Applications/Xcode-beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain</code></li>
+<li><code>~/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain</code></li>
+<li><code>~/Applications/Xcode-beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain</code></li>
+</ul>
+<p>以倒置域名规则设置<code>TOOLCHAINS</code>环境变量来指定Swift toolchain的版本：</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">$ TOOLCHAINS=com.apple.dt.toolchain.Swift_2_3 swiftlint autocorrect</span><br></pre></td></tr></table></figure>
+<h2 id="规则"><a href="#规则" class="headerlink" title="规则"></a>规则</h2><p>SwiftLint拥有超过75条规则，社区也在不停的维护，个人开发者可以通过PR的形式将新的规则提交给SwiftLint.</p>
+<p>关于规则的描述：<a href="https://github.com/realm/SwiftLint/blob/master/Rules.md" target="_blank" rel="external">Rules.md</a>.</p>
+<p>关于规则的实现：<a href="https://github.com/realm/SwiftLint/blob/master/Source/SwiftLintFramework/Rules" target="_blank" rel="external">Source/SwiftLintFramework/Rules</a>.</p>
+<h3 id="可选的规则"><a href="#可选的规则" class="headerlink" title="可选的规则"></a>可选的规则</h3><p>可选规则默认关闭，也就是说，可选的规则需要手动在配置文件里开启才能生效，什么情况下会设置为可选规则呢？</p>
+<ul>
+<li>可能会有很多误报的情况，比如<code>empty_count</code>.</li>
+<li>规则的检查太耗时.</li>
+<li>非普遍的情况，或者只应用于某些情况，比如<code>force_unwrapping</code>.</li>
+</ul>
+<h3 id="关闭规则"><a href="#关闭规则" class="headerlink" title="关闭规则"></a>关闭规则</h3><p>当在文件域内添加以下格式后，规则将被关闭：</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="comment">// swiftlint:disable &lt;rule1&gt; [&lt;rule2&gt; &lt;rule3&gt;...]</span></span><br></pre></td></tr></table></figure>
+<p>在同一个文件域内，添加以下格式后，规则将被再次开启：</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="comment">// swiftlint:enable &lt;rule1&gt; [&lt;rule2&gt; &lt;rule3&gt;...]</span></span><br></pre></td></tr></table></figure>
+<p>例如：</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="comment">// swiftlint:disable colon</span></span><br><span class="line"><span class="keyword">let</span> noWarning :<span class="type">String</span> = <span class="string">""</span> <span class="comment">// No warning about colons immediately after variable names!</span></span><br><span class="line"><span class="comment">// swiftlint:enable colon</span></span><br><span class="line"><span class="keyword">let</span> hasWarning :<span class="type">String</span> = <span class="string">""</span> <span class="comment">// Warning generated about colons immediately after variable names</span></span><br></pre></td></tr></table></figure>
+<p>可以在规则关闭格式添加<code>:previous</code>、<code>:this</code>以及<code>:next</code>将规则的关闭限制在前一行、当前行、后一行而不影响文件内其他行的规则判断.</p>
+<p>例如：</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="comment">// swiftlint:disable:next force_cast</span></span><br><span class="line"><span class="keyword">let</span> noWarning = <span class="type">NSNumber</span>() <span class="keyword">as</span>! <span class="type">Int</span></span><br><span class="line"><span class="keyword">let</span> hasWarning = <span class="type">NSNumber</span>() <span class="keyword">as</span>! <span class="type">Int</span></span><br><span class="line"><span class="keyword">let</span> noWarning2 = <span class="type">NSNumber</span>() <span class="keyword">as</span>! <span class="type">Int</span> <span class="comment">// swiftlint:disable:this force_cast</span></span><br><span class="line"><span class="keyword">let</span> noWarning3 = <span class="type">NSNumber</span>() <span class="keyword">as</span>! <span class="type">Int</span></span><br><span class="line"><span class="comment">// swiftlint:disable:previous force_cast</span></span><br></pre></td></tr></table></figure>
+<p>可通过运行<code>swiftlint rules</code>查看所有的规则信息.</p>
+<h3 id="规则配置"><a href="#规则配置" class="headerlink" title="规则配置"></a>规则配置</h3><p>通过在运行SwiftLint的根目录添加<code>.swiftlint.yml</code>文件来配置规则信息，可配置的规则信息如下：</p>
+<ul>
+<li><code>disabled_rules</code>: 需要关闭的默认开启规则集合</li>
+<li><code>opt_in_rules</code>: 需要开启的非默认开启规则集合</li>
+<li><code>whitelist_rules</code>: 规则白名单，只有此处定义的规则才会开启，不能同时在以上两个集合里定义.</li>
+</ul>
+<figure class="highlight ruby"><table><tr><td class="code"><pre><span class="line"><span class="symbol">disabled_rules:</span> <span class="comment"># rule identifiers to exclude from running</span></span><br><span class="line">  - colon</span><br><span class="line">  - comma</span><br><span class="line">  - control_statement</span><br><span class="line"><span class="symbol">opt_in_rules:</span> <span class="comment"># some rules are only opt-in</span></span><br><span class="line">  - empty_count</span><br><span class="line">  <span class="comment"># Find all the available rules by running:</span></span><br><span class="line">  <span class="comment"># swiftlint rules</span></span><br><span class="line"><span class="symbol">included:</span> <span class="comment"># paths to include during linting. `--path` is ignored if present.</span></span><br><span class="line">  - <span class="constant">Source</span></span><br><span class="line"><span class="symbol">excluded:</span> <span class="comment"># paths to ignore during linting. Takes precedence over `included`.</span></span><br><span class="line">  - <span class="constant">Carthage</span></span><br><span class="line">  - <span class="constant">Pods</span></span><br><span class="line">  - <span class="constant">Source</span>/<span class="constant">ExcludedFolder</span></span><br><span class="line">  - <span class="constant">Source</span>/<span class="constant">ExcludedFile</span>.swift</span><br><span class="line"></span><br><span class="line"><span class="comment"># configurable rules can be customized from this configuration file</span></span><br><span class="line"><span class="comment"># binary rules can set their severity level</span></span><br><span class="line"><span class="symbol">force_cast:</span> warning <span class="comment"># implicitly</span></span><br><span class="line"><span class="symbol">force_try:</span></span><br><span class="line">  <span class="symbol">severity:</span> warning <span class="comment"># explicitly</span></span><br><span class="line"><span class="comment"># rules that have both warning and error levels, can set just the warning level</span></span><br><span class="line"><span class="comment"># implicitly</span></span><br><span class="line"><span class="symbol">line_length:</span> <span class="number">110</span></span><br><span class="line"><span class="comment"># they can set both implicitly with an array</span></span><br><span class="line"><span class="symbol">type_body_length:</span></span><br><span class="line">  - <span class="number">300</span> <span class="comment"># warning</span></span><br><span class="line">  - <span class="number">400</span> <span class="comment"># error</span></span><br><span class="line"><span class="comment"># or they can set both explicitly</span></span><br><span class="line"><span class="symbol">file_length:</span></span><br><span class="line">  <span class="symbol">warning:</span> <span class="number">500</span></span><br><span class="line">  <span class="symbol">error:</span> <span class="number">1200</span></span><br><span class="line"><span class="comment"># naming rules can set warnings/errors for min_length and max_length</span></span><br><span class="line"><span class="comment"># additionally they can set excluded names</span></span><br><span class="line"><span class="symbol">type_name:</span></span><br><span class="line">  <span class="symbol">min_length:</span> <span class="number">4</span> <span class="comment"># only warning</span></span><br><span class="line">  <span class="symbol">max_length:</span> <span class="comment"># warning and error</span></span><br><span class="line">    <span class="symbol">warning:</span> <span class="number">40</span></span><br><span class="line">    <span class="symbol">error:</span> <span class="number">50</span></span><br><span class="line">  <span class="symbol">excluded:</span> iPhone <span class="comment"># excluded via string</span></span><br><span class="line"><span class="symbol">identifier_name:</span></span><br><span class="line">  <span class="symbol">min_length:</span> <span class="comment"># only min_length</span></span><br><span class="line">    <span class="symbol">error:</span> <span class="number">4</span> <span class="comment"># only error</span></span><br><span class="line">  <span class="symbol">excluded:</span> <span class="comment"># excluded via string array</span></span><br><span class="line">    - id</span><br><span class="line">    - <span class="constant">URL</span></span><br><span class="line">    - <span class="constant">GlobalAPIKey</span></span><br><span class="line"><span class="symbol">reporter:</span> <span class="string">"xcode"</span> <span class="comment"># reporter type (xcode, json, csv, checkstyle, junit, html, emoji)</span></span><br></pre></td></tr></table></figure>
+<p>可以通过<code>${SOME_VARIABLE}</code>在配置文件里使用环境变量.</p>
+<h4 id="设置自定义规则"><a href="#设置自定义规则" class="headerlink" title="设置自定义规则"></a>设置自定义规则</h4><p>可通过在配置文件里添加以下内容设置基于正则的自定义规则：</p>
+<figure class="highlight ruby"><table><tr><td class="code"><pre><span class="line"><span class="symbol">ustom_rules:</span></span><br><span class="line">  <span class="symbol">pirates_beat_ninjas:</span> <span class="comment"># rule identifier</span></span><br><span class="line">    <span class="symbol">included:</span> <span class="string">".*\\.swift"</span> <span class="comment"># regex that defines paths to include during linting. optional.</span></span><br><span class="line">    <span class="symbol">excluded:</span> <span class="string">".*Test\\.swift"</span> <span class="comment"># regex that defines paths to exclude during linting. optional</span></span><br><span class="line">    <span class="symbol">name:</span> <span class="string">"Pirates Beat Ninjas"</span> <span class="comment"># rule name. optional.</span></span><br><span class="line">    <span class="symbol">regex:</span> <span class="string">"([n,N]inja)"</span> <span class="comment"># matching pattern</span></span><br><span class="line">    <span class="symbol">match_kinds:</span> <span class="comment"># SyntaxKinds to match. optional.</span></span><br><span class="line">      - comment</span><br><span class="line">      - identifier</span><br><span class="line">    <span class="symbol">message:</span> <span class="string">"Pirates are better than ninjas."</span> <span class="comment"># violation message. optional.</span></span><br><span class="line">    <span class="symbol">severity:</span> error <span class="comment"># violation severity. optional.</span></span><br><span class="line">  <span class="symbol">no_hiding_in_strings:</span></span><br><span class="line">    <span class="symbol">regex:</span> <span class="string">"([n,N]inja)"</span></span><br><span class="line">    <span class="symbol">match_kinds:</span> string</span><br></pre></td></tr></table></figure>
+<p>输入如下：</p>
+<p><img src="https://github.com/realm/SwiftLint/raw/master/assets/custom-rule.png" alt="output"></p>
+<p>可以通过设置一个或多个<code>match_kinds</code>来进行正则匹配，但是仅匹配以下列表总的语法类型：</p>
+<ul>
+<li>argument</li>
+<li>attribute.builtin</li>
+<li>attribute.id</li>
+<li>buildconfig.id</li>
+<li>buildconfig.keyword</li>
+<li>comment</li>
+<li>comment.mark</li>
+<li>comment.url</li>
+<li>doccomment</li>
+<li>doccomment.field</li>
+<li>identifier</li>
+<li>keyword</li>
+<li>number</li>
+<li>objectliteral</li>
+<li>parameter</li>
+<li>placeholder</li>
+<li>string</li>
+<li>string_interpolation_anchor</li>
+<li>typeidentifier</li>
+</ul>
+<h4 id="规则嵌套"><a href="#规则嵌套" class="headerlink" title="规则嵌套"></a>规则嵌套</h4><p>SwiftLint支持嵌套配置文件以提供规则检查的细粒度控制：</p>
+<ul>
+<li>在需要进行规则检查的文件夹添加额外的<code>.swiftlint.yml</code>文件.</li>
+<li>每个<code>.swift</code>文件将会优先使用在同一个文件夹里定义的<code>.swiftlint.yml</code>进行规则检查，当<code>.swift</code>文件所在文件夹没有定义<code>.swiftlint.yml</code>文件时，SwiftLint将会使用上级文件夹的<code>.swiftlint.yml</code>(如果存在的话)，以此递推.</li>
+<li><code>excluded</code>和<code>included</code>将会被忽略.</li>
+</ul>
+<h3 id="自动更正"><a href="#自动更正" class="headerlink" title="自动更正"></a>自动更正</h3><p>SwiftLint可以自动更正错误的格式，自动更正会覆盖原有文件，所以自动更正是相对危险的操作，在进行自动更正的时候需要进行必要的备份操作. SwiftLint只有在手动运行<code>swiftlint autocorrent</code>命令的时候才会进行自定更正.</p>
+<h2 id="一些实践经验"><a href="#一些实践经验" class="headerlink" title="一些实践经验"></a>一些实践经验</h2><p>在以往做项目的经验中，有一些实践的经验：</p>
+<ul>
+<li><p>标记为<code>fileprivate</code>或者<code>private</code>的类型、方法或者变量，以<code>_</code>开头，如：</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line">fileprivate <span class="keyword">var</span> _myPrivateVar: _MyPrivateType</span><br><span class="line"><span class="keyword">private</span> <span class="func"><span class="keyword">func</span> <span class="title">_doSomePrivateThing</span><span class="params">()</span></span> &#123; &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>对于类型的定义，尽量使用嵌套定义，如：</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SomeClass</span> </span>&#123; &#125;</span><br><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">SomeClass</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="class"><span class="keyword">struct</span> <span class="title">Subtype</span> </span>&#123; &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 对Subtype的引用：</span></span><br><span class="line"><span class="keyword">let</span> subtype = <span class="type">SomeClass</span>.<span class="type">Subtype</span>()</span><br><span class="line"><span class="comment">// 适用于类型推断的场景：</span></span><br><span class="line"><span class="keyword">let</span> subtype = .<span class="type">Subtype</span>()</span><br><span class="line"><span class="comment">// 非嵌套定义：</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">struct</span> <span class="title">SomclassSubtype</span> </span>&#123; &#125; <span class="comment">// 看起来比较臃肿，而且不能发挥Swift的类型推断的优势.</span></span><br></pre></td></tr></table></figure>
+<p>嵌套定义使得类型的定义有明确的依赖结构，这样的话使逻辑更加清晰和明确.</p>
+</li>
+<li><p>对类型的引用，尽量使用<strong>类型推断</strong>，这样可以使代码的意图更加明确和清晰：</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">enum</span> <span class="title">OptionType</span> </span>&#123;</span><br><span class="line">    <span class="keyword">case</span> some, all</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">struct</span> <span class="title">SomeOption</span> </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> option: <span class="type">OptionType</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">SomeOption</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="func"><span class="keyword">func</span> <span class="title">option</span><span class="params">(<span class="number">_</span> op: OptionType)</span></span> &#123; <span class="keyword">return</span> <span class="type">SomeOption</span>(op) &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="func"><span class="keyword">func</span> <span class="title">doSomethingWith</span><span class="params">(<span class="number">_</span> someOption: SomeOption)</span></span> &#123; &#125;</span><br><span class="line"><span class="comment">// 不使用类型推断：</span></span><br><span class="line">doSomethingWith(<span class="type">SomeOption</span>(<span class="type">OptionType</span>.some))</span><br><span class="line"><span class="comment">// 使用类型推断：</span></span><br><span class="line">doSomethingWith(.option(.some))</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>参考：<a href="https://github.com/realm/SwiftLint/blob/master/README.md" target="_blank" rel="external">SwiftLint README.md</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Guide/" rel="tag">#Guide</a>
+          
+            <a href="/tags/Swift/" rel="tag">#Swift</a>
+          
+            <a href="/tags/SwiftLint/" rel="tag">#SwiftLint</a>
+          
+            <a href="/tags/iOS/" rel="tag">#iOS</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/08/02/AXWebViewController/" rel="next" title="AXWebViewController">
+                <i class="fa fa-chevron-left"></i> AXWebViewController
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/12/14/Swift-Style-Guide/"
+           data-title="Swift代码规范与实践" data-url="devedbox.com/2017/12/14/Swift-Style-Guide/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="devedbox" />
+          <p class="site-author-name" itemprop="name">devedbox</p>
+          <p class="site-description motion-element" itemprop="description">Seeking for the grace of coding.</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">12</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+          
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/devedbox" target="_blank">
+                  
+                    <i class="fa fa-github"></i> GitHub
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/AAxXxA" target="_blank">
+                  
+                    <i class="fa fa-weibo"></i> Weibo
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#文档概述"><span class="nav-number">1.</span> <span class="nav-text">文档概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SwiftLint"><span class="nav-number">2.</span> <span class="nav-text">SwiftLint</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">2.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#工具安装"><span class="nav-number">2.2.</span> <span class="nav-text">工具安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用HomeBrew"><span class="nav-number">2.2.1.</span> <span class="nav-text">使用HomeBrew</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用CocoaPods"><span class="nav-number">2.2.2.</span> <span class="nav-text">使用CocoaPods</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用Mint"><span class="nav-number">2.2.3.</span> <span class="nav-text">使用Mint</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用安装包"><span class="nav-number">2.2.4.</span> <span class="nav-text">使用安装包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#源码编译"><span class="nav-number">2.2.5.</span> <span class="nav-text">源码编译</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用"><span class="nav-number">2.3.</span> <span class="nav-text">使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Xcode"><span class="nav-number">2.3.1.</span> <span class="nav-text">Xcode</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#falstlane"><span class="nav-number">2.3.2.</span> <span class="nav-text">falstlane</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#命令行"><span class="nav-number">2.3.3.</span> <span class="nav-text">命令行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他IDE"><span class="nav-number">2.3.4.</span> <span class="nav-text">其他IDE</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Swift语言多版本"><span class="nav-number">2.3.5.</span> <span class="nav-text">Swift语言多版本</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#规则"><span class="nav-number">2.4.</span> <span class="nav-text">规则</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#可选的规则"><span class="nav-number">2.4.1.</span> <span class="nav-text">可选的规则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关闭规则"><span class="nav-number">2.4.2.</span> <span class="nav-text">关闭规则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#规则配置"><span class="nav-number">2.4.3.</span> <span class="nav-text">规则配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#设置自定义规则"><span class="nav-number">2.4.3.1.</span> <span class="nav-text">设置自定义规则</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#规则嵌套"><span class="nav-number">2.4.3.2.</span> <span class="nav-text">规则嵌套</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自动更正"><span class="nav-number">2.4.4.</span> <span class="nav-text">自动更正</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一些实践经验"><span class="nav-number">2.5.</span> <span class="nav-text">一些实践经验</span></a></li></ol></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">devedbox</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  
+
+
+  
+
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=0.5.0"></script>
+
+
+
+  
+  
+<script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    NexT.motion.middleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+
+      if (CONFIG.scheme !== 'Pisces' && (CONFIG.sidebar.display === 'post' || CONFIG.sidebar.display === 'always')) {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          NexT.utils.displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"devedbox"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("dGgPPFSrVcACvpPPwfL3UwTs-gzGzoHsz", "QewucF4h9rLTKPzLpeshgEer");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+
+</body>
+</html>
