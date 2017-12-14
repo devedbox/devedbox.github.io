@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="devedbox.com/"/>
-  <updated>2017-12-14T15:15:54.741Z</updated>
+  <updated>2017-12-14T15:15:57.519Z</updated>
   <id>devedbox.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="devedbox.com/2017/12/14/Swift-Style-Guide/"/>
     <id>devedbox.com/2017/12/14/Swift-Style-Guide/</id>
     <published>2017-12-14T15:11:17.000Z</published>
-    <updated>2017-12-14T15:15:54.741Z</updated>
+    <updated>2017-12-14T15:15:57.519Z</updated>
     
     <content type="html">&lt;h1 id=&quot;文档概述&quot;&gt;&lt;a href=&quot;#文档概述&quot; class=&quot;headerlink&quot; title=&quot;文档概述&quot;&gt;&lt;/a&gt;文档概述&lt;/h1&gt;&lt;p&gt;Swift是苹果公司(Apple Inc.)于2014年推出的一门新的计算机编程语言，可以用来编写iOS、Mac OS、tvOS以及watchOS的应用. Swift是一门新的语言，与OC相比，拥有众多优势，例如：Swift支持OOP、FRP和泛型编程等多种编程范式，相比陈旧的OC而言，使用Swift可以写出很多效率更高、更安全、更优雅的代码.&lt;/p&gt;
 &lt;p&gt;关于Swift的更多信息，此文档不展开讨论，给出以下参考：&lt;/p&gt;
@@ -194,6 +194,115 @@
       <category term="Swift" scheme="devedbox.com/tags/Swift/"/>
     
       <category term="SwiftLint" scheme="devedbox.com/tags/SwiftLint/"/>
+    
+      <category term="iOS" scheme="devedbox.com/tags/iOS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>iOS链式动画扩展</title>
+    <link href="devedbox.com/2017/03/14/iOS%E9%93%BE%E5%BC%8F%E5%8A%A8%E7%94%BB%E6%89%A9%E5%B1%95/"/>
+    <id>devedbox.com/2017/03/14/iOS链式动画扩展/</id>
+    <published>2017-03-14T15:23:33.000Z</published>
+    <updated>2017-12-14T15:25:24.790Z</updated>
+    
+    <content type="html">&lt;p&gt;&lt;img src=&quot;http://ww1.sinaimg.cn/large/d2297bd2gw1fbnl029rgzj21kw09hq6f.jpg&quot; alt=&quot;Logo&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://img.shields.io/badge/build-passing-52c435.svg&quot; alt=&quot;Build&quot;&gt;&lt;img src=&quot;https://img.shields.io/cocoapods/v/AXAnimationChain.svg?style=flat&quot; alt=&quot;Version&quot;&gt;&lt;img src=&quot;https://img.shields.io/dub/l/vibe-d.svg&quot; alt=&quot;License&quot;&gt;&lt;img src=&quot;https://img.shields.io/cocoapods/p/AXAnimationChain.svg?style=flat&quot; alt=&quot;Platform&quot;&gt;&lt;img src=&quot;https://img.shields.io/badge/language-Objective--C/Swift-orange.svg&quot; alt=&quot;language&quot;&gt;&lt;img src=&quot;https://img.shields.io/badge/swift3.x-available-orange.svg&quot; alt=&quot;language&quot;&gt;&lt;img src=&quot;https://img.shields.io/badge/weibo-@devedbox-blue.svg&quot; alt=&quot;weibo&quot;&gt;&lt;/p&gt;
+&lt;h2 id=&quot;Summary&quot;&gt;&lt;a href=&quot;#Summary&quot; class=&quot;headerlink&quot; title=&quot;Summary&quot;&gt;&lt;/a&gt;Summary&lt;/h2&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/devedbox/AXAnimationChain&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;AXAnimationChain&lt;/a&gt;是一个&lt;strong&gt;&lt;code&gt;链式动画库&lt;/code&gt;&lt;/strong&gt;，可以用来轻松的创建基于&lt;code&gt;CAAnimation&lt;/code&gt;的链式动画。&lt;strong&gt;链&lt;/strong&gt;的组合方式有两种，一种是&lt;strong&gt;组合&lt;/strong&gt;，另一种则是&lt;strong&gt;链接&lt;/strong&gt;，通过以上两种方式创建的动画，既可以同时进行，也可以按时间先后进行，可以使用较少的代码创建出丰富复杂的动画效果：&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;简单使用&lt;/strong&gt;:&lt;/p&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;_transitionView.spring.centerBy(CGPointMake(0, 100)).easeOut.spring.sizeBy(CGSizeMake(100, 100)).spring.cornerRadiusBy(4).animate();&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;img src=&quot;http://ww1.sinaimg.cn/large/d2297bd2gw1fbnm3goqqbg20uk0h0n0j.gif&quot; alt=&quot;SimpleSample&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;高级使用&lt;/strong&gt;:&lt;/p&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;_transitionView.chainAnimator.basic.target(self).complete(@selector(complete:)).property(@&amp;#34;position&amp;#34;).toValue([NSValue valueWithCGPoint:CGPointMake(100, self.view.center.y)]).easeInBack.duration(0.5).combineSpring.target(self).complete(@selector(complete:)).property(@&amp;#34;bounds&amp;#34;).toValue([NSValue valueWithCGRect:CGRectMake(0, 0, 100, 100)]).duration(0.5).repeatCount(5).autoreverses.combineSpring.target(self).complete(@selector(complete:)).property(@&amp;#34;transform.rotation&amp;#34;).toValue(@(M_PI_4)).duration(0.5).repeatCount(3).beginTime(1.0).autoreverses.nextToBasic.property(@&amp;#34;position&amp;#34;).toValue([NSValue valueWithCGPoint:self.view.center]).duration(0.5).combineSpring.property(@&amp;#34;bounds&amp;#34;).toValue([NSValue valueWithCGRect:CGRectMake(0, 0, 100, 100)]).duration(0.8).nextToBasic.property(@&amp;#34;transform.rotation&amp;#34;).toValue(@(M_PI_4)).duration(1.0).completeWithBlock(nil).animate();&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;看起来比较冗余，但是细读会发现，其实就只有&lt;strong&gt;一行代码&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://ww2.sinaimg.cn/large/d2297bd2jw1fbnm5kyythg20uk0h0dhx.gif&quot; alt=&quot;sample&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;链接&lt;/strong&gt;和&lt;strong&gt;组合&lt;/strong&gt;在协议&lt;code&gt;AXAnimatorChainDelegate&lt;/code&gt;中进行定义，分别是：&lt;code&gt;nextTo:&lt;/code&gt;和&lt;code&gt;combineWith:&lt;/code&gt;，在使用的过程中应当予以区分. &lt;/p&gt;
+&lt;p&gt;&lt;code&gt;AXAnimationChain&lt;/code&gt;基于&lt;code&gt;CoreAnimation&lt;/code&gt;定义了几种&lt;code&gt;Animator&lt;/code&gt;，&lt;code&gt;AXChainAnimator&lt;/code&gt;是基类，预定义了一系列&lt;code&gt;Animate&lt;/code&gt;操作，可以&lt;strong&gt;链接&lt;/strong&gt;、&lt;strong&gt;组合&lt;/strong&gt;并且控制动画完成的&lt;strong&gt;回调&lt;/strong&gt;：&lt;/p&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;AXChainAnimator&amp;#10;  --AXBasicChainAnimator     ==CABasicAnimation&amp;#10;    --AXSpringChainAnimator  ==CASpringAnimation&amp;#10;  --AXKeyframeChainAnimator  ==CAKeyframeAnimation&amp;#10;  --AXTransitionChainAnimator==CATransitionAnimation&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h3 id=&quot;Next-To&quot;&gt;&lt;a href=&quot;#Next-To&quot; class=&quot;headerlink&quot; title=&quot;Next-To&quot;&gt;&lt;/a&gt;Next-To&lt;/h3&gt;&lt;p&gt;通过链接的方式处理两个&lt;code&gt;animator&lt;/code&gt;，&lt;strong&gt;被链接&lt;/strong&gt;的&lt;code&gt;animator&lt;/code&gt;将会在前者动画(包含&lt;em&gt;&lt;code&gt;组合&lt;/code&gt;&lt;/em&gt;的动画)完成之后进行动画, 大概的示例如下：&lt;/p&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;[former nextTo:nexter];&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;code&gt;Next-To&lt;/code&gt;方法的原型如下：&lt;/p&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;- (instancetype)nextTo:(id&amp;#60;AXAnimatorChainDelegate&amp;#62;)animator;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;当向&lt;code&gt;former aniamtor&lt;/code&gt;发送&lt;code&gt;nextTo:&lt;/code&gt;消息之后，返回的是&lt;code&gt;nexter animator&lt;/code&gt;作为下次&lt;strong&gt;链接&lt;/strong&gt;或者&lt;strong&gt;组合&lt;/strong&gt;操作的对象，因此&lt;code&gt;AXAnimationChain&lt;/code&gt;定义了几种常用的操作：&lt;/p&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;/// &amp;#38142;&amp;#25509;&amp;#21040;Basic&amp;#21160;&amp;#30011;&amp;#24182;&amp;#19988;&amp;#36820;&amp;#22238;&amp;#38142;&amp;#25509;&amp;#30340;Basic&amp;#21160;&amp;#30011;.&amp;#10;- (AXBasicChainAnimator *)nextToBasic;&amp;#10;/// &amp;#38142;&amp;#25509;&amp;#21040;Spring&amp;#21160;&amp;#30011;&amp;#24182;&amp;#19988;&amp;#25918;&amp;#22238;&amp;#38142;&amp;#25509;&amp;#30340;Spring&amp;#21160;&amp;#30011;.&amp;#10;- (AXSpringChainAnimator *)nextToSpring;&amp;#10;/// &amp;#38142;&amp;#25509;&amp;#21040;Keyframe&amp;#21160;&amp;#30011;&amp;#24182;&amp;#19988;&amp;#25918;&amp;#22238;&amp;#38142;&amp;#25509;&amp;#30340;Keyframe&amp;#21160;&amp;#30011;.&amp;#10;- (AXKeyframeChainAnimator *)nextToKeyframe;&amp;#10;/// &amp;#38142;&amp;#25509;&amp;#21040;Transition&amp;#21160;&amp;#30011;&amp;#24182;&amp;#19988;&amp;#36820;&amp;#22238;&amp;#38142;&amp;#25509;&amp;#30340;Transition&amp;#21160;&amp;#30011;.&amp;#10;- (AXTransitionChainAnimator *)nextToTransition;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;在发送消息之后分别返回对应类型的&lt;strong&gt;可操作对象&lt;/strong&gt;.&lt;/p&gt;
+&lt;h3 id=&quot;Combine-With&quot;&gt;&lt;a href=&quot;#Combine-With&quot; class=&quot;headerlink&quot; title=&quot;Combine-With&quot;&gt;&lt;/a&gt;Combine-With&lt;/h3&gt;&lt;p&gt;通过组合的方式处理两个&lt;code&gt;animator&lt;/code&gt;，被组合的&lt;code&gt;animator&lt;/code&gt;将会与前者动画同时进行，完成的时间以时间最长的为准, 示例如下：&lt;/p&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;[former combineWith:combiner];&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;code&gt;Combine-With&lt;/code&gt;方法原型如下：&lt;/p&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;- (instancetype)combineWith:(nonnull AXChainAnimator *)animator;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;当向&lt;code&gt;former animator&lt;/code&gt;发送&lt;code&gt;combineWith:&lt;/code&gt;消息之后，返回的是&lt;code&gt;combiner animator&lt;/code&gt;作为下次&lt;strong&gt;链接&lt;/strong&gt;或者&lt;strong&gt;组合&lt;/strong&gt;操作的对象，在&lt;code&gt;AXAnimationChain&lt;/code&gt;中，默认一下几种组合方式：&lt;/p&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;/// &amp;#32452;&amp;#21512;&amp;#21040;Basic&amp;#21160;&amp;#30011;&amp;#24182;&amp;#19988;&amp;#36820;&amp;#22238;&amp;#32452;&amp;#21512;&amp;#30340;Basic&amp;#21160;&amp;#30011;.&amp;#10;- (AXBasicChainAnimator *)combineBasic;&amp;#10;/// &amp;#32452;&amp;#21512;&amp;#21040;Spring&amp;#21160;&amp;#30011;&amp;#24182;&amp;#19988;&amp;#25918;&amp;#22238;&amp;#32452;&amp;#21512;&amp;#30340;Spring&amp;#21160;&amp;#30011;.&amp;#10;- (AXSpringChainAnimator *)combineSpring;&amp;#10;/// &amp;#32452;&amp;#21512;&amp;#21040;Keyframe&amp;#21160;&amp;#30011;&amp;#24182;&amp;#19988;&amp;#25918;&amp;#22238;&amp;#32452;&amp;#21512;&amp;#30340;Keyframe&amp;#21160;&amp;#30011;.&amp;#10;- (AXKeyframeChainAnimator *)combineKeyframe;&amp;#10;/// &amp;#32452;&amp;#21512;&amp;#21040;Transition&amp;#21160;&amp;#30011;&amp;#24182;&amp;#19988;&amp;#36820;&amp;#22238;&amp;#32452;&amp;#21512;&amp;#30340;Transition&amp;#21160;&amp;#30011;.&amp;#10;- (AXTransitionChainAnimator *)combineTransition;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;同样的，在向某一操作对象&lt;code&gt;animator&lt;/code&gt;发送以上消息之后，将会分别返回对应类型的&lt;strong&gt;可操作对象&lt;/strong&gt;.&lt;/p&gt;
+&lt;h3 id=&quot;Relationship&quot;&gt;&lt;a href=&quot;#Relationship&quot; class=&quot;headerlink&quot; title=&quot;Relationship&quot;&gt;&lt;/a&gt;Relationship&lt;/h3&gt;&lt;p&gt;在&lt;code&gt;AXAnimationChain&lt;/code&gt;中，关系的管理采用的是二叉树的理论. 某一个&lt;code&gt;animator&lt;/code&gt;对应的类结构中，包含了指向&lt;strong&gt;父节点&lt;/strong&gt;的&lt;code&gt;superAnimator&lt;/code&gt;用于表示&lt;code&gt;父animator&lt;/code&gt;, 表示此&lt;code&gt;animator&lt;/code&gt;为&lt;code&gt;superAnimator&lt;/code&gt;所链接的&lt;code&gt;animator&lt;/code&gt;, 此时，&lt;code&gt;superAnimator&lt;/code&gt;的&lt;code&gt;childAnimator&lt;/code&gt;即指向此&lt;code&gt;animator&lt;/code&gt;作为一个&lt;strong&gt;闭环链&lt;/strong&gt;将两者的关系锁定起来; 同样的，某一个&lt;code&gt;animator&lt;/code&gt;还拥有一个指向&lt;strong&gt;兄弟节点&lt;/strong&gt;的&lt;code&gt;NSArray&amp;lt;AXChainAnimator *&amp;gt;&lt;/code&gt;结构:&lt;code&gt;combinedAnimators&lt;/code&gt;用于管理所组合的&lt;code&gt;animators&lt;/code&gt;，并且，被组合的&lt;code&gt;animator&lt;/code&gt;的父节点&lt;code&gt;superAnimator&lt;/code&gt;则指向当前&lt;code&gt;animator&lt;/code&gt;. &lt;/p&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;- (void)start &amp;#123;&amp;#10;    NSAssert(_animatedView, @&amp;#34;Animation chain cannot be created because animated view is null.&amp;#34;);&amp;#10;    AXChainAnimator *superAnimator = _superAnimator;&amp;#10;    AXChainAnimator *superSuperAnimator = _superAnimator;&amp;#10;    while (superAnimator) &amp;#123;&amp;#10;        superAnimator = superAnimator.superAnimator;&amp;#10;        if (superAnimator) &amp;#123;&amp;#10;            superSuperAnimator = superAnimator;&amp;#10;        &amp;#125;&amp;#10;    &amp;#125;&amp;#10;    if (superSuperAnimator) &amp;#123;&amp;#10;        [superSuperAnimator start];&amp;#10;    &amp;#125; else &amp;#123;&amp;#10;        [self _beginAnimating];&amp;#10;        if (!_childAnimator) [self _clear];&amp;#10;    &amp;#125;&amp;#10;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;code&gt;AXAnimatioChain&lt;/code&gt;就是通过这样的关系把所有&lt;strong&gt;链接&lt;/strong&gt;和&lt;strong&gt;组合&lt;/strong&gt;的&lt;code&gt;animator&lt;/code&gt;管理起来的，在完成关系的链接或组合之后，需要向最后一个&lt;code&gt;animator&lt;/code&gt;发送&lt;code&gt;-start&lt;/code&gt;消息动画才能正常进行. &lt;code&gt;animator&lt;/code&gt;在接收到&lt;code&gt;-start&lt;/code&gt;消息之后，会逐级遍历&lt;code&gt;superAnimator&lt;/code&gt;直至&lt;code&gt;superAnimator.superAnimator==nil&lt;/code&gt;, 此时获取到&lt;code&gt;superSuperAnimator&lt;/code&gt;, 从&lt;code&gt;superSuperAnimator&lt;/code&gt;自祖先往下逐级进行动画，&lt;strong&gt;组合&lt;/strong&gt;的动画会&lt;strong&gt;同时&lt;/strong&gt;进行，&lt;strong&gt;链接&lt;/strong&gt;的动画则按&lt;strong&gt;顺序&lt;/strong&gt;进行.&lt;/p&gt;
+&lt;h2 id=&quot;Features&quot;&gt;&lt;a href=&quot;#Features&quot; class=&quot;headerlink&quot; title=&quot;Features&quot;&gt;&lt;/a&gt;Features&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;轻量级解决方案&lt;/li&gt;
+&lt;li&gt;基于CoreAnimation的封装，安全、高效！&lt;/li&gt;
+&lt;li&gt;一行代码搞定复杂的动画管理，提高代码维护效&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&quot;TimingControl&quot;&gt;&lt;a href=&quot;#TimingControl&quot; class=&quot;headerlink&quot; title=&quot;TimingControl&quot;&gt;&lt;/a&gt;TimingControl&lt;/h4&gt;&lt;p&gt;时间曲线，时间曲线用于描述动画随时间进行的速度，&lt;code&gt;AXAnimationChain&lt;/code&gt;除了包含系统默认的时间曲线之外，还提供了如下的曲线以呈现更漂亮的动画：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://ww1.sinaimg.cn/large/d2297bd2gw1fbmrilba19j21c610047c.jpg&quot; alt=&quot;http://ww1.sinaimg.cn/large/d2297bd2gw1fbmrilba19j21c610047c.jpg&quot;&gt;&lt;/p&gt;
+&lt;h4 id=&quot;AXSpringAnimation&quot;&gt;&lt;a href=&quot;#AXSpringAnimation&quot; class=&quot;headerlink&quot; title=&quot;AXSpringAnimation&quot;&gt;&lt;/a&gt;AXSpringAnimation&lt;/h4&gt;&lt;p&gt;&lt;code&gt;CoreAnimation&lt;/code&gt;自&lt;code&gt;iOS2.0&lt;/code&gt;就为iOS平台提供了核心动画的支持，但是在iOS9.0之前，一直没有&lt;code&gt;Spring&lt;/code&gt;动画，要使用&lt;code&gt;Spring&lt;/code&gt;动画要么使用第三方动画库，要么使用系统提供的方法:&lt;/p&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;+ (void)animateWithDuration:(NSTimeInterval)duration delay:(NSTimeInterval)delay usingSpringWithDamping:(CGFloat)dampingRatio initialSpringVelocity:(CGFloat)velocity options:(UIViewAnimationOptions)options animations:(void (^)(void))animations completion:(void (^ __nullable)(BOOL finished))completion NS_AVAILABLE_IOS(7_0);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;但是系统提供的这个方法也是&lt;code&gt;iOS7.0&lt;/code&gt;以后才能使用了，并且在控制上并非那么容易.&lt;/p&gt;
+&lt;p&gt; &lt;code&gt;AXSpringAnimation&lt;/code&gt;是基于&lt;strong&gt;阻尼震动&lt;/strong&gt;运动模型的&lt;code&gt;Spring&lt;/code&gt;动画类，能够完美与&lt;code&gt;CASpringAnimation&lt;/code&gt;相通用：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://ww2.sinaimg.cn/large/d2297bd2jw1fbnm7hgqesg20uk0h0wle.gif&quot; alt=&quot;SpringSample&quot;&gt;&lt;/p&gt;
+&lt;p&gt;动画中，左边正方形使用的是&lt;code&gt;CASpringAnimation&lt;/code&gt;类，右边的则使用的是&lt;code&gt;AXSpringAnimation&lt;/code&gt;，两者的动画曲线是一致的.&lt;/p&gt;
+&lt;p&gt;同样地，&lt;code&gt;AXSpringAnimation&lt;/code&gt;的API和&lt;code&gt;CASpringAnimation&lt;/code&gt;也是一致的：&lt;/p&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;@interface AXSpringAnimation : CAKeyframeAnimation&amp;#10;/* The mass of the object attached to the end of the spring. Must be greater&amp;#10; than 0. Defaults to one. */&amp;#10;&amp;#10;@property(assign, nonatomic) CGFloat mass;&amp;#10;&amp;#10;/* The spring stiffness coefficient. Must be greater than 0.&amp;#10; * Defaults to 100. */&amp;#10;&amp;#10;@property(assign, nonatomic) CGFloat stiffness;&amp;#10;&amp;#10;/* The damping coefficient. Must be greater than or equal to 0.&amp;#10; * Defaults to 10. */&amp;#10;&amp;#10;@property(assign, nonatomic) CGFloat damping;&amp;#10;&amp;#10;/* The initial velocity of the object attached to the spring. Defaults&amp;#10; * to zero, which represents an unmoving object. Negative values&amp;#10; * represent the object moving away from the spring attachment point,&amp;#10; * positive values represent the object moving towards the spring&amp;#10; * attachment point. */&amp;#10;&amp;#10;@property(assign, nonatomic) CGFloat initialVelocity;&amp;#10;&amp;#10;/* Returns the estimated duration required for the spring system to be&amp;#10; * considered at rest. The duration is evaluated for the current animation&amp;#10; * parameters. */&amp;#10;&amp;#10;@property(readonly, nonatomic) CFTimeInterval settlingDuration;&amp;#10;&amp;#10;/* The objects defining the property values being interpolated between.&amp;#10; * All are optional, and no more than two should be non-nil. The object&amp;#10; * type should match the type of the property being animated (using the&amp;#10; * standard rules described in CALayer.h). The supported modes of&amp;#10; * animation are:&amp;#10; *&amp;#10; * - both `fromValue&amp;#39; and `toValue&amp;#39; non-nil. Interpolates between&amp;#10; * `fromValue&amp;#39; and `toValue&amp;#39;.&amp;#10; *&amp;#10; * - `fromValue&amp;#39; and `byValue&amp;#39; non-nil. Interpolates between&amp;#10; * `fromValue&amp;#39; and `fromValue&amp;#39; plus `byValue&amp;#39;.&amp;#10; *&amp;#10; * - `byValue&amp;#39; and `toValue&amp;#39; non-nil. Interpolates between `toValue&amp;#39;&amp;#10; * minus `byValue&amp;#39; and `toValue&amp;#39;. */&amp;#10;&amp;#10;@property(nullable, strong, nonatomic) id fromValue;&amp;#10;@property(nullable, strong, nonatomic) id toValue;&amp;#10;@property(nullable, strong, nonatomic) id byValue;&amp;#10;@end&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h4 id=&quot;Convertable&quot;&gt;&lt;a href=&quot;#Convertable&quot; class=&quot;headerlink&quot; title=&quot;Convertable&quot;&gt;&lt;/a&gt;Convertable&lt;/h4&gt;&lt;p&gt;&lt;code&gt;AXAnimationChain&lt;/code&gt;框架还提供了将&lt;code&gt;CABasicAnimation&lt;/code&gt;无缝转换为&lt;code&gt;CAKeyframeAnimation&lt;/code&gt;的功能：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://ww1.sinaimg.cn/large/d2297bd2gw1fbnm9807j7g20uk0h01e0.gif&quot; alt=&quot;ConvertSample&quot;&gt;&lt;/p&gt;
+&lt;p&gt;动画中，左边是&lt;code&gt;CABasicAnimation&lt;/code&gt;，右边是&lt;code&gt;CAKeyframeAnimation&lt;/code&gt;，两者对应的动画曲线是一致的.&lt;/p&gt;
+&lt;p&gt;要使用动画转换，请参考：&lt;/p&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;#import &amp;#60;QuartzCore/QuartzCore.h&amp;#62;&amp;#10;#import &amp;#60;UIKit/UIKit.h&amp;#62;&amp;#10;#import &amp;#34;CAMediaTimingFunction+Extends.h&amp;#34;&amp;#10;&amp;#10;@interface CAAnimation (Convertable)&amp;#10;@end&amp;#10;&amp;#10;@interface CAKeyframeAnimation (Convertable)&amp;#10;+ (instancetype)animationWithBasic:(CABasicAnimation *)basicAnimation;&amp;#10;+ (instancetype)animationWithBasic:(CABasicAnimation *)basicAnimation usingValuesFunction:(double (^)(double t, double b, double c, double d))valuesFunction;&amp;#10;@end&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;Requirements&quot;&gt;&lt;a href=&quot;#Requirements&quot; class=&quot;headerlink&quot; title=&quot;Requirements&quot;&gt;&lt;/a&gt;Requirements&lt;/h2&gt;&lt;p&gt;&lt;code&gt;AXAnimationChain&lt;/code&gt; 对系统版本支持到&lt;code&gt;iOS8.0&lt;/code&gt;，需要使用到的框架：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Foundation.framework&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ul&gt;
+&lt;li&gt;UIKit.framework&lt;/li&gt;
+&lt;li&gt;QuartzCore.framework&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;使用的时候最好使用最新版Xcode.&lt;/p&gt;
+&lt;h2 id=&quot;Adding-AXAimationChain-To-Your-Project&quot;&gt;&lt;a href=&quot;#Adding-AXAimationChain-To-Your-Project&quot; class=&quot;headerlink&quot; title=&quot;Adding AXAimationChain To Your Project&quot;&gt;&lt;/a&gt;Adding &lt;code&gt;AXAimationChain&lt;/code&gt; To Your Project&lt;/h2&gt;&lt;h3 id=&quot;CocoaPods&quot;&gt;&lt;a href=&quot;#CocoaPods&quot; class=&quot;headerlink&quot; title=&quot;CocoaPods&quot;&gt;&lt;/a&gt;CocoaPods&lt;/h3&gt;&lt;p&gt;&lt;a href=&quot;[http://cocoapods.org](http://cocoapods.org&quot;&gt;CocoaPods&lt;/a&gt;) is the recommended way to add AXAimationChain to your project.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Add a pod entry for AXAimationChain to your Podfile &lt;code&gt;pod &amp;#39;AXAimationChain&amp;#39;, &amp;#39;~&amp;gt; 0.2.3&amp;#39;&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Install the pod(s) by running &lt;code&gt;pod install&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Include AXAimationChain wherever you need it with &lt;code&gt;#import &amp;quot;AXAimationChain.h&amp;quot;&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;若需要单独使用&lt;code&gt;AXSpringAnimation&lt;/code&gt;或者&lt;code&gt;Convertable&lt;/code&gt;以及&lt;code&gt;TimingControl&lt;/code&gt;等特性的话，只需要将podfile里边&lt;code&gt;AXAnimationChain&lt;/code&gt;替换为&lt;code&gt;AXAnimationChain/CoreAnimation&lt;/code&gt;即可，即：&lt;code&gt;pod &amp;#39;AXAimationChain/CoreAnimation&amp;#39;, &amp;#39;~&amp;gt; 0.2.3&amp;#39;&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;若要使用&lt;code&gt;Swift&lt;/code&gt;作为变成语言，请使用Swift版的依赖包：&lt;code&gt;pod &amp;#39;AXAimationChain-Swift&amp;#39;, &amp;#39;~&amp;gt; 0.2.3&amp;#39;&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&quot;Source-files&quot;&gt;&lt;a href=&quot;#Source-files&quot; class=&quot;headerlink&quot; title=&quot;Source files&quot;&gt;&lt;/a&gt;Source files&lt;/h3&gt;&lt;p&gt;Alternatively you can directly add all the source files to your project.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Download the &lt;a href=&quot;[https://github.com/devedbox/AXAimationChain/archive/master.zip](https://github.com/devedbox/AXAimationChain/archive/master.zip&quot;&gt;latest code version&lt;/a&gt;) or add the repository as a git submodule to your git-tracked project. &lt;/li&gt;
+&lt;li&gt;Open your project in Xcode, then drag and drop the source group onto your project (use the “Product Navigator view”). Make sure to select Copy items when asked if you extracted the code archive outside of your project. &lt;/li&gt;
+&lt;li&gt;Include AXAnimationChain wherever you need it with &lt;code&gt;#import &amp;quot;AXAimationChain.h&amp;quot;&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;如单独使用&lt;code&gt;AXSpringAnimation&lt;/code&gt;或者&lt;code&gt;Convertable&lt;/code&gt;以及&lt;code&gt;TimingControl&lt;/code&gt;等特性，只需要导入&lt;code&gt;#import &amp;quot;AXCoreAnimation.h&amp;quot;&lt;/code&gt;即可.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&quot;License&quot;&gt;&lt;a href=&quot;#License&quot; class=&quot;headerlink&quot; title=&quot;License&quot;&gt;&lt;/a&gt;License&lt;/h2&gt;&lt;p&gt;This code is distributed under the terms and conditions of the &lt;a href=&quot;LICENSE&quot;&gt;MIT license&lt;/a&gt;. &lt;/p&gt;
+&lt;h2 id=&quot;使用&quot;&gt;&lt;a href=&quot;#使用&quot; class=&quot;headerlink&quot; title=&quot;使用&quot;&gt;&lt;/a&gt;使用&lt;/h2&gt;&lt;p&gt;请参考示例工程代码以及API.&lt;/p&gt;
+&lt;h2 id=&quot;不足&quot;&gt;&lt;a href=&quot;#不足&quot; class=&quot;headerlink&quot; title=&quot;不足&quot;&gt;&lt;/a&gt;不足&lt;/h2&gt;&lt;p&gt;此项目在开展的时候比较庞大，基础的核心类已经构建好了，基本目标已经达成，但是还有很多需要完善的地方，后边会逐步完善并发布Release版本.&lt;/p&gt;
+&lt;h2 id=&quot;声明&quot;&gt;&lt;a href=&quot;#声明&quot; class=&quot;headerlink&quot; title=&quot;声明&quot;&gt;&lt;/a&gt;声明&lt;/h2&gt;&lt;p&gt;转载需注明出处：&lt;code&gt;http://devedbox.com/AXAnimationChain/&lt;/code&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;http://ww1.sinaimg.cn/large/d2297bd2gw1fbnl029rgzj21kw09hq6f.jpg&quot; alt=&quot;Logo&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://img.shields.io/badge/bui
+    
+    </summary>
+    
+      <category term="教程" scheme="devedbox.com/categories/%E6%95%99%E7%A8%8B/"/>
+    
+      <category term="项目介绍" scheme="devedbox.com/categories/%E6%95%99%E7%A8%8B/%E9%A1%B9%E7%9B%AE%E4%BB%8B%E7%BB%8D/"/>
+    
+    
+      <category term="Animation" scheme="devedbox.com/tags/Animation/"/>
+    
+      <category term="ChainAnimation" scheme="devedbox.com/tags/ChainAnimation/"/>
+    
+      <category term="CoreAnimation" scheme="devedbox.com/tags/CoreAnimation/"/>
     
       <category term="iOS" scheme="devedbox.com/tags/iOS/"/>
     
